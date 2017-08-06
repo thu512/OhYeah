@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradation"
+    android:gravity="bottom"
+    sothree:umanoClipPanel="false"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoParallaxOffset="0dp"
+    sothree:umanoScrollableView="@+id/list"
+    sothree:umanoShadowHeight="4dp">
+
+    <LinearLayout
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:background="@drawable/bg_gradation"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
+            <Button
+                android:id="@+id/set_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.6"
+                android:background="@mipmap/setting" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6.5" />
+
+            <Button
+                android:id="@+id/pin_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.6"
+                android:background="@mipmap/push_pin_1" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6" />
+
+            <Button
+                android:id="@+id/wallet_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.7"
+                android:background="@mipmap/wallet" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4" />
+
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+            android:id="@+id/viewpagertab"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:elevation="@null"
+            app:stl_clickable="true"
+            app:stl_defaultTabBackground="?attr/selectableItemBackground"
+            app:stl_defaultTabTextAllCaps="false"
+            app:stl_defaultTabTextColor="@drawable/tab_selector"
+            app:stl_defaultTabTextHorizontalPadding="40dp"
+            app:stl_defaultTabTextMinWidth="10dp"
+            app:stl_defaultTabTextSize="17sp"
+            app:stl_distributeEvenly="false"
+            app:stl_dividerThickness="0dp"
+            app:stl_drawDecorationAfterTab="true"
+            app:stl_indicatorAlwaysInCenter="true"
+            app:stl_indicatorColor="@color/colorEdittext"
+            app:stl_indicatorCornerRadius="1dp"
+            app:stl_indicatorGravity="bottom"
+            app:stl_indicatorInFront="false"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorThickness="1dp"
+            app:stl_indicatorWidth="auto"
+            app:stl_indicatorWithoutPadding="true"
+            app:stl_overlineThickness="0dp"
+            app:stl_titleOffset="auto_center"
+            app:stl_underlineThickness="0dp"
+
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8.4">
+
+            <!--프러그래스바-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/ll"></android.support.v4.view.ViewPager>
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <!-- SLIDING LAYOUT -->
+    <LinearLayout
+        android:background="@drawable/bg_gradation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="false"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:id="@+id/dragView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54.3dp"
+            android:weightSum="10"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/white_underline"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/all_btn"
+                android:layout_width="0dp"
+                android:layout_height="13.3dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/all_bt_on"
+                android:layout_weight="1.2" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.4"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:weightSum="2"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2.8">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:textSize="20.5sp"
+                    android:textColor="#94f6e8"
+                    android:text="@string/main_trade" />
+
+                <ImageView
+                    android:id="@+id/down_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    app:srcCompat="@mipmap/back" />
+            </LinearLayout>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"/>
+
+            <Button
+                android:id="@+id/in_btn"
+                android:background="@mipmap/deposit_off"
+                android:layout_width="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="14.3dp"
+                android:layout_weight="1.2"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"/>
+
+            <Button
+                android:id="@+id/out_btn"
+                android:background="@mipmap/withdraw_off"
+                android:layout_width="0dp"
+                android:layout_height="14.3dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.2"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

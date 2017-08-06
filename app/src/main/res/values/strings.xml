@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">OhYeah</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--login액티비티-->
+    <string name="login_email">E-mail</string>
+    <string name="login_pwd">Password</string>
+    <string name="login_join">가입하기</string>
+    <string name="login_login">로그인</string>
+    <string name="login_pro">본인은 서비스 </string>
+    <string name="login_pro1">이용약관, </string>
+    <string name="login_pro2">개인정보 수집 </string>
+    <string name="login_pro3">이용 내용을 확인하였으며, 동의합니다.</string>
+
+    <!--join액티비티-->
+    <string name="join_text">회원가입</string>
+    <string name="join_email">이메일</string>
+    <string name="join_pwd">비밀번호</string>
+    <string name="join_pwd_check">비밀번호 확인</string>
+    <string name="join_pwd_check1">최소 8자리, 최대 15자리 이하</string>
+    <string name="join_pwd_check2">영문, 숫자 및 기호 조합</string>
+    <string name="join_pwd_check_msg">비밀번호가 일치하지 않습니다.</string>
+
+
+    <!--main액티비티-->
+    <string name="main_today">오늘</string>
+    <string name="main_month">한&#160;달</string>
+    <string name="main_today_money">오늘사용가능금액</string>
+    <string name="main_month_money">남은예산</string>
+    <string name="main_trade">거래&#160;내역</string>
+    <string name="main_won">원</string>
+
+
+
+
+
+
+</resources>

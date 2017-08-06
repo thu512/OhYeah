@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.changjoo.ohyeah.ui.JoinActivity"
+    android:background="#ffffff"
+    android:weightSum="10">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:textSize="20.3sp"
+        android:textColor="#3b4aaa"
+        android:letterSpacing="0.05"
+        android:lineSpacingExtra="10sp"
+        android:gravity="center"
+        android:background="@drawable/bottom_null_rect"
+        android:text="@string/join_text"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.2"
+        android:background="@color/colorEdittext">
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="38dp"
+            android:layout_height="44dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@mipmap/sign_up_icon" />
+        <TextView
+            android:id="@+id/error_msg"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:text="@string/join_pwd_check_msg"
+            android:textAlignment="center"
+            android:textSize="10.8sp"
+            android:textColor="#c33b4d"
+            android:textStyle="bold"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="325dp"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:background="@drawable/bottom_gray_rect"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/email_check_img"
+            android:layout_width="0dp"
+            android:layout_height="13.8dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/check_1" />
+        <EditText
+            android:id="@+id/email"
+            android:paddingLeft="6dp"
+            android:layout_width="0dp"
+            android:layout_height="22.8dp"
+            android:layout_weight="7.4"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/join_email"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:textColor="#9b9b9b"
+            android:textCursorDrawable="@null"
+            android:background="@null"/>
+        <Button
+            android:id="@+id/dura_button"
+            android:layout_width="0dp"
+            android:layout_height="27.3dp"
+            android:layout_weight="2.1"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/button"
+            android:layout_marginBottom="2dp"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        />
+
+    <LinearLayout
+        android:layout_width="325dp"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:background="@drawable/bottom_gray_rect"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/pwd_check_img"
+            android:layout_width="0dp"
+            android:layout_height="13.8dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/check_1" />
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_width="0dp"
+            android:layout_height="22.8dp"
+            android:layout_gravity="center"
+            android:layout_weight="9.5"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/join_pwd"
+            android:inputType="textPassword"
+            android:paddingLeft="6dp"
+            android:selectAllOnFocus="false"
+            android:textColor="#9b9b9b"
+            android:textCursorDrawable="@null"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
+
+    <LinearLayout
+        android:layout_width="325dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/pwd_max"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="8.5sp"
+            android:textColor="#9b9b9b"
+            android:text="@string/join_pwd_check1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="8.5sp"
+            android:textColor="#9b9b9b"
+            android:text="   /   "/>
+        <TextView
+            android:id="@+id/pwd_eng"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="8.5sp"
+            android:textColor="#9b9b9b"
+            android:text="@string/join_pwd_check2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="325dp"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:background="@drawable/bottom_gray_rect"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageView
+            android:id="@+id/pwd2_check_img"
+            android:layout_width="0dp"
+            android:layout_height="13.8dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            app:srcCompat="@mipmap/check_1" />
+
+        <EditText
+            android:id="@+id/pwd2"
+            android:layout_width="0dp"
+            android:layout_height="22.8dp"
+            android:layout_gravity="center"
+            android:layout_weight="9.5"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/join_pwd_check"
+            android:inputType="textPassword"
+            android:paddingLeft="6dp"
+            android:textColor="#9b9b9b"
+            android:textCursorDrawable="@null"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.8"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/join_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@mipmap/cancel_bt"
+            android:layout_weight="1"
+             />
+
+        <Button
+            android:id="@+id/join_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/ok_bt" />
+    </LinearLayout>
+
+</LinearLayout>
