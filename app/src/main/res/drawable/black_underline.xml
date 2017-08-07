@@ -15,7 +15,7 @@
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="0.65dp"
+                android:width="0.1dp"
                 android:color="#000000" />
             <!-- color of edittext line -->
         </shape>
