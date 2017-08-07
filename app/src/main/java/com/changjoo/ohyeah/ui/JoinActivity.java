@@ -58,7 +58,7 @@ public class JoinActivity extends AppCompatActivity {
         dura_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //중복확인 완료시 버튼이미지 변경
             }
         });
 
@@ -81,7 +81,7 @@ public class JoinActivity extends AppCompatActivity {
                 boolean f2=false;
 
                 if (s.length() >= 8 && s.length()<=15){
-                    pwd_max.setTextColor(Color.parseColor("#63c5c9"));
+                    pwd_max.setTextColor(Color.parseColor("#3b4aaa"));
                     f1=true;
                 }
                 else{
@@ -90,10 +90,10 @@ public class JoinActivity extends AppCompatActivity {
                     f1=false;
                 }
 
-                Pattern p = Pattern.compile("([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~,/,].*[a-zA-Z0-9])");
+                Pattern p = Pattern.compile("([a-zA-Z0-9].*[!,@,#,$,%,?,/])|([!,@,#,$,%,?,/].*[a-zA-Z0-9])");
                 Matcher m = p.matcher(s);
                 if(m.find()){
-                    pwd_eng.setTextColor(Color.parseColor("#63c5c9"));
+                    pwd_eng.setTextColor(Color.parseColor("#3b4aaa"));
                     f2=true;
                 }else{
                     pwd_eng.setTextColor(Color.parseColor("#c33b4d"));

@@ -18,7 +18,7 @@
     <string name="join_pwd">비밀번호</string>
     <string name="join_pwd_check">비밀번호 확인</string>
     <string name="join_pwd_check1">최소 8자리, 최대 15자리 이하</string>
-    <string name="join_pwd_check2">영문, 숫자 및 기호 조합</string>
+    <string name="join_pwd_check2">"영문, 숫자 및 기호( ! @ # $ % / ? ) 조합"</string>
     <string name="join_pwd_check_msg">비밀번호가 일치하지 않습니다.</string>
 
 

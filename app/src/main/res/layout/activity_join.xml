@@ -14,8 +14,6 @@
         android:layout_weight="0.9"
         android:textSize="20.3sp"
         android:textColor="#3b4aaa"
-        android:letterSpacing="0.05"
-        android:lineSpacingExtra="10sp"
         android:gravity="center"
         android:background="@drawable/bottom_null_rect"
         android:text="@string/join_text"

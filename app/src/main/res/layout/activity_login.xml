@@ -12,7 +12,7 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="4.1"
         />
     <TextView
         android:id="@+id/login_error"
@@ -75,12 +75,8 @@
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:background="@drawable/white_rect"
-        android:text="@string/login_login"
-        android:textCursorDrawable="@color/colorEdittext"
-        android:textColor="@color/colorEdittext"
-        android:textStyle="bold"
+        android:layout_weight="0.75"
+        android:background="@mipmap/flat_log_in"
         />
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -91,7 +87,7 @@
         android:id="@+id/buttonOAuthLoginImg"
         android:layout_width="250dp"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.75"
         android:background="@drawable/login_white2"
         android:layout_gravity="center"
         />

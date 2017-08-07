@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -9,9 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,32 +29,38 @@ import java.util.ArrayList;
 import layout.FirstFragment;
 import layout.SecondFragment;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private ViewPager vp;
-    private LinearLayout ll,bg;
+    private LinearLayout ll, bg;
     private SmartTabLayout viewPagerTab;
     private LinearLayout dragView;
     private SlidingUpPanelLayout mLayout;
     private Drawable alpha;
-    boolean flag=false;
+    boolean flag = false;
     RecyclerView list;
     ImageView down_img;
     ArrayList<TradeModel> tradeModels = new ArrayList<>(); //임시 설정
     TradeAdapter tradeAdapter;
+    Button all_btn;
+    Button in_btn;
+    Button out_btn;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dragView=(LinearLayout)findViewById(R.id.dragView);
+        all_btn = (Button)findViewById(R.id.all_btn);
+        in_btn = (Button)findViewById(R.id.in_btn);
+        out_btn = (Button)findViewById(R.id.out_btn);
+        dragView = (LinearLayout) findViewById(R.id.dragView);
         alpha = dragView.getBackground();
-        list = (RecyclerView)findViewById(R.id.list);
-        down_img=(ImageView)findViewById(R.id.down_img);
-        ll = (LinearLayout)findViewById(R.id.ll);
-        bg = (LinearLayout)findViewById(R.id.bg);
-        vp = (ViewPager)findViewById(R.id.vp);
+        list = (RecyclerView) findViewById(R.id.list);
+        down_img = (ImageView) findViewById(R.id.down_img);
+        ll = (LinearLayout) findViewById(R.id.ll);
+        bg = (LinearLayout) findViewById(R.id.bg);
+        vp = (ViewPager) findViewById(R.id.vp);
         vp.setAdapter(new pagerAdapter(getSupportFragmentManager()));
         vp.setCurrentItem(0);
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
@@ -70,10 +79,10 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
+                if (position == 0) {
                     view1.setTextSize(15);
                     view0.setTextSize(21);
-                }else{
+                } else {
                     view0.setTextSize(15);
                     view1.setTextSize(21);
                 }
@@ -91,32 +100,31 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             @Override
             public void onPageSelected(int position) {
-                if(position==0)
-                {
+                if (position == 0) {
                     //금액이 마이너스일때 해당 백그라운드 적용
                     bg.setBackgroundResource(R.drawable.bg_transition2);
-                    if(true){
+                    if (true) {
 
-                        TransitionDrawable td = (TransitionDrawable) getResources().getDrawable( R.drawable.bg_transition2 );
+                        TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition2);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
                     }
-                }
-                else
-                {
+                } else {
 
                     bg.setBackgroundResource(R.drawable.bg_transition1);
                     //만약 현재 백그라운드가 빨간색이면 해당 if통과
-                    if(true){
+                    if (true) {
 
-                        TransitionDrawable td = (TransitionDrawable) getResources().getDrawable( R.drawable.bg_transition1 );
+                        TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition1);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
                     }
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -127,21 +135,22 @@ public class MainActivity extends AppCompatActivity
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mLayout.setShadowHeight(0);
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        mLayout.setPanelHeight(520);//초기 패널 높이 => 픽셀 값이므로 변환 필요
+        mLayout.setPanelHeight(getDpToPixel(this,175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
         alpha.setAlpha(0);
         dragView.setBackground(alpha);
 
         mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
-                alpha.setAlpha((int)(slideOffset*255));
+                alpha.setAlpha((int) (slideOffset * 255));
                 dragView.setBackground(alpha);
             }
+
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                if(newState.equals(SlidingUpPanelLayout.PanelState.EXPANDED)){
+                if (newState.equals(SlidingUpPanelLayout.PanelState.EXPANDED)) {
                     down_img.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     down_img.setVisibility(View.GONE);
                 }
             }
@@ -154,33 +163,60 @@ public class MainActivity extends AppCompatActivity
         });
 
         //임시 더미데이타
-        tradeModels.add(new TradeModel("08:18","주식회사 카카오",3500));
-        tradeModels.add(new TradeModel("08:19","애버랜드",55000));
-        tradeModels.add(new TradeModel("08:20","롯데월드",350000));
+        tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));
+        tradeModels.add(new TradeModel("08:19", "애버랜드", 55000));
+        tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));
+        tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));
 
 
         //리싸이클러 뷰
-        list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
-        tradeAdapter= new TradeAdapter();
+        list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        tradeAdapter = new TradeAdapter();
         //데이터셋팅
 
         list.setAdapter(tradeAdapter);
+
+        //전체, 입금, 출금 내역 불러오기 => 어댑터 notify
+        all_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                all_btn.setBackgroundResource(R.mipmap.all_bt_on);
+                in_btn.setBackgroundResource(R.mipmap.deposit_off);
+                out_btn.setBackgroundResource(R.mipmap.withdraw_off);
+
+            }
+        });
+
+        in_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                all_btn.setBackgroundResource(R.mipmap.all_bt_off);
+                in_btn.setBackgroundResource(R.mipmap.deposit_on);
+                out_btn.setBackgroundResource(R.mipmap.withdraw_off);
+            }
+        });
+
+        out_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                all_btn.setBackgroundResource(R.mipmap.all_bt_off);
+                in_btn.setBackgroundResource(R.mipmap.deposit_off);
+                out_btn.setBackgroundResource(R.mipmap.withdraw_on);
+            }
+        });
 
     }
 
 
     //뷰페이저 아답타
-    private class pagerAdapter extends FragmentStatePagerAdapter
-    {
-        public pagerAdapter(android.support.v4.app.FragmentManager fm)
-        {
+    private class pagerAdapter extends FragmentStatePagerAdapter {
+        public pagerAdapter(android.support.v4.app.FragmentManager fm) {
             super(fm);
         }
+
         @Override
-        public android.support.v4.app.Fragment getItem(int position)
-        {
-            switch(position)
-            {
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch (position) {
                 case 0:
                     return new FirstFragment();
                 case 1:
@@ -189,15 +225,15 @@ public class MainActivity extends AppCompatActivity
                     return null;
             }
         }
+
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     return "오늘";
                 case 1:
@@ -210,23 +246,23 @@ public class MainActivity extends AppCompatActivity
 
 
     //거래내역 뷰홀더
-    class TradeViewHolder extends RecyclerView.ViewHolder{
-        TextView time,content,money;
+    class TradeViewHolder extends RecyclerView.ViewHolder {
+        TextView time, content, money;
 
         public TradeViewHolder(View itemView) {
             super(itemView);
-            time = (TextView)itemView.findViewById(R.id.time);
-            content = (TextView)itemView.findViewById(R.id.content);
-            money = (TextView)itemView.findViewById(R.id.money);
+            time = (TextView) itemView.findViewById(R.id.time);
+            content = (TextView) itemView.findViewById(R.id.content);
+            money = (TextView) itemView.findViewById(R.id.money);
         }
 
     }
+
     //거래내역 adapter
-    class TradeAdapter extends RecyclerView.Adapter<TradeViewHolder>
-    {
+    class TradeAdapter extends RecyclerView.Adapter<TradeViewHolder> {
         @Override
         public TradeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view=
+            View view =
                     LayoutInflater.from(MainActivity.this).inflate(R.layout.cell_trade_layout, parent, false);
             return new TradeViewHolder(view);
         }
@@ -234,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onBindViewHolder(TradeViewHolder holder, int position) {
             //데이터세팅!!!
-            TradeModel tradeModel=tradeModels.get(position);
+            TradeModel tradeModel = tradeModels.get(position);
             holder.time.setText(tradeModel.getTime());
             holder.content.setText(tradeModel.getContent());
             holder.money.setText(Integer.toString(tradeModel.getMoney()));
@@ -242,9 +278,22 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getItemCount() {
-            return tradeModels==null? 0: tradeModels.size();
+            return tradeModels == null ? 0 : tradeModels.size();
         }
     }
+
+
+    // DP ---> PX
+    public static int getDpToPixel(Context context, float DP) {
+        float px = 0;
+        try {
+            px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DP, context.getResources().getDisplayMetrics());
+        } catch (Exception e) {
+        }
+        return (int) px;
+    }
+
+
 }
 
 
