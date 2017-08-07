@@ -2,7 +2,6 @@ package com.changjoo.ohyeah.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,12 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends Activity {
     ImageView email_check_img;
     ImageView pwd_check_img;
     ImageView pwd2_check_img;

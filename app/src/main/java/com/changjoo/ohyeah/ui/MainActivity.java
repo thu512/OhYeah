@@ -7,7 +7,6 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -19,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.TradeModel;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import layout.FirstFragment;
 import layout.SecondFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private ViewPager vp;
     private LinearLayout ll, bg;
     private SmartTabLayout viewPagerTab;

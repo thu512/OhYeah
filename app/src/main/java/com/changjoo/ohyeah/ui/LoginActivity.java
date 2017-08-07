@@ -3,7 +3,6 @@ package com.changjoo.ohyeah.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req_Join;
@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
     private static String OAUTH_CLIENT_ID = "mMjBFyvGtnq61b5DSk4s";  // 1)에서 받아온 값들을 넣어좁니다
     private static String OAUTH_CLIENT_SECRET = "UwOSuRj5jr";
     private static String OAUTH_CLIENT_NAME = "오예";

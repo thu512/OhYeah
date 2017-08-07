@@ -30,9 +30,7 @@
     <string name="main_trade">거래&#160;내역</string>
     <string name="main_won">원</string>
 
-
-
-
-
+    <!--예산설정-->
+    <string name="budget">예산 설정</string>
 
 </resources>
