@@ -66,15 +66,9 @@ public class JoinActivity extends Activity {
         //비밀번호 입력값변화에따른 조건체크
         pwd.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
                 String s = editable.toString();
@@ -107,7 +101,6 @@ public class JoinActivity extends Activity {
                 }else{
                     pwd_check_img.setImageResource(R.mipmap.check_2);
                 }
-
             }
         });
 
@@ -115,15 +108,9 @@ public class JoinActivity extends Activity {
         //비밀번호 확인 일치여부 체크
         pwd2.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
                 String s = editable.toString();

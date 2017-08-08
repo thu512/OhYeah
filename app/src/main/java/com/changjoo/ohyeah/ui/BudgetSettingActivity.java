@@ -33,7 +33,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     Space spacer2;
     Button num;
     Button cal;
-
     Button btn0;
     Button btn1;
     Button btn2;
@@ -64,10 +63,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         spacer = (Space)findViewById(R.id.spacer);
         spacer1 = (Space)findViewById(R.id.spacer1);
         spacer2 = (Space)findViewById(R.id.spacer2);
-
         num=(Button) findViewById(R.id.num);
         cal=(Button) findViewById(R.id.cal);
-
         btn0 = (Button) findViewById(R.id.btn0);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
@@ -169,7 +166,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         spacer.setVisibility(View.VISIBLE);
         spacer1.setVisibility(View.GONE);
         spacer2.setVisibility(View.GONE);
-
+        num.setBackgroundResource(R.mipmap.basic_on);
+        cal.setBackgroundResource(R.mipmap.group_off);
     }
 
     @Override
@@ -281,6 +279,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             spacer.setVisibility(View.VISIBLE);
             spacer1.setVisibility(View.GONE);
             spacer2.setVisibility(View.GONE);
+            num.setBackgroundResource(R.mipmap.basic_on);
+            cal.setBackgroundResource(R.mipmap.group_off);
             return;
         } else if( v.equals( btn_result )){
             editText.setText( calc(editText.getText().toString()) );
@@ -325,47 +325,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     }
 
-
-
-
-//
-//    private void keyboardClickHandler(){
-//        Button key_done = (Button)findViewById(R.id.key_done);
-//        Button key_backspace = (Button)findViewById(R.id.key_backspace);
-//
-//        // 확인키 누름
-//        key_done.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                // 현재 viewfliper가 가지고 있는 view가 키보드인지 체크
-//                if(flipper.getCurrentView().getId() == R.id.firstViewFlipper){
-//                    // empty view 호출, 즉 키보드view를 퇴장시킴
-//                    flipper.setDisplayedChild(0);
-//                }
-//            }
-//        });
-//
-//        // backspace 키 입력
-//        key_backspace.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                // 현재 커서위치
-//                int curIndex = editText.getSelectionStart();
-//                // 현재 입력된 패스워드 길이
-//                int passWordLength = passwordStr.length();
-//                if((curIndex == 0) || (passWordLength == 0)){
-//                    return;
-//                }
-//
-//                // 한글자씩 지우기
-//                passwordStr = passwordStr.substring(0, curIndex-1) + passwordStr.substring(curIndex, passWordLength);
-//                editText.setText("");
-//                for(int i=0; i<passWordLength-1; i++){
-//                    editText.append("*");
-//                }
-//                editText.setSelection(curIndex-1);
-//            }
-//        });
-//    }
-
     /***************************************************/
     /** 애니메이션 설정 **/
     /***************************************************/
@@ -391,7 +350,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         return disappear;
     }
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if( event.getAction() == KeyEvent.ACTION_DOWN ) {
@@ -407,6 +365,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                 spacer.setVisibility(View.VISIBLE);
                 spacer1.setVisibility(View.GONE);
                 spacer2.setVisibility(View.GONE);
+                num.setBackgroundResource(R.mipmap.basic_on);
+                cal.setBackgroundResource(R.mipmap.group_off);
             }
             // 키보드가 올라오지 않은 상태면 보통때의 back 버튼 수행
             else{
@@ -423,9 +383,10 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         spacer.setVisibility(View.VISIBLE);
         spacer1.setVisibility(View.GONE);
         spacer2.setVisibility(View.GONE);
+        num.setBackgroundResource(R.mipmap.basic_on);
+        cal.setBackgroundResource(R.mipmap.group_off);
         select_key.setVisibility(View.INVISIBLE);
     }
-
 
     private BackPressEditText.OnBackPressListener onBackPressListener = new BackPressEditText.OnBackPressListener()
     {
@@ -435,5 +396,4 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             didBackPressOnEditText();
         }
     };
-
 }

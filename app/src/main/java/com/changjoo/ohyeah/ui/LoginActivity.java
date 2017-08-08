@@ -67,13 +67,13 @@ public class LoginActivity extends Activity {
 
     //네이버 로그인 버튼 및 뷰 세팅
     private void initSetting() {
-        login_error = (TextView)findViewById(R.id.login_error);
-        login_pro1 = (TextView)findViewById(R.id.login_pro1);
-        login_pro2 = (TextView)findViewById(R.id.login_pro2);
-        email     = (EditText)findViewById(R.id.email);
-        pwd       = (EditText)findViewById(R.id.pwd);
-        login_btn = (Button)findViewById(R.id.login_btn);
-        join_btn  = (Button)findViewById(R.id.join_btn);
+        login_error = (TextView) findViewById(R.id.login_error);
+        login_pro1 = (TextView) findViewById(R.id.login_pro1);
+        login_pro2 = (TextView) findViewById(R.id.login_pro2);
+        email = (EditText) findViewById(R.id.email);
+        pwd = (EditText) findViewById(R.id.pwd);
+        login_btn = (Button) findViewById(R.id.login_btn);
+        join_btn = (Button) findViewById(R.id.join_btn);
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,11 +85,11 @@ public class LoginActivity extends Activity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(email.getText().toString())){
+                if (TextUtils.isEmpty(email.getText().toString())) {
                     email.setError("이메일을 입력하세요.");
                     return;
                 }
-                if(TextUtils.isEmpty(pwd.getText().toString())){
+                if (TextUtils.isEmpty(pwd.getText().toString())) {
                     pwd.setError("비밀번호를 입력하세요.");
                     return;
                 }
@@ -141,7 +141,7 @@ public class LoginActivity extends Activity {
             } else {
                 String errorCode = mOAuthLoginModule.getLastErrorCode(mContext).getCode();
                 String errorDesc = mOAuthLoginModule.getLastErrorDesc(mContext);
-                Toast.makeText(LoginActivity.this, "로그인이 취소/실패 하였습니다.!"+"errorCode:" + errorCode +", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "로그인이 취소/실패 하였습니다.!" + "errorCode:" + errorCode + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -172,8 +172,8 @@ public class LoginActivity extends Activity {
                             res1.enqueue(new Callback<Res_Join>() {
                                 @Override
                                 public void onResponse(Call<Res_Join> call, Response<Res_Join> response) {
-                                    if(response.isSuccessful()){
-                                        if(response.body() != null){
+                                    if (response.isSuccessful()) {
+                                        if (response.body() != null) {
                                             //코드 숫자별로 상황 분할해야함
                                             //이미 서버에 등록된 이메일이면 그냥 로그인, 처음 등록자면 서버에 등록후 로그인
                                             U.getInstance().log("회원가입 성공");
@@ -186,19 +186,20 @@ public class LoginActivity extends Activity {
                                             //네아로 최초등록 후 회원정보 받아와서 서버로 전송
                                             //전송 성공시 서버에서 id만 반환해줌
                                             //id받아서 SharedPreference에 저장
-                                            U.getInstance().setLogin(LoginActivity.this,response.body().getEmail());
+                                            U.getInstance().setLogin(LoginActivity.this, response.body().getEmail());
 
-                                        }else{
+                                        } else {
                                             U.getInstance().log("통신실패1");
                                         }
-                                    }else{
+                                    } else {
                                         try {
-                                            U.getInstance().log("통신실패2"+response.errorBody().string());
+                                            U.getInstance().log("통신실패2" + response.errorBody().string());
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<Res_Join> call, Throwable t) {
                                     U.getInstance().log("통신실패3" + t.getLocalizedMessage());
@@ -229,7 +230,7 @@ public class LoginActivity extends Activity {
     }
 
     //일반 이메일 로그인
-    public void login(String email,String pwd){
+    public void login(String email, String pwd) {
 
         Req_login req_login = new Req_login();
         req_login.setEmail(email);
@@ -239,24 +240,25 @@ public class LoginActivity extends Activity {
         res.enqueue(new Callback<Res_login>() {
             @Override
             public void onResponse(Call<Res_login> call, Response<Res_login> response) {
-                if(response.isSuccessful()){
-                    if(response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
                         //코드 숫자별로 상황 분할해야함
 
                         //로그인 성공시 -> sp저장
-                        U.getInstance().setLogin(LoginActivity.this,response.body().getEmail());
+                        U.getInstance().setLogin(LoginActivity.this, response.body().getEmail());
 
-                    }else{
+                    } else {
                         U.getInstance().log("통신실패1");
                     }
-                }else{
+                } else {
                     try {
-                        U.getInstance().log("통신실패2"+response.errorBody().string());
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<Res_login> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());

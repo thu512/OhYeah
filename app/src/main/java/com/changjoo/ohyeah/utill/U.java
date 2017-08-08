@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.TypedValue;
 
 /**
  * Created by Tacademy on 2017-06-29.
@@ -49,4 +50,14 @@ public class U {
         return ctx.getPreferences(Context.MODE_PRIVATE).getString("email", "") != "";
     }
 
+
+    // DP ---> PX
+    public static int getDpToPixel(Context context, float DP) {
+        float px = 0;
+        try {
+            px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DP, context.getResources().getDisplayMetrics());
+        } catch (Exception e) {
+        }
+        return (int) px;
+    }
 }

@@ -29,9 +29,9 @@
 
     <!--예산설정-->
     <string name="budget">예산 설정</string>
-    <string name="budget_day_txt1">정산일 매월</string>
+    <string name="budget_day_txt1">월급일 매월</string>
     <string name="budget_day_txt2">일</string>
-    <string name="budget_day_txt3">이번달 정산일까지</string>
+    <string name="budget_day_txt3">이번 월급일까지</string>
     <string name="budget_day_txt4">남은</string>
     <string name="budget_day_txt5">에 대한</string>
     <string name="budget_day_txt6">예산을 입력해주세요.</string>

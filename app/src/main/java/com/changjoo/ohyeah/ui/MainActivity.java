@@ -1,6 +1,5 @@
 package com.changjoo.ohyeah.ui;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -9,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.TradeModel;
+import com.changjoo.ohyeah.utill.U;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -135,7 +134,7 @@ public class MainActivity extends Activity {
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mLayout.setShadowHeight(0);
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        mLayout.setPanelHeight(getDpToPixel(this,175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
+        mLayout.setPanelHeight(U.getInstance().getDpToPixel(this,175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
         alpha.setAlpha(0);
         dragView.setBackground(alpha);
 
@@ -283,15 +282,7 @@ public class MainActivity extends Activity {
     }
 
 
-    // DP ---> PX
-    public static int getDpToPixel(Context context, float DP) {
-        float px = 0;
-        try {
-            px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DP, context.getResources().getDisplayMetrics());
-        } catch (Exception e) {
-        }
-        return (int) px;
-    }
+
 
 
 }
