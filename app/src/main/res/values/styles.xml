@@ -20,14 +20,4 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="tab_selected_Style">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    <style name="tab_unselected_Style">
-        <item name="android:textSize">10sp</item>
-        <item name="android:textColor">#dadadada</item>
-        <item name="android:textStyle">normal</item>
-    </style>
 </resources>

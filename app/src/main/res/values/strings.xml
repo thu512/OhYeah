@@ -6,7 +6,6 @@
     <string name="login_email">E-mail</string>
     <string name="login_pwd">Password</string>
     <string name="login_join">가입하기</string>
-    <string name="login_login">로그인</string>
     <string name="login_pro">본인은 서비스 </string>
     <string name="login_pro1">이용약관, </string>
     <string name="login_pro2">개인정보 수집 </string>
@@ -23,8 +22,6 @@
 
 
     <!--main액티비티-->
-    <string name="main_today">오늘</string>
-    <string name="main_month">한&#160;달</string>
     <string name="main_today_money">오늘사용가능금액</string>
     <string name="main_month_money">남은예산</string>
     <string name="main_trade">거래&#160;내역</string>

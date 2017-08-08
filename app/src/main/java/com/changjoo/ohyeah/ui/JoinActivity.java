@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -142,6 +143,12 @@ public class JoinActivity extends Activity {
                 finish();
             }
         });
-
+        join_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(JoinActivity.this,BudgetSettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

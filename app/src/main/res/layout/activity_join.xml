@@ -15,7 +15,7 @@
         android:textSize="20.3sp"
         android:textColor="#3b4aaa"
         android:gravity="center"
-        android:background="@drawable/bottom_null_rect"
+        android:background="@drawable/black_underline"
         android:textStyle="normal"
         android:text="@string/join_text"
         />
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/error_msg"
             android:layout_width="match_parent"
-            android:layout_height="19dp"
+            android:layout_height="21dp"
             android:text="@string/join_pwd_check_msg"
             android:textAlignment="center"
             android:textSize="10.8sp"
