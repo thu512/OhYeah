@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.9"
+            android:layout_weight="9.3"
             android:background="@drawable/black_underline"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -27,60 +27,71 @@
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.9" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.3"
-                android:background="@mipmap/back_btn" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="28.3" />
+                android:layout_weight="37.5" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="24.9"
+                android:layout_weight="25"
                 android:gravity="center"
                 android:text="@string/budget"
                 android:textColor="#3b4aaa"
                 android:textSize="20.3sp" />
         </LinearLayout>
 
-        <RelativeLayout
+        <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="15.6">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="51.8dp"
-                android:layout_height="4.5dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                app:srcCompat="@mipmap/setting1" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="32.3dp"
-                android:layout_height="28dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="24dp"
-                app:srcCompat="@mipmap/wallet1" />
-        </RelativeLayout>
-
+            android:layout_weight="4.1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.4"
+            android:layout_weight="0.7"
+            android:weightSum="100">
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="42.8"/>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_weight="14.4"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/imageView3"
+                app:srcCompat="@mipmap/setting2" />
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3.3"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.9"
+            android:weightSum="100">
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="45.8"/>
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8.4"
+                app:srcCompat="@mipmap/pin" />
+        </LinearLayout>
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.1"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -125,7 +136,7 @@
             android:id="@+id/spacer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6.3" />
+            android:layout_weight="6.5" />
         <android.support.v4.widget.Space
             android:id="@+id/spacer1"
             android:layout_width="match_parent"
@@ -136,7 +147,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.3"
+            android:layout_weight="4.5"
             android:gravity="center"
             android:text="@string/budget_day_txt3"
             android:textColor="#000000"
@@ -147,12 +158,12 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4" />
+            android:layout_weight="0.3" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.3"
+            android:layout_weight="4.5"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="100">
@@ -164,12 +175,14 @@
                 android:text="@string/budget_day_txt4"
                 android:textColor="#000000"
                 android:textSize="18.5sp"
+                android:gravity="center"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="25.3dp"
                 android:layout_height="match_parent"
                 android:text="30"
+                android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="#3b4aaa"
                 android:textSize="18.5sp"
@@ -179,6 +192,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/budget_day_txt2"
+                android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="18.5sp"
                 android:textStyle="bold" />
@@ -186,7 +200,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-
+                android:gravity="center"
                 android:text="@string/budget_day_txt5"
                 android:textColor="#000000"
                 android:textSize="18.5sp" />
@@ -195,12 +209,12 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4" />
+            android:layout_weight="0.3" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.3"
+            android:layout_weight="4.5"
             android:gravity="center"
             android:text="@string/budget_day_txt6"
             android:textColor="#000000"
@@ -209,7 +223,7 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.9" />
+            android:layout_weight="2.2" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,7 +238,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/gray_underline"
                 android:gravity="center"
-                android:hint="10000"
                 android:inputType="number"
                 android:textColor="#3b4aaa"
                 android:textSize="18.5sp" />
@@ -242,17 +255,20 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="36.6" />
+            android:layout_weight="33.9" />
+
         <android.support.v4.widget.Space
             android:id="@+id/spacer2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.8"
+            android:layout_weight="3.5"
             android:visibility="gone"/>
+
         <Button
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.3"
+            android:layout_weight="8.6"
             android:background="@mipmap/enter" />
 
     </LinearLayout>
@@ -264,9 +280,9 @@
         android:layout_height="25.3dp"
         android:weightSum="2"
         android:orientation="horizontal"
+        android:layout_marginBottom="49dp"
         android:layout_above="@+id/viewFlipper"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp">
+        android:layout_centerHorizontal="true">
         <Button
             android:id="@+id/num"
             android:layout_width="0dp"
@@ -316,7 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_1"
+                        android:background="@drawable/selector_bt_1"
                         android:text="1"
                         android:textColor="#00000000" />
 
@@ -325,7 +341,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_2"
+                        android:background="@drawable/selector_bt_2"
                         android:text="2"
                         android:textColor="#00000000" />
 
@@ -334,7 +350,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_3"
+                        android:background="@drawable/selector_bt_3"
                         android:text="3"
                         android:textColor="#00000000" />
 
@@ -343,7 +359,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_division"
+                        android:background="@drawable/selector_bt_division"
                         android:text="%"
                         android:textColor="#00000000" />
 
@@ -352,7 +368,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_ac"
+                        android:background="@drawable/selector_bt_ac"
                         android:text="AC"
                         android:textColor="#00000000" />
                 </TableRow>
@@ -368,7 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_4"
+                        android:background="@drawable/selector_bt_4"
                         android:text="4"
                         android:textColor="#00000000" />
 
@@ -377,7 +393,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_5"
+                        android:background="@drawable/selector_bt_5"
                         android:text="5"
                         android:textColor="#00000000" />
 
@@ -386,7 +402,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_6"
+                        android:background="@drawable/selector_bt_6"
                         android:text="6"
                         android:textColor="#00000000" />
 
@@ -395,7 +411,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_multiply"
+                        android:background="@drawable/selector_bt_multiply"
                         android:text="*"
                         android:textColor="#00000000" />
 
@@ -404,7 +420,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@mipmap/bt_delete"
+                        android:background="@drawable/selector_bt_delete"
                         android:text="del"
                         android:textColor="#00000000" />
                 </TableRow>
@@ -433,7 +449,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@mipmap/bt_7"
+                                android:background="@drawable/selector_bt_7"
                                 android:text="7"
                                 android:textColor="#00000000" />
 
@@ -442,7 +458,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@mipmap/bt_8"
+                                android:background="@drawable/selector_bt_8"
                                 android:text="8"
                                 android:textColor="#00000000" />
 
@@ -451,7 +467,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@mipmap/bt_9"
+                                android:background="@drawable/selector_bt_9"
                                 android:text="9"
                                 android:textColor="#00000000" />
 
@@ -460,7 +476,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:background="@mipmap/bt_minus"
+                                android:background="@drawable/selector_bt_minus"
                                 android:text="-"
                                 android:textColor="#00000000" />
 
@@ -483,7 +499,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:background="@mipmap/bt_down"
+                                    android:background="@drawable/selector_bt_down"
                                     android:text="."
                                     android:textColor="#00000000" />
 
@@ -492,7 +508,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
-                                    android:background="@mipmap/bt_0"
+                                    android:background="@drawable/selector_bt_0"
                                     android:text="0"
                                     android:textColor="#00000000" />
 
@@ -502,7 +518,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:background="@mipmap/bt_sum"
+                                    android:background="@drawable/selector_bt_sum"
                                     android:text="+"
                                     android:textColor="#00000000" />
                             </TableRow>
@@ -520,7 +536,7 @@
                             android:id="@+id/btn_result"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@mipmap/bt_equal"
+                            android:background="@drawable/selector_bt_equal"
                             android:text="="
                             android:textColor="#00000000" />
                     </LinearLayout>

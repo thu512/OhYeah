@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.Space;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -51,6 +53,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     Button btn_mul;
     Button btn_result;
     Button btn_down;
+    Button submit;
     private ArrayList<String> operatorList;
     private boolean isPreOperator;
     InputMethodManager imm;
@@ -83,6 +86,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         btn_mul = (Button) findViewById(R.id.btn_mul);
         btn_result = (Button) findViewById(R.id.btn_result);
         btn_down = (Button) findViewById(R.id.btn_down);
+        submit = (Button)findViewById(R.id.submit);
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -122,7 +126,24 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         flipper.setDisplayedChild(0);
 
         editText = (BackPressEditText)findViewById(R.id.editText);
+        editText.setSelection(editText.getText().length());
         editText.setOnBackPressListener(onBackPressListener);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    Log.d("FFF","포커스받음");
+                    spacer.setVisibility(View.GONE);
+                    spacer1.setVisibility(View.VISIBLE);
+                    spacer2.setVisibility(View.VISIBLE);
+                    select_key.setVisibility(View.VISIBLE);
+                }else{
+                    flipper.setDisplayedChild(0);
+                    num.setBackgroundResource(R.mipmap.basic_on);
+                    cal.setBackgroundResource(R.mipmap.group_off);
+                }
+            }
+        });
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,12 +155,34 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
         });
 
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                }
+
+                return false;
+
+            }
+
+        });
 
         final Map<String, String> calc = new HashMap<String, String>();
         calc.put("reset", "N");
         calc.put("number1", "");
         calc.put("operation", "");
         calc.put("number2", "");
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BudgetSettingActivity.this, FixSettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -173,68 +216,39 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if( v.equals( btn1 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("1");
-            }else {
-                editText.setText( editText.getText()+"1");
-            }
+            editText.setText( editText.getText()+"1");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn2 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("2");
-            }else {
-                editText.setText( editText.getText()+"2");
-            }
+            editText.setText( editText.getText()+"2");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn3 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("3");
-            }else {
-                editText.setText( editText.getText()+"3");
-            }
+            editText.setText( editText.getText()+"3");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn4 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("4");
-            }else {
-                editText.setText( editText.getText()+"4");
-            }
+            editText.setText( editText.getText()+"4");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn5 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("5");
-            }else {
-                editText.setText( editText.getText()+"5");
-            }
+            editText.setText( editText.getText()+"5");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn6 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("6");
-            }else {
-                editText.setText( editText.getText()+"6");
-            }
+            editText.setText( editText.getText()+"6");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn7 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("7");
-            }else {
-                editText.setText( editText.getText()+"7");
-            }
+            editText.setText( editText.getText()+"7");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn8 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("8");
-            }else {
-                editText.setText( editText.getText()+"8");
-            }
+            editText.setText( editText.getText()+"8");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn9 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("9");
-            }else {
-                editText.setText( editText.getText()+"9");
-            }
+            editText.setText( editText.getText()+"9");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn0 )){
-            if( editText.getText().length() == 1 && "0".equals(editText.getText())){
-                editText.setText("0");
-            }else {
-                editText.setText(editText.getText() + "0");
-            }
+            editText.setText(editText.getText() + "0");
+            editText.setSelection(editText.length());
         }else if( v.equals( btn_ac )){
             isPreOperator = false;
             editText.setText("");
+            editText.setSelection(editText.length());
             operatorList.clear();
         }else if( v.equals( btn_del )){
             if( editText.getText().length() != 0 ) {
@@ -243,12 +257,14 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                     operatorList.remove(operatorList.size());
                 }
                 editText.setText( editText.getText().subSequence( 0 , editText.getText().length()-1));
+                editText.setSelection(editText.length());
             }
         }else if( v.equals( btn_divide )){
             if( isPreOperator == true ) {
                 return;
             }
             editText.setText( editText.getText()+"/");
+            editText.setSelection(editText.length());
             isPreOperator = true;
             operatorList.add("/");
         }else if( v.equals( btn_sum )){
@@ -257,6 +273,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
             isPreOperator = true;
             editText.setText( editText.getText()+"+");
+            editText.setSelection(editText.length());
             operatorList.add("+");
         }else if( v.equals( btn_sub )){
             if( isPreOperator == true ) {
@@ -264,6 +281,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
             isPreOperator = true;
             editText.setText( editText.getText()+"-");
+            editText.setSelection(editText.length());
             operatorList.add("-");
         }else if( v.equals( btn_mul )){
             if( isPreOperator == true ) {
@@ -271,6 +289,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
             isPreOperator = true;
             editText.setText( editText.getText()+"X");
+            editText.setSelection(editText.length());
             operatorList.add("*");
         }else if(v.equals(btn_down)){
             flipper.setDisplayedChild(0);
@@ -284,6 +303,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             return;
         } else if( v.equals( btn_result )){
             editText.setText( calc(editText.getText().toString()) );
+            editText.setSelection(editText.length());
         }
     }
     private String calc(String exp) {

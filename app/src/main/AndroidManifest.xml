@@ -34,7 +34,8 @@
         <activity
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app" />
-        <activity android:name=".ui.FixSettingActivity" />
+        <activity android:name=".ui.FixSettingActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            />
         <activity android:name=".ui.BudgetSettingActivity">
 
         </activity>

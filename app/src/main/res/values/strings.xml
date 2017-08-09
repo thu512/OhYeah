@@ -37,6 +37,10 @@
     <string name="budget_day_txt6">예산을 입력해주세요.</string>
     <string name="budget_won">원</string>
 
-
+    <!--고정지출 설정-->
+    <string name="fix">고정지출 설정</string>
+    <string name="fix_txt">고정지출을 입력해주세요</string>
+    <string name="fix_name">명칭</string>
+    <string name="fix_won">원</string>
 
 </resources>

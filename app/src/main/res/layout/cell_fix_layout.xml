@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gray_underline"
+    android:orientation="horizontal"
+    android:layout_marginBottom="13.8dp"
+    android:weightSum="2">
+
+    <EditText
+        android:id="@+id/fix_name"
+        android:background="@null"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="6"
+        android:layout_weight="1"
+        android:layout_gravity="left"
+        android:inputType="text"
+        android:hint="@string/fix_name"
+        android:textColorHint="#9b9b9b"
+        android:textSize="18.5sp"
+        android:textStyle="bold"
+        android:textColor="#3b4aaa"/>
+
+    <EditText
+        android:id="@+id/fix_money"
+        android:background="@null"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="8"
+        android:gravity="right"
+        android:inputType="number"
+        android:layout_marginRight="10dp"
+        android:textSize="18.5sp"
+        android:textStyle="bold"
+        android:textColor="#3b4aaa"
+         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="13.5sp"
+        android:textColor="#9b9b9b"
+        android:textStyle="bold"
+        android:text="@string/main_won"/>
+</LinearLayout>
