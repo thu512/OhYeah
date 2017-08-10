@@ -220,6 +220,7 @@ public class JoinActivity extends Activity {
                                     //응답완료되면 예산설정 페이지로
                                     Intent intent = new Intent(JoinActivity.this,BudgetSettingActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 } else {
                                     U.getInstance().log("통신실패1");
                                 }

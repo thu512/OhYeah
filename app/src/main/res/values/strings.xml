@@ -40,6 +40,12 @@
     <string name="budget_error2">월급일과 예산을 입력하세요.</string>
     <string name="budget_error3">예산을 입력하세요.</string>
 
+    <!--커스텀 다이얼로그-->
+    <string name="dialog_txt">월급일 지정</string>
+    <string name="dialog_ok">확인</string>
+    <string name="dialog_cencel">취소</string>
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.Space;
@@ -7,7 +8,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -28,6 +32,7 @@ import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.BackPressEditText;
 import com.changjoo.ohyeah.utill.U;
+import com.shawnlin.numberpicker.NumberPicker;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -138,14 +143,23 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
         //기본키보드 조작을위한 세팅
         imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-
         select_key.setVisibility(View.INVISIBLE);
+
+        //월급일 설정 키보드 띄움 막기
+        day.setInputType(0);
+
+        //월급일 설정 넘버픽커 다이얼로그 띄움
+        day.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDialog();
+            }
+        });
 
         // 계산기 키보드의 오프 이미지를 표시하기 위해 임의의 empty view를 삽입
         TextView emptyView = new TextView(this);
         flipper.addView(emptyView, 0);
         flipper.setDisplayedChild(0);
-
         editText = (BackPressEditText)findViewById(R.id.editText);
         editText.setSelection(editText.getText().length());
         editText.setOnBackPressListener(onBackPressListener);
@@ -166,6 +180,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
         });
 
+
+        //예산입력 폼누르면
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +191,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             }
         });
 
+
+        //키보드에서 확인키 누르면 키보드 내리기
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -193,6 +211,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
         });
 
+
+        //예산일 입력값 체크
         day.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -213,6 +233,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                 }
             }
         });
+
+        //예산 입력 값 체크 => 현재 연산자 들어가있을때 확인 누르는것 체크 안되있음
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -275,6 +297,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     }
 
+    //일반 키보드로 전환
     public void number_key(View view){
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
@@ -284,6 +307,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     }
 
+
+    //계산기 키보드로 전환
     public void cal_key(View view){
         num.setBackgroundResource(R.mipmap.basic_off);
         cal.setBackgroundResource(R.mipmap.group_on);
@@ -291,6 +316,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         flipper.setDisplayedChild(1);
     }
 
+
+    //키보드 올라와있을때 빈화면 클릭시 키보드 내리기
     public void click(View view){
         flipper.setDisplayedChild(0);
         imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
@@ -302,6 +329,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         cal.setBackgroundResource(R.mipmap.group_off);
     }
 
+
+    //계산기 키보드 버튼 이벤트
     @Override
     public void onClick(View v) {
         if( v.equals( btn1 )){
@@ -341,9 +370,11 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             operatorList.clear();
         }else if( v.equals( btn_del )){
             if( editText.getText().length() != 0 ) {
+                U.getInstance().log(operatorList.toString());
                 String str = editText.getText().subSequence( editText.getText().length()-1, editText.getText().length() ).toString();
-                if( "+".equals(str) || "-".equals(str) || "*".equals(str) || "/".equals(str)){
-                    operatorList.remove(operatorList.size());
+                if( "+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)){
+                    operatorList.remove(operatorList.size()-1);
+                    isPreOperator=false;
                 }
                 editText.setText( editText.getText().subSequence( 0 , editText.getText().length()-1));
                 editText.setSelection(editText.length());
@@ -379,7 +410,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             isPreOperator = true;
             editText.setText( editText.getText()+"X");
             editText.setSelection(editText.length());
-            operatorList.add("*");
+            operatorList.add("X");
         }else if(v.equals(btn_down)){
             flipper.setDisplayedChild(0);
             imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
@@ -388,12 +419,13 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             spacer2.setVisibility(View.GONE);
             num.setBackgroundResource(R.mipmap.basic_on);
             cal.setBackgroundResource(R.mipmap.group_off);
-            return;
         } else if( v.equals( btn_result )){
             editText.setText( calc(editText.getText().toString()) );
             editText.setSelection(editText.length());
         }
     }
+
+    //계산기 계산 함수
     private String calc(String exp) {
         ArrayList<Integer> numberList = new ArrayList<Integer>();
         StringTokenizer st = new StringTokenizer(exp,"X/+-");
@@ -412,7 +444,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         for( int i = 0 ; i < operatorList.size() ; i++ ) {
             String operator = operatorList.get(i);
 
-            if( "*".equals(operator)){
+            if( "X".equals(operator)){
                 result = ( result * numberList.get(i+1));
             }else if( "/".equals(operator)){
                 result = ( result / numberList.get(i+1));
@@ -435,7 +467,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     /***************************************************/
     /** 애니메이션 설정 **/
-    /***************************************************/
+
     private Animation appearSecurityKeyboardAnimation() {
         Animation appear = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0.0f,
@@ -457,7 +489,10 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         disappear.setInterpolator(new DecelerateInterpolator());
         return disappear;
     }
+    /***************************************************/
 
+
+    //백 키 이벤트
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         if( event.getAction() == KeyEvent.ACTION_DOWN ) {
@@ -505,7 +540,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     };
 
 
-
+    //서버로 예산 월급일 전송
     public void pushBudget(int budget, int set_date){
         String email = U.getInstance().getEmail(BudgetSettingActivity.this);
         Req_Budget req_budget = new Req_Budget(email,budget,set_date);
@@ -545,6 +580,50 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         });
     }
 
+    //날짜선택 다이얼로그
+    private void ShowDialog()
+    {
+        LayoutInflater dialog = LayoutInflater.from(this);
+        final View dialogLayout = dialog.inflate(R.layout.activity_custom_dialog, null);
+        final Dialog myDialog = new Dialog(this);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        Window window = myDialog.getWindow();
+        layoutParams.copyFrom(window.getAttributes());
+        layoutParams.width = 300;
+        layoutParams.height = 400;
+        window.setAttributes(layoutParams);
 
+
+        myDialog.setTitle("월급일 지정");
+        myDialog.setContentView(dialogLayout);
+        myDialog.show();
+
+
+
+
+
+        final NumberPicker number_picker = (NumberPicker)dialogLayout.findViewById(R.id.number_picker);
+        Button btn_ok = (Button)dialogLayout.findViewById(R.id.ok);
+        Button btn_cancel = (Button)dialogLayout.findViewById(R.id.cencel);
+
+        btn_ok.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                day.setText(Integer.toString(number_picker.getValue()));
+                myDialog.dismiss();
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                myDialog.cancel();
+            }
+        });
+    }
 
 }
