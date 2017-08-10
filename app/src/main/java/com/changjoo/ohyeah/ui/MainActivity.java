@@ -1,5 +1,9 @@
 package com.changjoo.ohyeah.ui;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -8,6 +12,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
@@ -22,11 +28,14 @@ import com.changjoo.ohyeah.model.TradeModel;
 import com.changjoo.ohyeah.utill.U;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
 import layout.FirstFragment;
 import layout.SecondFragment;
+
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 public class MainActivity extends Activity {
     private ViewPager vp;
@@ -43,12 +52,40 @@ public class MainActivity extends Activity {
     Button all_btn;
     Button in_btn;
     Button out_btn;
+    pagerAdapter pagerAdapter;
 
+    @Subscribe
+    public void recvBus(String msg){
+        Log.d("FFF",""+msg);
+        Toast.makeText(this,""+msg,Toast.LENGTH_SHORT).show();
+
+        NotificationManager notificationManager= (NotificationManager)MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
+        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(),MainActivity.class); //인텐트 생성.
+
+
+
+        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
+
+
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity( MainActivity.this,0, intent1, FLAG_UPDATE_CURRENT);
+
+        builder.setSmallIcon(R.mipmap.pin).setTicker("HETT").setWhen(System.currentTimeMillis())
+                .setNumber(1).setContentTitle("푸쉬 제목").setContentText("푸쉬내용")
+                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
+
+
+        notificationManager.notify(1, builder.build()); // Notification send
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //도착역 설정
+        U.getInstance().getAuthBus().register(this);
 
         all_btn = (Button)findViewById(R.id.all_btn);
         in_btn = (Button)findViewById(R.id.in_btn);
@@ -60,7 +97,8 @@ public class MainActivity extends Activity {
         ll = (LinearLayout) findViewById(R.id.ll);
         bg = (LinearLayout) findViewById(R.id.bg);
         vp = (ViewPager) findViewById(R.id.vp);
-        vp.setAdapter(new pagerAdapter(getSupportFragmentManager()));
+        pagerAdapter = new pagerAdapter(getSupportFragmentManager());
+        vp.setAdapter(pagerAdapter);
         vp.setCurrentItem(0);
         viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
         viewPagerTab.setViewPager(vp);
@@ -282,7 +320,12 @@ public class MainActivity extends Activity {
     }
 
 
-
+    //액티비티가 소멸되면 도착역도 폐기한다.
+    @Override
+    protected void onDestroy() {
+        U.getInstance().getAuthBus().unregister(this);
+        super.onDestroy();
+    }
 
 
 }

@@ -3,6 +3,8 @@ package com.changjoo.ohyeah.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.Space;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,21 +15,35 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.model.Req_Budget;
+import com.changjoo.ohyeah.model.Res;
+import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.BackPressEditText;
+import com.changjoo.ohyeah.utill.U;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class BudgetSettingActivity extends Activity implements View.OnClickListener {
     BackPressEditText editText;
+    EditText day;
+    TextView error1;
+    TextView error_msg;
     ViewFlipper flipper;
     LinearLayout select_key;
     Space spacer;
@@ -57,12 +73,17 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     private ArrayList<String> operatorList;
     private boolean isPreOperator;
     InputMethodManager imm;
-
+    Boolean error_check1;
+    Boolean error_check2;
+    Boolean cal_check;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_setting);
 
+        error_msg = (TextView)findViewById(R.id.error_msg);
+        error1 = (TextView)findViewById(R.id.error1);
+        day = (EditText)findViewById(R.id.day);
         spacer = (Space)findViewById(R.id.spacer);
         spacer1 = (Space)findViewById(R.id.spacer1);
         spacer2 = (Space)findViewById(R.id.spacer2);
@@ -133,24 +154,23 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             public void onFocusChange(View view, boolean b) {
                 if(b){
                     Log.d("FFF","포커스받음");
-                    spacer.setVisibility(View.GONE);
-                    spacer1.setVisibility(View.VISIBLE);
+                    spacer1.setVisibility(View.GONE);
                     spacer2.setVisibility(View.VISIBLE);
                     select_key.setVisibility(View.VISIBLE);
                 }else{
                     flipper.setDisplayedChild(0);
+                    select_key.setVisibility(View.INVISIBLE);
                     num.setBackgroundResource(R.mipmap.basic_on);
                     cal.setBackgroundResource(R.mipmap.group_off);
                 }
             }
         });
+
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spacer.setVisibility(View.GONE);
-                spacer1.setVisibility(View.VISIBLE);
+                spacer1.setVisibility(View.GONE);
                 spacer2.setVisibility(View.VISIBLE);
-
                 select_key.setVisibility(View.VISIBLE);
             }
         });
@@ -158,16 +178,62 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
                 if(actionId == EditorInfo.IME_ACTION_DONE){
                     imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                    flipper.setDisplayedChild(0);
+                    select_key.setVisibility(View.INVISIBLE);
+                    num.setBackgroundResource(R.mipmap.basic_on);
+                    cal.setBackgroundResource(R.mipmap.group_off);
+                    spacer.setVisibility(View.VISIBLE);
+                    spacer1.setVisibility(View.VISIBLE);
+                    spacer2.setVisibility(View.GONE);
                 }
-
                 return false;
-
             }
 
         });
+
+        day.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String s=editable.toString();
+                if(s.length()>0){
+                    error_check1=true;
+                    error1.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String s = editable.toString();
+                if(s.length()>0){
+                    error_check2=true;
+                    error_msg.setText("");
+                }
+            }
+        });
+
 
         final Map<String, String> calc = new HashMap<String, String>();
         calc.put("reset", "N");
@@ -175,12 +241,35 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         calc.put("operation", "");
         calc.put("number2", "");
 
-
+        //월급일, 예산 서버로 전송 성공시 -> 고정지출페이지로
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BudgetSettingActivity.this, FixSettingActivity.class);
-                startActivity(intent);
+                if(day.getText().toString().equals("")){
+                    error1.setVisibility(View.VISIBLE);
+                    error_check1=false;
+                    return;
+                }
+                if(editText.getText().toString().equals("")){
+                    error_check2=false;
+                    error_msg.setText(R.string.budget_error3);
+                    return;
+                }
+                if(day.getText().toString().equals("") && editText.getText().toString().equals("")){
+                    error1.setVisibility(View.INVISIBLE);
+                    error_check1=false;
+                    error_check2=false;
+                    error_msg.setText(R.string.budget_error2);
+                }
+
+                if(error_check1&&error_check2){
+
+                    pushBudget(Integer.parseInt(editText.getText().toString()),Integer.parseInt(day.getText().toString()));
+                    U.getInstance().setBoolean(BudgetSettingActivity.this,U.getInstance().getEmail(BudgetSettingActivity.this),true);
+                    Intent intent = new Intent(BudgetSettingActivity.this, FixSettingActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -206,8 +295,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         flipper.setDisplayedChild(0);
         imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
         select_key.setVisibility(View.INVISIBLE);
-        spacer.setVisibility(View.VISIBLE);
-        spacer1.setVisibility(View.GONE);
+
+        spacer1.setVisibility(View.VISIBLE);
         spacer2.setVisibility(View.GONE);
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
@@ -295,8 +384,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             flipper.setDisplayedChild(0);
             imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
             select_key.setVisibility(View.INVISIBLE);
-            spacer.setVisibility(View.VISIBLE);
-            spacer1.setVisibility(View.GONE);
+            spacer1.setVisibility(View.VISIBLE);
             spacer2.setVisibility(View.GONE);
             num.setBackgroundResource(R.mipmap.basic_on);
             cal.setBackgroundResource(R.mipmap.group_off);
@@ -382,8 +470,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             // 디바이스 키중 Back버튼 눌렀을때 키보드가 올라와있으면 키보드 닫기
             if(flipper.getCurrentView().getId() == R.id.firstViewFlipper){
                 flipper.setDisplayedChild(0);
-                spacer.setVisibility(View.VISIBLE);
-                spacer1.setVisibility(View.GONE);
+                spacer1.setVisibility(View.VISIBLE);
                 spacer2.setVisibility(View.GONE);
                 num.setBackgroundResource(R.mipmap.basic_on);
                 cal.setBackgroundResource(R.mipmap.group_off);
@@ -400,8 +487,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     private void didBackPressOnEditText()
     {
-        spacer.setVisibility(View.VISIBLE);
-        spacer1.setVisibility(View.GONE);
+
+        spacer1.setVisibility(View.VISIBLE);
         spacer2.setVisibility(View.GONE);
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
@@ -416,4 +503,48 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             didBackPressOnEditText();
         }
     };
+
+
+
+    public void pushBudget(int budget, int set_date){
+        String email = U.getInstance().getEmail(BudgetSettingActivity.this);
+        Req_Budget req_budget = new Req_Budget(email,budget,set_date);
+
+        Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushBudget(req_budget);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if(response.body().getResult()==1){
+                            U.getInstance().log(response.body().getDoc().toString());
+                            if(response.body().getDoc().getN()==1){
+                                Toast.makeText(BudgetSettingActivity.this,"예산과 월급일이 입력되었습니다.",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(BudgetSettingActivity.this,"예산과 월급일이 입력실패.",Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            U.getInstance().log("실패");
+                        }
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+            }
+        });
+    }
+
+
+
 }

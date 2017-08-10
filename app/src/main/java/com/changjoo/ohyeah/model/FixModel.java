@@ -6,9 +6,9 @@ package com.changjoo.ohyeah.model;
 
 public class FixModel {
     String name;
-    String money;
+    int money;
 
-    public FixModel(String name, String money) {
+    public FixModel(String name, int money) {
         this.name = name;
         this.money = money;
     }
@@ -21,11 +21,11 @@ public class FixModel {
         this.name = name;
     }
 
-    public String getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 }

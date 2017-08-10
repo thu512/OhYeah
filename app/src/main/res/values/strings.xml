@@ -36,6 +36,14 @@
     <string name="budget_day_txt5">에 대한</string>
     <string name="budget_day_txt6">예산을 입력해주세요.</string>
     <string name="budget_won">원</string>
+    <string name="budget_error1">월급일을 입력하세요.</string>
+    <string name="budget_error2">월급일과 예산을 입력하세요.</string>
+    <string name="budget_error3">예산을 입력하세요.</string>
+
+
+
+
+
 
     <!--고정지출 설정-->
     <string name="fix">고정지출 설정</string>

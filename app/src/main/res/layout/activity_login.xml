@@ -42,19 +42,22 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="16.9"/>
+
         <EditText
             android:id="@+id/email"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="66.2"
             android:background="@drawable/white_underline"
-            android:textCursorDrawable="@null"
             android:hint="@string/login_email"
-            android:textSize="12sp"
-            android:textColorHint="@color/colorEdittext"
-            android:textColor="@color/colorEdittext"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
             android:textAlignment="center"
-            android:layout_gravity="center"/>
+            android:textColor="@color/colorEdittext"
+            android:textColorHint="@color/colorEdittext"
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
         <android.support.v4.widget.Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -78,20 +81,22 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="16.9"/>
+
         <EditText
             android:id="@+id/pwd"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="66.2"
             android:layout_gravity="center"
+            android:layout_weight="66.2"
             android:background="@drawable/white_underline"
             android:hint="@string/login_pwd"
             android:inputType="textPassword"
+            android:singleLine="true"
             android:textAlignment="center"
-            android:textSize="12sp"
             android:textColor="@color/colorEdittext"
             android:textColorHint="@color/colorEdittext"
-            android:textCursorDrawable="@null" />
+            android:textCursorDrawable="@null"
+            android:textSize="12sp" />
         <android.support.v4.widget.Space
             android:layout_width="0dp"
             android:layout_height="match_parent"

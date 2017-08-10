@@ -1,10 +1,10 @@
 package com.changjoo.ohyeah.net;
 
 import com.changjoo.ohyeah.model.NaverProfileModel;
-import com.changjoo.ohyeah.model.Req_Join;
-import com.changjoo.ohyeah.model.Req_login;
-import com.changjoo.ohyeah.model.Res_Join;
-import com.changjoo.ohyeah.model.Res_login;
+import com.changjoo.ohyeah.model.Req_Budget;
+import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Req;
+import com.changjoo.ohyeah.model.Res;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,9 +25,16 @@ public interface MemberFactoryIm {
 
 
 
-    @POST("aaa")
-    Call<Res_Join> join(@Body Req_Join req);
+    @POST("users/join")
+    Call<Res> join(@Body Req req);
 
-    @POST("bbb")
-    Call<Res_login> login(@Body Req_login req);
+    @POST("users/check_email")
+    Call<Res> check_email(@Body Req_email req_email);
+
+    @POST("users/login")
+    Call<Res> login(@Body Req req);
+
+    @POST("asset/period")
+    Call<Res> pushBudget(@Body Req_Budget req_budget);
+
 }

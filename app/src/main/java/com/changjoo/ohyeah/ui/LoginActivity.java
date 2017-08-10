@@ -14,10 +14,9 @@ import android.widget.Toast;
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.NaverProfileModel;
-import com.changjoo.ohyeah.model.Req_Join;
-import com.changjoo.ohyeah.model.Req_login;
-import com.changjoo.ohyeah.model.Res_Join;
-import com.changjoo.ohyeah.model.Res_login;
+import com.changjoo.ohyeah.model.Req;
+import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.Net;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
@@ -135,8 +134,7 @@ public class LoginActivity extends Activity {
                 //로그인이 성공하면  네이버에 계정값들을 가져온다.
                 getProfile(accessToken);
 
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                finish();
+
 
             } else {
                 String errorCode = mOAuthLoginModule.getLastErrorCode(mContext).getCode();
@@ -162,49 +160,14 @@ public class LoginActivity extends Activity {
                         if (message.equals("success")) {
                             //네이버 개인정보 받아옴
                             NaverProfileModel.Response profile = response.body().getResponse();
-                            final Req_Join req_join = new Req_Join();
-                            req_join.setResponse(profile);
+
                             U.getInstance().log(profile.toString());
+                            Req_email req_email = new Req_email();
+                            req_email.setEmail(profile.getEmail());
+                            String pw= profile.getId();
 
-                            //===========서버로 전송==========================================================
+                            checkServer(req_email,pw);
 
-                            Call<Res_Join> res1 = SNet.getInstance().getMemberFactoryIm().join(req_join);
-                            res1.enqueue(new Callback<Res_Join>() {
-                                @Override
-                                public void onResponse(Call<Res_Join> call, Response<Res_Join> response) {
-                                    if (response.isSuccessful()) {
-                                        if (response.body() != null) {
-                                            //코드 숫자별로 상황 분할해야함
-                                            //이미 서버에 등록된 이메일이면 그냥 로그인, 처음 등록자면 서버에 등록후 로그인
-                                            U.getInstance().log("회원가입 성공");
-                                            Res_Join res_join = new Res_Join();
-                                            res_join.setCode(response.body().getCode());
-                                            res_join.setMsg(response.body().getMsg());
-                                            res_join.setEmail(response.body().getEmail());
-                                            U.getInstance().log(res_join.toString());
-
-                                            //네아로 최초등록 후 회원정보 받아와서 서버로 전송
-                                            //전송 성공시 서버에서 id만 반환해줌
-                                            //id받아서 SharedPreference에 저장
-                                            U.getInstance().setLogin(LoginActivity.this, response.body().getEmail());
-
-                                        } else {
-                                            U.getInstance().log("통신실패1");
-                                        }
-                                    } else {
-                                        try {
-                                            U.getInstance().log("통신실패2" + response.errorBody().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Res_Join> call, Throwable t) {
-                                    U.getInstance().log("통신실패3" + t.getLocalizedMessage());
-                                }
-                            });
                             Toast.makeText(LoginActivity.this, "프로필을 불러오는데 성공하였습니다.", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(LoginActivity.this, "프로필을 불러오는데 실패하였습니다.", Toast.LENGTH_LONG).show();
@@ -229,23 +192,44 @@ public class LoginActivity extends Activity {
         });
     }
 
+
+
     //일반 이메일 로그인
     public void login(String email, String pwd) {
 
-        Req_login req_login = new Req_login();
+        Req req_login = new Req();
         req_login.setEmail(email);
         req_login.setPwd(pwd);
 
-        Call<Res_login> res = SNet.getInstance().getMemberFactoryIm().login(req_login);
-        res.enqueue(new Callback<Res_login>() {
+        Call<Res> res = SNet.getInstance().getMemberFactoryIm().login(req_login);
+        res.enqueue(new Callback<Res>() {
             @Override
-            public void onResponse(Call<Res_login> call, Response<Res_login> response) {
+            public void onResponse(Call<Res> call, Response<Res> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         //코드 숫자별로 상황 분할해야함
+                        if(response.body().getResult()==1){
+                            Toast.makeText(LoginActivity.this,"로그인되었습니다.",Toast.LENGTH_SHORT).show();
+                            //로그인 성공시 -> sp저장
+                            U.getInstance().setEmail(LoginActivity.this, response.body().getDoc().getMember().getEmail());
+                            U.getInstance().log(""+response.body());
+                            if(response.body().getDoc().getMember().getSetb_yn().equals("N")){
+                                U.getInstance().setBoolean(LoginActivity.this,response.body().getDoc().getMember().getEmail(),false);
+                                Intent intent = new Intent(LoginActivity.this,BudgetSettingActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else{
+                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
 
-                        //로그인 성공시 -> sp저장
-                        U.getInstance().setLogin(LoginActivity.this, response.body().getEmail());
+
+                        }else{
+                            //비번틀렸거나, 아이디 미존재 체크
+                            Toast.makeText(LoginActivity.this,"로그인실패."+response.body().getResult(),Toast.LENGTH_SHORT).show();
+                        }
+
 
                     } else {
                         U.getInstance().log("통신실패1");
@@ -260,11 +244,97 @@ public class LoginActivity extends Activity {
             }
 
             @Override
-            public void onFailure(Call<Res_login> call, Throwable t) {
+            public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
             }
         });
     }
 
+
+
+
+    public void checkServer(final Req_email req_email, final String pw){
+        //===========서버로 전송==========================================================
+        //받아온이메일을 중복확인 -> 중복된이메일 존재 하면 sp이메일저장후 메인으로 점프
+        //                    -> 중복 이메일 존재 하지않으면 회원가입도메인으로 ㄱㄱ
+
+        Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().check_email(req_email);
+        res1.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        //코드 숫자별로 상황 분할해야함
+                        //이미 서버에 등록된 이메일이면 그냥 로그인, 처음 등록자면 서버에 등록후 로그인
+                        if(response.body().getResult()==1){
+                            U.getInstance().log("네이버 - 회원가입 성공");
+                            //회원가입 도메인으로 보내기
+                            Req req = new Req();
+                            req.setEmail(req_email.getEmail());
+                            req.setPwd(pw);
+
+                            signUp(req);
+
+                        }else if(response.body().getResult()==2){
+                            U.getInstance().log("네이버 - 아이디 중복");
+                            login(req_email.getEmail(),pw);
+                        }
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+            }
+        });
+    }
+
+
+    public void signUp(Req req_login){
+        Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().join(req_login);
+        res1.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        U.getInstance().log("회원가입 성공");
+
+                        U.getInstance().log( ""+response.body().toString());
+
+                        U.getInstance().setEmail(LoginActivity.this,response.body().getDoc().getMember().getEmail());
+
+                        U.getInstance().log( ""+U.getInstance().getEmail(LoginActivity.this));
+                        //응답완료되면 예산설정 페이지로
+                        Intent intent = new Intent(LoginActivity.this,BudgetSettingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+            }
+        });
+    }
 
 }

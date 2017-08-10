@@ -60,7 +60,7 @@
                 android:layout_weight="14.4"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/imageView3"
-                app:srcCompat="@mipmap/setting2" />
+                app:srcCompat="@mipmap/setting1" />
         </LinearLayout>
 
         <android.support.v4.widget.Space
@@ -106,11 +106,11 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/day"
                 android:layout_width="73.8dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/gray_underline"
                 android:gravity="center"
-                android:hint="100"
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
@@ -118,6 +118,7 @@
                 android:textColor="#3b4aaa"
                 android:textColorHint="#3b4aaa"
                 android:textCursorDrawable="@null"
+                android:maxLength="2"
                 android:textSize="18.5sp" />
 
             <TextView
@@ -132,17 +133,31 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/error1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:visibility="invisible"
+            android:text="@string/budget_error1"
+            android:textSize="10.8sp"
+            android:textStyle="bold"
+            android:textColor="#c33b4d"/>
+
         <android.support.v4.widget.Space
             android:id="@+id/spacer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6.5" />
+            android:layout_weight="0.5" />
+
         <android.support.v4.widget.Space
             android:id="@+id/spacer1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.5"
-            android:visibility="gone"/>
+            android:layout_weight="3"
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -251,17 +266,27 @@
                 android:textColor="#9b9b9b"
                 android:textStyle="bold" />
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:textSize="10.8sp"
+            android:textColor="#c33b4d"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            />
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="33.9" />
+            android:layout_weight="30.9" />
 
         <android.support.v4.widget.Space
             android:id="@+id/spacer2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:visibility="gone"/>
 
         <Button

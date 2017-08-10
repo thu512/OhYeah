@@ -64,21 +64,23 @@
             android:layout_weight="0.5"
             android:layout_gravity="center"
             app:srcCompat="@mipmap/check_1" />
+
         <EditText
             android:id="@+id/email"
-            android:paddingLeft="6dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="7.4"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/join_email"
-            android:textStyle="normal"
             android:layout_gravity="center"
-            android:textSize="13sp"
+            android:layout_weight="7.4"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/join_email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="6dp"
+            android:singleLine="true"
             android:textColor="#9b9b9b"
             android:textCursorDrawable="@null"
-            android:background="@null"/>
+            android:textSize="13sp"
+            android:textStyle="normal" />
         <Button
             android:id="@+id/dura_button"
             android:layout_width="0dp"
@@ -121,13 +123,14 @@
             android:background="@null"
             android:ems="10"
             android:hint="@string/join_pwd"
-            android:textStyle="normal"
             android:inputType="textPassword"
             android:paddingLeft="6dp"
             android:selectAllOnFocus="false"
+            android:singleLine="true"
             android:textColor="#9b9b9b"
             android:textCursorDrawable="@null"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
 

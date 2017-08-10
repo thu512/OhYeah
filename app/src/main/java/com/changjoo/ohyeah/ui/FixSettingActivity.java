@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,15 +22,16 @@ public class FixSettingActivity extends Activity {
     RecyclerView fix_list;
     ArrayList<FixModel> fixModels;
     FixAdapter fixAdapter;
-    int item_cnt = 4;
+    int item_cnt = 2;
     // setup swipe to remove item
     ItemTouchHelper itemTouchHelper;
-
+    Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fix_setting);
+        submit= (Button)findViewById(R.id.submit);
         fix_list = (RecyclerView) findViewById(R.id.fix_list);
         fix_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         fixModels = new ArrayList<>();
@@ -57,6 +59,23 @@ public class FixSettingActivity extends Activity {
         itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(fix_list);
 
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("FFF",fixModels.toString());
+            }
+        });
+
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FixSettingActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     //뷰홀더

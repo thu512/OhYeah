@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +14,19 @@ import android.widget.TextView;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.model.Req;
+import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Res;
+import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.utill.U;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JoinActivity extends Activity {
     ImageView email_check_img;
@@ -33,7 +44,9 @@ public class JoinActivity extends Activity {
     Button dura_button;
     Button join_cancel;
     Button join_ok;
-
+    Boolean id_check=false;
+    Boolean pw_check=false;
+    Boolean pw_double=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +73,51 @@ public class JoinActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //중복확인 완료시 버튼이미지 변경
+                if (TextUtils.isEmpty(email.getText().toString())) {
+                    email.setError("이메일을 입력하세요.");
+                    return;
+                }
+                Req_email req_email = new Req_email();
+                req_email.setEmail(email.getText().toString().trim());
+                Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().check_email(req_email);
+                res1.enqueue(new Callback<Res>() {
+                    @Override
+                    public void onResponse(Call<Res> call, Response<Res> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                if(response.body().getResult()==1){
+                                    //사용 가능
+                                    //중복확인되면
+                                    id_check=true;
+                                    error_msg.setVisibility(View.INVISIBLE);
+                                    email_check_img.setImageResource(R.mipmap.check);
+                                    dura_button.setBackgroundResource(R.mipmap.button1);
+                                }else{
+                                    //중복
+                                    error_msg.setVisibility(View.VISIBLE);
+                                    email_check_img.setImageResource(R.mipmap.check_2);
+                                }
+
+                                U.getInstance().log( ""+response.body().toString());
+
+                            } else {
+                                U.getInstance().log("통신실패1");
+                            }
+                        } else {
+                            try {
+                                U.getInstance().log("통신실패2" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Res> call, Throwable t) {
+                        U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                    }
+                });
+
             }
         });
 
@@ -98,6 +156,8 @@ public class JoinActivity extends Activity {
 
                 if(f1 && f2){
                     pwd_check_img.setImageResource(R.mipmap.check);
+                    //비밀번호 조건식 완료
+                    pw_check=true;
                 }else{
                     pwd_check_img.setImageResource(R.mipmap.check_2);
                 }
@@ -117,6 +177,8 @@ public class JoinActivity extends Activity {
                 if(pwd.getText().toString().equals(s)){
                     error_msg.setVisibility(View.INVISIBLE);
                     pwd2_check_img.setImageResource(R.mipmap.check);
+                    //비밀번호 확인 완료
+                    pw_double=true;
                 }else{
                     error_msg.setVisibility(View.VISIBLE);
                     pwd2_check_img.setImageResource(R.mipmap.check_2);
@@ -133,8 +195,53 @@ public class JoinActivity extends Activity {
         join_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(JoinActivity.this,BudgetSettingActivity.class);
-                startActivity(intent);
+
+                if(id_check && pw_check && pw_double){
+                    Req req_login = new Req();
+                    final String id = email.getText().toString();
+                    String pw = pwd.getText().toString();
+                    req_login.setEmail(id);
+                    req_login.setPwd(pw);
+                    U.getInstance().log(""+pw);
+                    //이면 통신보냄
+                    Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().join(req_login);
+                    res1.enqueue(new Callback<Res>() {
+                        @Override
+                        public void onResponse(Call<Res> call, Response<Res> response) {
+                            if (response.isSuccessful()) {
+                                if (response.body() != null) {
+                                    U.getInstance().log("회원가입 성공");
+
+                                    U.getInstance().log( ""+response.body().toString());
+
+                                    U.getInstance().setEmail(JoinActivity.this,id);
+
+                                    U.getInstance().log( ""+U.getInstance().getEmail(JoinActivity.this));
+                                    //응답완료되면 예산설정 페이지로
+                                    Intent intent = new Intent(JoinActivity.this,BudgetSettingActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    U.getInstance().log("통신실패1");
+                                }
+                            } else {
+                                try {
+                                    U.getInstance().log("통신실패2" + response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Res> call, Throwable t) {
+                            U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                        }
+                    });
+
+                }
+                else{
+                    return;
+                }
             }
         });
     }

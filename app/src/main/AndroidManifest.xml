@@ -5,6 +5,15 @@
     <!-- 인터넷 접근 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--문자수신허용-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+
+    <!--화면 깨우기-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!--윈도우에 띄우기-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -21,7 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.LoginActivity">
+
+        </activity>
         <activity android:name=".ui.JoinActivity" />
         <activity
             android:name=".ui.MainActivity"
@@ -34,11 +45,25 @@
         <activity
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app" />
-        <activity android:name=".ui.FixSettingActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
+        <activity android:name=".ui.FixSettingActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
+        </activity>
         <activity android:name=".ui.BudgetSettingActivity">
 
         </activity>
+
+
+        <receiver
+            android:name=".CallAndSmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <!--등록된 필터만 수신한다.-->
+            <intent-filter>
+                <!--문자 수신-->
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
