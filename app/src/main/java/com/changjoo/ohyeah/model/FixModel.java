@@ -13,6 +13,14 @@ public class FixModel {
         this.money = money;
     }
 
+    @Override
+    public String toString() {
+        return "FixModel{" +
+                "name='" + name + '\'' +
+                ", money=" + money +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OhYeah</string>
+    <string name="app_name">오예</string>
     <string name="title_activity_main">MainActivity</string>
 
     <!--login액티비티-->

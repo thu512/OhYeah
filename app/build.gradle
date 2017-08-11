@@ -15,11 +15,11 @@ android {
         applicationId "com.changjoo.ohyeah"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionName '1.0.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // 65K
         multiDexEnabled true
+        versionCode 2
     }
     buildTypes {
         release {

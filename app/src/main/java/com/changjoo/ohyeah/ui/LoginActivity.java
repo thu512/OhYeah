@@ -200,7 +200,7 @@ public class LoginActivity extends Activity {
         Req req_login = new Req();
         req_login.setEmail(email);
         req_login.setPwd(pwd);
-
+        U.getInstance().log(req_login.toString());
         Call<Res> res = SNet.getInstance().getMemberFactoryIm().login(req_login);
         res.enqueue(new Callback<Res>() {
             @Override

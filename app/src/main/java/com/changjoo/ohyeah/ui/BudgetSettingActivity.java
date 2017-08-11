@@ -589,8 +589,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         Window window = myDialog.getWindow();
         layoutParams.copyFrom(window.getAttributes());
-        layoutParams.width = 300;
-        layoutParams.height = 400;
+        layoutParams.width = layoutParams.MATCH_PARENT;
+        layoutParams.height = layoutParams.WRAP_CONTENT;
         window.setAttributes(layoutParams);
 
 

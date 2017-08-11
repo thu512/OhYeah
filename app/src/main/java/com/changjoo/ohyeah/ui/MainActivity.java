@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     Button in_btn;
     Button out_btn;
     pagerAdapter pagerAdapter;
+    Button set_btn;
 
     @Subscribe
     public void recvBus(String msg){
@@ -87,6 +88,7 @@ public class MainActivity extends Activity {
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
 
+        set_btn = (Button)findViewById(R.id.set_btn);
         all_btn = (Button)findViewById(R.id.all_btn);
         in_btn = (Button)findViewById(R.id.in_btn);
         out_btn = (Button)findViewById(R.id.out_btn);
@@ -239,6 +241,14 @@ public class MainActivity extends Activity {
                 all_btn.setBackgroundResource(R.mipmap.all_bt_off);
                 in_btn.setBackgroundResource(R.mipmap.deposit_off);
                 out_btn.setBackgroundResource(R.mipmap.withdraw_on);
+            }
+        });
+
+
+        set_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
