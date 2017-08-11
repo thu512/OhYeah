@@ -5,35 +5,35 @@ package com.changjoo.ohyeah.model;
  */
 
 public class FixModel {
-    String name;
-    int money;
+    String f_ex_record;
+    int f_ex_money;
 
-    public FixModel(String name, int money) {
-        this.name = name;
-        this.money = money;
+    public FixModel(String f_ex_record, int f_ex_money) {
+        this.f_ex_record = f_ex_record;
+        this.f_ex_money = f_ex_money;
     }
 
     @Override
     public String toString() {
         return "FixModel{" +
-                "name='" + name + '\'' +
-                ", money=" + money +
+                "f_ex_record='" + f_ex_record + '\'' +
+                ", f_ex_money=" + f_ex_money +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getF_ex_record() {
+        return f_ex_record;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setF_ex_record(String f_ex_record) {
+        this.f_ex_record = f_ex_record;
     }
 
-    public int getMoney() {
-        return money;
+    public int getF_ex_money() {
+        return f_ex_money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setF_ex_money(int f_ex_money) {
+        this.f_ex_money = f_ex_money;
     }
 }

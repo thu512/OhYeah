@@ -1,9 +1,10 @@
 package com.changjoo.ohyeah.net;
 
 import com.changjoo.ohyeah.model.NaverProfileModel;
-import com.changjoo.ohyeah.model.Req_Budget;
-import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Req;
+import com.changjoo.ohyeah.model.Req_Budget;
+import com.changjoo.ohyeah.model.Req_Fix;
+import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 
 import retrofit2.Call;
@@ -36,5 +37,9 @@ public interface MemberFactoryIm {
 
     @POST("asset/period")
     Call<Res> pushBudget(@Body Req_Budget req_budget);
+
+    @POST("asset/fix_ex")
+    Call<Res> pushFix(@Body Req_Fix fix_ex);
+
 
 }
