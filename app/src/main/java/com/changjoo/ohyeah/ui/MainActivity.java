@@ -4,9 +4,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,6 +89,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
 
@@ -150,6 +157,7 @@ public class MainActivity extends Activity {
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition2);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
+                        changeStatusBarColor("#360909");
                     }
                 } else {
 
@@ -160,6 +168,7 @@ public class MainActivity extends Activity {
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition1);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
+                        changeStatusBarColor("#3b4aaa");
                     }
                 }
             }
@@ -337,6 +346,15 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
+
+    //상태바 색상 변경
+    public void changeStatusBarColor(String color){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor(color));
+        }
+    }
 
 }
 

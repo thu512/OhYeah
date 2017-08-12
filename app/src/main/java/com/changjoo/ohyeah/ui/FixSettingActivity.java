@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
@@ -34,7 +35,7 @@ public class FixSettingActivity extends Activity {
     int item_cnt = 4; //고정지출 입력 리스트 기본 개수
     ItemTouchHelper itemTouchHelper;
     Button submit;
-
+    ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +47,12 @@ public class FixSettingActivity extends Activity {
         fixAdapter = new FixAdapter();
         fix_list.setAdapter(fixAdapter);
         fix_list.smoothScrollToPosition(fix_list.getAdapter().getItemCount()+1);
-
-        //확인
+        back = (ImageButton)findViewById(R.id.back);
+        //====================테스트용============================
         U.getInstance().setEmail(FixSettingActivity.this,"www");
         U.getInstance().log(U.getInstance().getEmail(FixSettingActivity.this));
+        //====================================================
+
         //스와이프 아이템 삭제
         ItemTouchHelper.Callback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -85,6 +88,13 @@ public class FixSettingActivity extends Activity {
         itemTouchHelper.attachToRecyclerView(fix_list);
 
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FixSettingActivity.this.finish();
+            }
+        });
+
         //확인 버튼 눌를시 서버로 고정리스트 전송
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +126,8 @@ public class FixSettingActivity extends Activity {
                                 if (response.body() != null) {
                                     if(response.body().getResult()==1){
                                         Toast.makeText(FixSettingActivity.this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(FixSettingActivity.this, PurposeSetActivity.class);
+                                        startActivity(intent);
                                     }else{
                                         U.getInstance().log("고정 서버전송 에러");
                                     }
@@ -146,7 +158,7 @@ public class FixSettingActivity extends Activity {
                 }
                 //추가된 고정지출이 하나도 없을 경우 서버로 전송하지 않고 바로 다음 화면으로
                 else{
-                    Intent intent = new Intent(FixSettingActivity.this,MainActivity.class);
+                    Intent intent = new Intent(FixSettingActivity.this, PurposeSetActivity.class);
                     startActivity(intent);
                 }
             }

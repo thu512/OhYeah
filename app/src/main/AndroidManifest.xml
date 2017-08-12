@@ -5,14 +5,14 @@
     <!-- 인터넷 접근 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--문자수신허용-->
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+    <!-- 문자수신허용 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_MMS" />
 
-    <!--화면 깨우기-->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <!--윈도우에 띄우기-->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 화면 깨우기 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 윈도우에 띄우기 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".MyApplication"
@@ -23,17 +23,13 @@
         android:roundIcon="@drawable/oh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".StartActivity">
-
-        </activity>
-        <activity android:name=".ui.LoginActivity">
-
-        </activity>
+        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".ui.LoginActivity"></activity>
         <activity android:name=".ui.JoinActivity" />
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- 네이버 아이디로 로그인에서 사용하는 액티비티를 등록 -->
         <activity
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
@@ -41,14 +37,17 @@
         <activity
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app" />
-        <activity android:name=".ui.FixSettingActivity" android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+        <activity
+            android:name=".ui.FixSettingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.BudgetSettingActivity">
+        <activity android:name=".ui.BudgetSettingActivity"></activity>
+        <activity android:name=".ui.PurposeSetActivity">
 
         </activity>
 
@@ -57,12 +56,14 @@
             android:name=".CallAndSmsReceiver"
             android:enabled="true"
             android:exported="true">
-            <!--등록된 필터만 수신한다.-->
+
+            <!-- 등록된 필터만 수신한다. -->
             <intent-filter>
-                <!--문자 수신-->
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <!-- 문자 수신 -->
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
 
     </application>
 

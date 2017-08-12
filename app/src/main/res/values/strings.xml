@@ -46,15 +46,24 @@
     <string name="dialog_cencel">취소</string>
 
 
-
-
-
-
-
     <!--고정지출 설정-->
     <string name="fix">고정지출 설정</string>
     <string name="fix_txt">고정지출을 입력해주세요</string>
     <string name="fix_name">명칭</string>
     <string name="fix_won">원</string>
+
+
+    <!--목표설정-->
+    <string name="purpose">목표 설정</string>
+    <string name="purpose_txt">저금 목표를 설정해주세요</string>
+    <string name="purpose_money">목표 금액</string>
+    <string name="purpose_msg1">오늘 사용금액에서 남은 금액은 자정에</string>
+    <string name="purpose_msg2">목표에 자동으로 저금됩니다. </string>
+    <string name="purpose_msg3">목표 금액 달성시 TOSS로 저금을 할 수 있습니다.</string>
+    <string name="purpose_won">원</string>
+
+
+
+
 
 </resources>
