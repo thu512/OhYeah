@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class FixSettingActivity extends Activity {
     RecyclerView fix_list;
-    ArrayList<FixModel> fix_ex;
+    ArrayList<FixModel> Fix_ex;
     FixAdapter fixAdapter;
     int item_cnt = 4; //고정지출 입력 리스트 기본 개수
     ItemTouchHelper itemTouchHelper;
@@ -43,7 +43,7 @@ public class FixSettingActivity extends Activity {
         submit= (Button)findViewById(R.id.submit);
         fix_list = (RecyclerView) findViewById(R.id.fix_list);
         fix_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        fix_ex = new ArrayList<>();
+        Fix_ex = new ArrayList<>();
         fixAdapter = new FixAdapter();
         fix_list.setAdapter(fixAdapter);
         fix_list.smoothScrollToPosition(fix_list.getAdapter().getItemCount()+1);
@@ -70,10 +70,10 @@ public class FixSettingActivity extends Activity {
                     FixViewHolder fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(position);
                     name = fixViewHolder.fix_name.getText().toString();
                     money = fixViewHolder.fix_money.getText().toString();
-                    if((!name.equals("")) && (!money.equals("")) && fix_ex.size()!=0){
-                        for(int i=0; i<fix_ex.size(); i++){
-                            if(fix_ex.get(i).getF_ex_record().equals(name)){
-                                fix_ex.remove(i);
+                    if((!name.equals("")) && (!money.equals("")) && Fix_ex.size()!=0){
+                        for(int i=0; i<Fix_ex.size(); i++){
+                            if(Fix_ex.get(i).getF_ex_record().equals(name)){
+                                Fix_ex.remove(i);
                             }
                         }
                     }
@@ -109,15 +109,15 @@ public class FixSettingActivity extends Activity {
                         name = fixViewHolder.fix_name.getText().toString();
                         money = fixViewHolder.fix_money.getText().toString();
                         if((!name.equals("")) && (!money.equals(""))){
-                            fix_ex.add(new FixModel(name,Integer.parseInt(money)));
+                            Fix_ex.add(new FixModel(name,Integer.parseInt(money)));
                         }
                     }
                 }
-                U.getInstance().log("배열 길이 :"+fix_ex.size()+""+fix_ex.toString());
+                U.getInstance().log("배열 길이 :"+Fix_ex.size()+""+Fix_ex.toString());
 
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
-                if(fix_ex.size()>0){
-                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(FixSettingActivity.this),fix_ex);
+                if(Fix_ex.size()>0){
+                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(FixSettingActivity.this),Fix_ex);
                     Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushFix(req_fix);
                     res.enqueue(new Callback<Res>() {
                         @Override
@@ -170,7 +170,7 @@ public class FixSettingActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        fix_ex.clear();
+        Fix_ex.clear();
     }
 
     //고정 지출 입력 뷰홀더

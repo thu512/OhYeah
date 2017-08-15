@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class Req_Fix {
     String email;
-    ArrayList<FixModel> fix_ex;
+    ArrayList<FixModel> Fix_ex;
 
-    public Req_Fix(String email, ArrayList<FixModel> fix_ex) {
+    public Req_Fix(String email, ArrayList<FixModel> Fix_ex) {
         this.email = email;
-        this.fix_ex = fix_ex;
+        this.Fix_ex = Fix_ex;
     }
 
     public String getEmail() {
@@ -24,10 +24,10 @@ public class Req_Fix {
     }
 
     public ArrayList<FixModel> getFix_ex() {
-        return fix_ex;
+        return Fix_ex;
     }
 
-    public void setFix_ex(ArrayList<FixModel> fix_ex) {
-        this.fix_ex = fix_ex;
+    public void setFix_ex(ArrayList<FixModel> Fix_ex) {
+        this.Fix_ex = Fix_ex;
     }
 }

@@ -23,8 +23,8 @@
         android:roundIcon="@drawable/oh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".StartActivity"></activity>
-        <activity android:name=".ui.LoginActivity"></activity>
+        <activity android:name=".StartActivity" />
+        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.JoinActivity" />
         <activity
             android:name=".ui.MainActivity"
@@ -39,18 +39,16 @@
             android:label="OAuth2.0 In-app" />
         <activity
             android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".ui.BudgetSettingActivity" />
+        <activity android:name=".ui.PurposeSetActivity" />
+        <activity android:name=".ui.NestSettingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.BudgetSettingActivity"></activity>
-        <activity android:name=".ui.PurposeSetActivity">
-
-        </activity>
-
 
         <receiver
             android:name=".CallAndSmsReceiver"
@@ -59,12 +57,14 @@
 
             <!-- 등록된 필터만 수신한다. -->
             <intent-filter>
+
                 <!-- 문자 수신 -->
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".terms.Terms1Activity" />
+        <activity android:name=".terms.Terms2Activity"></activity>
     </application>
 
 </manifest>
