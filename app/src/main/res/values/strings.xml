@@ -105,6 +105,14 @@
     <string name="set14">오전</string>
 
 
+    <!--비밀번호 변경-->
+    <string name="pwd">비밀번호 변경</string>
+    <string name="pwd1">기존 비밀번호</string>
+    <string name="pwd2">새 비밀번호</string>
+    <string name="pwd3">새 비밀번호 확인</string>
+    <string name="pwd4">최소 8자리, 최대 15자리 이하</string>
+    <string name="pwd5"> / </string>
+    <string name="pwd6">영문, 숫자 조합</string>
 
 
 

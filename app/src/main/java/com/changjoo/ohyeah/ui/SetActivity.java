@@ -2,6 +2,7 @@ package com.changjoo.ohyeah.ui;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -19,6 +21,7 @@ import com.changjoo.ohyeah.R;
 public class SetActivity extends Activity {
     LinearLayout setMonthTime;
     LinearLayout setDayTime;
+    RelativeLayout changepwd;
     AudioManager aManager;
     Switch soundSwt;
     Switch viveSwt;
@@ -36,6 +39,7 @@ public class SetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         aManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        changepwd = (RelativeLayout)findViewById(R.id.changepwd);
         setMonthTime = (LinearLayout)findViewById(R.id.setMonthTime);
         setDayTime = (LinearLayout)findViewById(R.id.setDayTime);
         monthTime1=(TextView)findViewById(R.id.monthTime1);
@@ -48,6 +52,16 @@ public class SetActivity extends Activity {
         versionState=(TextView)findViewById(R.id.versionState);
         soundSwt =(Switch)findViewById(R.id.soundSwt);
         viveSwt  =(Switch)findViewById(R.id.viveSwt);
+
+        changepwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SetActivity.this, ChangePwdActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         setMonthTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

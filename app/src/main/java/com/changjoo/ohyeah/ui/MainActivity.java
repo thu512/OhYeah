@@ -58,6 +58,8 @@ public class MainActivity extends Activity {
     Button out_btn;
     pagerAdapter pagerAdapter;
     Button set_btn;
+    Button wallet_btn;
+
 
     @Subscribe
     public void recvBus(String msg){
@@ -95,6 +97,7 @@ public class MainActivity extends Activity {
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
 
+        wallet_btn = (Button)findViewById(R.id.wallet_btn);
         set_btn = (Button)findViewById(R.id.set_btn);
         all_btn = (Button)findViewById(R.id.all_btn);
         in_btn = (Button)findViewById(R.id.in_btn);
@@ -255,6 +258,14 @@ public class MainActivity extends Activity {
 
 
         set_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        wallet_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ModifySettingActivity.class);

@@ -143,9 +143,11 @@ public class JoinActivity extends Activity {
                     f1=false;
                 }
 
-                Pattern p = Pattern.compile("([a-zA-Z0-9].*[!,@,#,$,%,?,/])|([!,@,#,$,%,?,/].*[a-zA-Z0-9])");
+                Pattern p = Pattern.compile("([a-zA-Z])");
                 Matcher m = p.matcher(s);
-                if(m.find()){
+                Pattern p1 = Pattern.compile("([0-9])");
+                Matcher m1 = p1.matcher(s);
+                if(m.find() && m1.find()){
                     pwd_eng.setTextColor(Color.parseColor("#3b4aaa"));
                     f2=true;
                 }else{
