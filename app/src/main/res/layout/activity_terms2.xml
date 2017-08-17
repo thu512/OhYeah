@@ -1,9 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.changjoo.ohyeah.terms.Terms2Activity">
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.changjoo.ohyeah.terms.Terms1Activity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56.8dp"
+        android:background="#4a4a4a">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btn1"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:srcCompat="@mipmap/close"
+            android:background="@null"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20.3sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:text="오예 개인정보 수집"/>
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="33dp"
+            android:paddingRight="33dp">
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="30.5dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"
+                android:text="@string/large_text"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="17.8dp"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:text="개인정보의 수집항목 및 수집방법"/>
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="671dp"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"
+                android:text="@string/large_text2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="17.8dp"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                tools:text="개인정보의 안전성 확보"/>
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"
+                android:text="@string/large_text3"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
+
+

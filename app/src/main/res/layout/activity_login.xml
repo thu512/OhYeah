@@ -21,6 +21,7 @@
         android:padding="5dp"
         android:textSize="10.8sp"
         android:textColor="#ffffff"
+        android:textStyle="bold"
         android:layout_gravity="center_vertical|center_horizontal"
         android:textAlignment="center"
         android:background="@drawable/round_bg"
@@ -125,7 +126,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="66.2"
-            android:background="@mipmap/flat_log_in"
+            android:background="@drawable/login_bg"
+            android:text="@string/login"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
             />
         <android.support.v4.widget.Space
             android:layout_width="0dp"
@@ -182,8 +187,9 @@
             android:layout_height="match_parent"
             android:layout_weight="66.2"
             android:layout_gravity="center"
-            android:hint="@string/login_join"
-            android:textColorHint="@color/colorEdittext"
+            android:text="@string/login_join"
+            android:textSize="14.3sp"
+            android:textColor="#ffffff"
             android:background="@null"
             android:textStyle="bold"
             />
@@ -238,6 +244,7 @@
                 android:textStyle="bold"
                 android:gravity="bottom"
                 android:background="@drawable/black_underline"
+                android:onClick="term1"
                 />
             <android.support.v4.widget.Space
                 android:layout_width="5dp"
@@ -253,6 +260,7 @@
                 android:gravity="bottom"
                 android:textStyle="bold"
                 android:background="@drawable/black_underline"
+                android:onClick="term2"
                 />
             <android.support.v4.widget.Space
                 android:layout_width="5dp"

@@ -19,6 +19,8 @@ import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.Net;
 import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.terms.Terms1Activity;
+import com.changjoo.ohyeah.terms.Terms2Activity;
 import com.changjoo.ohyeah.utill.U;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
@@ -208,6 +210,7 @@ public class LoginActivity extends Activity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         //코드 숫자별로 상황 분할해야함
+                        U.getInstance().log("응답직후"+response.body().getResult());
                         if(response.body().getResult()==1){
                             Toast.makeText(LoginActivity.this,"로그인되었습니다.",Toast.LENGTH_SHORT).show();
                             //로그인 성공시 -> sp저장
@@ -225,8 +228,14 @@ public class LoginActivity extends Activity {
                             }
 
 
+                        }else if(response.body().getResult()==-1){
+                            login_error.setVisibility(View.VISIBLE);
+                            login_error.setText("비밀번호가 틀렸습니다.");
+
+                        }else if(response.body().getResult()==-2){
+                            login_error.setVisibility(View.VISIBLE);
+                            login_error.setText("아이디가 존재하지 않습니다.");
                         }else{
-                            //비번틀렸거나, 아이디 미존재 체크
                             Toast.makeText(LoginActivity.this,"로그인실패."+response.body().getResult(),Toast.LENGTH_SHORT).show();
                         }
 
@@ -252,7 +261,7 @@ public class LoginActivity extends Activity {
 
 
 
-
+    //네이버 로그인 시 아이디 확인
     public void checkServer(final Req_email req_email, final String pw){
         //===========서버로 전송==========================================================
         //받아온이메일을 중복확인 -> 중복된이메일 존재 하면 sp이메일저장후 메인으로 점프
@@ -337,4 +346,14 @@ public class LoginActivity extends Activity {
         });
     }
 
+
+    public void term1(View view){
+        Intent intent = new Intent(LoginActivity.this, Terms1Activity.class);
+        startActivity(intent);
+    }
+
+    public void term2(View view){
+        Intent intent = new Intent(LoginActivity.this, Terms2Activity.class);
+        startActivity(intent);
+    }
 }

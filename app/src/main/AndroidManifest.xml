@@ -23,33 +23,6 @@
         android:roundIcon="@drawable/oh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".StartActivity" />
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.JoinActivity" />
-        <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!-- 네이버 아이디로 로그인에서 사용하는 액티비티를 등록 -->
-        <activity
-            android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
-            android:label="OAuth2.0 In-app" />
-        <activity
-            android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.BudgetSettingActivity" />
-        <activity android:name=".ui.PurposeSetActivity" />
-        <activity android:name=".ui.NestSettingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <receiver
             android:name=".CallAndSmsReceiver"
             android:enabled="true"
@@ -63,8 +36,41 @@
             </intent-filter>
         </receiver>
 
+        <!-- 네이버 아이디로 로그인에서 사용하는 액티비티를 등록 -->
+        <activity
+            android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
+            android:label="OAuth2.0 In-app" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".ui.LoginActivity"></activity>
+        <activity android:name=".ui.JoinActivity" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.FixSettingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".ui.BudgetSettingActivity" />
+        <activity android:name=".ui.PurposeSetActivity"></activity>
+        <activity android:name=".ui.NestSettingActivity" />
         <activity android:name=".terms.Terms1Activity" />
-        <activity android:name=".terms.Terms2Activity"></activity>
+        <activity android:name=".terms.Terms2Activity" />
+        <activity android:name=".ui.ModifySettingActivity">
+
+        </activity>
+        <activity android:name=".ui.ModifyPurposeActivity" />
+        <activity android:name=".ui.SetActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

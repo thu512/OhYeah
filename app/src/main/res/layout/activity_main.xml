@@ -19,77 +19,74 @@
         android:id="@+id/bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="10"
         android:background="@drawable/bg_gradation"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="100">
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.4" />
+            android:layout_weight="2.8" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.35"
+            android:layout_weight="3.7"
             android:orientation="horizontal"
-            android:weightSum="10">
+            android:weightSum="100">
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+                android:layout_weight="4.6" />
 
             <Button
                 android:id="@+id/set_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.6"
+                android:layout_weight="6.3"
                 android:background="@mipmap/setting" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6.5" />
+                android:layout_weight="64.9" />
 
             <Button
                 android:id="@+id/pin_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.6"
+                android:layout_weight="6.3"
                 android:background="@mipmap/push_pin_1" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.6" />
+                android:layout_weight="6.2" />
 
             <Button
                 android:id="@+id/wallet_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.7"
+                android:layout_weight="6.9"
                 android:background="@mipmap/wallet" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5" />
+                android:layout_weight="5" />
         </LinearLayout>
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.35" />
+            android:layout_weight="3.9" />
 
         <com.ogaclejapan.smarttablayout.SmartTabLayout
             android:id="@+id/viewpagertab"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="5.3"
             android:elevation="@null"
             app:stl_clickable="true"
             app:stl_defaultTabBackground="?attr/selectableItemBackground"
@@ -113,13 +110,12 @@
             app:stl_overlineThickness="0dp"
             app:stl_titleOffset="auto_center"
             app:stl_underlineThickness="0dp"
-
             />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.4">
+            android:layout_weight="84.3">
 
             <!--프러그래스바-->
             <android.support.v4.view.ViewPager

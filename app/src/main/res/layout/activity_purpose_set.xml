@@ -289,7 +289,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="13.7"
                 android:button="@drawable/white_underline"
-                android:background="@drawable/selector_pp_5"
+                android:background="@drawable/selector_pp_6"
                 />
         </LinearLayout>
     </RadioGroup>
@@ -360,7 +360,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8.6"
-        android:background="@mipmap/enter" />
+        android:text="@string/submit"
+        android:textSize="18.5sp"
+        android:textColor="#000000"
+        android:background="@drawable/gray_ract" />
 
 
 </LinearLayout>

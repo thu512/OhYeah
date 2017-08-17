@@ -21,6 +21,7 @@
                 android:layout_height="wrap_content"
                 android:background="#4a4a4a">
                 <ImageButton
+                    android:id="@+id/btn1"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     app:srcCompat="@mipmap/close"
@@ -35,7 +36,6 @@
                     android:text="@string/term"
                     android:textSize="20.3sp"
                     android:textColor="#ffffff"
-                    android:letterSpacing="0.05"
                     android:lineSpacingExtra="7.5sp"
                     android:textStyle="normal"
                     android:gravity="center"
@@ -52,7 +52,6 @@
                 android:text="@string/term1"
                 android:textSize="12sp"
                 android:textColor="#000000"
-                android:letterSpacing="-0.03"
                 android:textStyle="bold"
                 android:layout_marginLeft="33.5dp"/>
             <android.support.v4.widget.Space
@@ -65,19 +64,18 @@
                 android:text="@string/term2"
                 android:textSize="12sp"
                 android:textColor="#000000"
-                android:letterSpacing="-0.03"
                 android:textStyle="bold"/>
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="8.3dp" />
             <TextView
-                android:layout_marginLeft="33.5dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/term3"
                 android:textSize="10sp"
                 android:textColor="#9b9b9b"
-                android:letterSpacing="-0.04"
                 android:lineSpacingExtra="5.3sp"
                 />
 
@@ -86,13 +84,13 @@
                 android:layout_height="34dp" />
 
             <TextView
-                android:layout_marginLeft="33.5dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/term4"
                 android:textSize="12sp"
                 android:textColor="#000000"
-                android:letterSpacing="-0.03"
                 android:textStyle="bold"/>
 
             <android.support.v4.widget.Space
@@ -100,15 +98,427 @@
                 android:layout_height="8.3dp" />
 
             <TextView
-                android:layout_marginLeft="33.5dp"
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/term5"
                 android:textSize="10sp"
                 android:textColor="#9b9b9b"
-                android:letterSpacing="-0.04"
                 android:lineSpacingExtra="5.3sp"/>
 
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term6"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term7"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term8"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term9"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term10"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term11"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term12"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term13"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term14"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="14.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term15"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term16"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term17"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term18"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term19"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term20"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term21"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term22"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term23"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="14.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term24"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term25"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term26"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term27"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term28"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="14.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term29"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term30"
+                android:textSize="10sp"
+                android:textColor="#9b9b9b"
+                android:lineSpacingExtra="5.3sp"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+
+            <TextView
+                android:layout_marginLeft="33dp"
+                android:layout_marginRight="33dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/term31"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:textStyle="bold"/>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="8.3dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#4a4a4a">
+                <ImageButton
+                    android:id="@+id/btn2"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    app:srcCompat="@mipmap/close"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="24dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="56.8dp"
+                    android:text="@string/term"
+                    android:textSize="20.3sp"
+                    android:textColor="#ffffff"
+                    android:lineSpacingExtra="7.5sp"
+                    android:textStyle="normal"
+                    android:gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+
+
+
+
+

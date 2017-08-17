@@ -12,4 +12,6 @@ public class NestSettingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nest_setting);
     }
+
+
 }

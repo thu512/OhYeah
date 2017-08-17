@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition2);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
-                        changeStatusBarColor("#360909");
+                        changeStatusBarColor("#00360909");
                     }
                 } else {
 
@@ -168,7 +168,7 @@ public class MainActivity extends Activity {
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition1);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
-                        changeStatusBarColor("#3b4aaa");
+                        changeStatusBarColor("#003b4aaa");
                     }
                 }
             }
@@ -257,7 +257,8 @@ public class MainActivity extends Activity {
         set_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(MainActivity.this, ModifySettingActivity.class);
+                startActivity(intent);
             }
         });
 
