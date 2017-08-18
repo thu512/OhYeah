@@ -164,15 +164,17 @@ public class LoginActivity extends Activity {
                             NaverProfileModel.Response profile = response.body().getResponse();
 
                             U.getInstance().log(profile.toString());
+
+                            //중복확인 요청 모델
                             Req_email req_email = new Req_email();
                             req_email.setEmail(profile.getEmail());
                             String pw= profile.getId();
 
                             checkServer(req_email,pw);
 
-                            Toast.makeText(LoginActivity.this, "프로필을 불러오는데 성공하였습니다.", Toast.LENGTH_LONG).show();
+                            U.getInstance().log("네이버 개인정보 불러오기 성공");
                         } else {
-                            Toast.makeText(LoginActivity.this, "프로필을 불러오는데 실패하였습니다.", Toast.LENGTH_LONG).show();
+                            U.getInstance().log("실패");
                         }
 
                     } else {
@@ -216,6 +218,8 @@ public class LoginActivity extends Activity {
                             //로그인 성공시 -> sp저장
                             U.getInstance().setEmail(LoginActivity.this, response.body().getDoc().getMember().getEmail());
                             U.getInstance().log(""+response.body());
+
+                            //초기 예산 설정 되있는지 여부 체크
                             if(response.body().getDoc().getMember().getSetb_yn().equals("N")){
                                 U.getInstance().setBoolean(LoginActivity.this,response.body().getDoc().getMember().getEmail(),false);
                                 Intent intent = new Intent(LoginActivity.this,BudgetSettingActivity.class);
@@ -230,11 +234,11 @@ public class LoginActivity extends Activity {
 
                         }else if(response.body().getResult()==-1){
                             login_error.setVisibility(View.VISIBLE);
-                            login_error.setText("비밀번호가 틀렸습니다.");
+                            login_error.setText("아이디가 존재하지 않습니다.");
 
                         }else if(response.body().getResult()==-2){
                             login_error.setVisibility(View.VISIBLE);
-                            login_error.setText("아이디가 존재하지 않습니다.");
+                            login_error.setText("비밀번호가 틀렸습니다.");
                         }else{
                             Toast.makeText(LoginActivity.this,"로그인실패."+response.body().getResult(),Toast.LENGTH_SHORT).show();
                         }
@@ -278,6 +282,8 @@ public class LoginActivity extends Activity {
                         if(response.body().getResult()==1){
                             U.getInstance().log("네이버 - 회원가입 성공");
                             //회원가입 도메인으로 보내기
+
+                            //회원가입 요청모델
                             Req req = new Req();
                             req.setEmail(req_email.getEmail());
                             req.setPwd(pw);
@@ -309,6 +315,8 @@ public class LoginActivity extends Activity {
     }
 
 
+
+    //회원가입
     public void signUp(Req req_login){
         Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().join(req_login);
         res1.enqueue(new Callback<Res>() {
@@ -316,17 +324,18 @@ public class LoginActivity extends Activity {
             public void onResponse(Call<Res> call, Response<Res> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        U.getInstance().log("회원가입 성공");
+                        if(response.body().getResult()==1){
+                            U.getInstance().log("회원가입 성공");
 
-                        U.getInstance().log( ""+response.body().toString());
+                            U.getInstance().setEmail(LoginActivity.this,response.body().getDoc().getMember().getEmail());
 
-                        U.getInstance().setEmail(LoginActivity.this,response.body().getDoc().getMember().getEmail());
+                            U.getInstance().log( ""+U.getInstance().getEmail(LoginActivity.this));
+                            //응답완료되면 예산설정 페이지로
+                            Intent intent = new Intent(LoginActivity.this,BudgetSettingActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
 
-                        U.getInstance().log( ""+U.getInstance().getEmail(LoginActivity.this));
-                        //응답완료되면 예산설정 페이지로
-                        Intent intent = new Intent(LoginActivity.this,BudgetSettingActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         U.getInstance().log("통신실패1");
                     }

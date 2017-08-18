@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,7 +17,18 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.changjoo.ohyeah.Activity;
+import com.changjoo.ohyeah.LogoutDialog;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.StartActivity;
+import com.changjoo.ohyeah.model.Res;
+import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.utill.U;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SetActivity extends Activity {
     LinearLayout setMonthTime;
@@ -33,6 +45,9 @@ public class SetActivity extends Activity {
     TextView dayTime3;
     TextView appVersion;
     TextView versionState;
+    Button logout;
+    Button signout;
+    LogoutDialog logoutDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,8 @@ public class SetActivity extends Activity {
         versionState=(TextView)findViewById(R.id.versionState);
         soundSwt =(Switch)findViewById(R.id.soundSwt);
         viveSwt  =(Switch)findViewById(R.id.viveSwt);
+        logout = (Button)findViewById(R.id.logout);
+        signout = (Button)findViewById(R.id.signout);
 
         changepwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +129,62 @@ public class SetActivity extends Activity {
         }
 
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logoutDialog=new LogoutDialog(SetActivity.this, "로그아웃 하시겠습니까?",
+                        new View.OnClickListener() { //취소
+                            @Override
+                            public void onClick(View view) {
+                                logoutDialog.dismiss();
+                            }
+                        },
+                        new View.OnClickListener() { //로그아웃
+                            @Override
+                            public void onClick(View view) {
+                                Call<Res> res = SNet.getInstance().getMemberFactoryIm().logout();
+                                res.enqueue(new Callback<Res>() {
+                                    @Override
+                                    public void onResponse(Call<Res> call, Response<Res> response) {
+                                        if (response.isSuccessful()) {
+                                            if (response.body() != null) {
+                                                if(response.body().getResult()==1){
+                                                    U.getInstance().log("로그아웃 성공");
+                                                    U.getInstance().logout(SetActivity.this);
+                                                    Intent intent = new Intent(SetActivity.this,StartActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }else{
+                                                    U.getInstance().log("실패");
+                                                }
+
+                                            } else {
+                                                U.getInstance().log("통신실패1");
+                                            }
+                                        } else {
+                                            try {
+                                                U.getInstance().log("통신실패2" + response.errorBody().string());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Res> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        });
+
+                logoutDialog.show();
+            }
+        });
+
 
     }
+
 
     //한달예산설정 알림 시간
     private TimePickerDialog.OnTimeSetListener listener1 = new TimePickerDialog.OnTimeSetListener() {

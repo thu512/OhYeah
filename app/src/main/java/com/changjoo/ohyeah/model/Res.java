@@ -253,31 +253,31 @@ public class Res {
             }
 
             public class Fix_ex{
-                String fix_ex_record;
-                int fix_ex_money;
+                String f_ex_record;
+                int f_ex_money;
 
                 @Override
                 public String toString() {
                     return "Fix_ex{" +
-                            "fix_ex_record='" + fix_ex_record + '\'' +
-                            ", fix_ex_money=" + fix_ex_money +
+                            "f_ex_record='" + f_ex_record + '\'' +
+                            ", f_ex_money=" + f_ex_money +
                             '}';
                 }
 
-                public String getFix_ex_record() {
-                    return fix_ex_record;
+                public String getF_ex_record() {
+                    return f_ex_record;
                 }
 
-                public void setFix_ex_record(String fix_ex_record) {
-                    this.fix_ex_record = fix_ex_record;
+                public void setF_ex_record(String f_ex_record) {
+                    this.f_ex_record = f_ex_record;
                 }
 
-                public int getFix_ex_money() {
-                    return fix_ex_money;
+                public int getF_ex_money() {
+                    return f_ex_money;
                 }
 
-                public void setFix_ex_money(int fix_ex_money) {
-                    this.fix_ex_money = fix_ex_money;
+                public void setF_ex_money(int f_ex_money) {
+                    this.f_ex_money = f_ex_money;
                 }
             }
         }

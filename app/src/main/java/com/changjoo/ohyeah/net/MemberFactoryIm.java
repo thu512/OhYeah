@@ -4,6 +4,8 @@ import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req;
 import com.changjoo.ohyeah.model.Req_Budget;
 import com.changjoo.ohyeah.model.Req_Fix;
+import com.changjoo.ohyeah.model.Req_Nest;
+import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 
@@ -35,11 +37,20 @@ public interface MemberFactoryIm {
     @POST("users/login")
     Call<Res> login(@Body Req req);
 
-    @POST("asset/period")
+    @POST("asset/set_budget")
     Call<Res> pushBudget(@Body Req_Budget req_budget);
 
     @POST("asset/fix_ex")
     Call<Res> pushFix(@Body Req_Fix fix_ex);
+
+    @POST("/goal")
+    Call<Res> pushPurpose(@Body Req_Purpose req_purpose);
+
+    @POST("asset/spare")
+    Call<Res> pushNest(@Body Req_Nest req_nest);
+
+    @GET("users/logout")
+    Call<Res> logout();
 
 
 }

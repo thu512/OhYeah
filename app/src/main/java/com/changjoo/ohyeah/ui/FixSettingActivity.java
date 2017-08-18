@@ -48,10 +48,7 @@ public class FixSettingActivity extends Activity {
         fix_list.setAdapter(fixAdapter);
         fix_list.smoothScrollToPosition(fix_list.getAdapter().getItemCount()+1);
         back = (ImageButton)findViewById(R.id.back);
-        //====================테스트용============================
-        U.getInstance().setEmail(FixSettingActivity.this,"www");
-        U.getInstance().log(U.getInstance().getEmail(FixSettingActivity.this));
-        //====================================================
+
 
         //스와이프 아이템 삭제
         ItemTouchHelper.Callback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -103,6 +100,7 @@ public class FixSettingActivity extends Activity {
                 int childCount = fix_list.getChildCount();
                 String name;
                 String money;
+                int sum=0;
                 for(int i = 0; i < childCount-1; i++){
                     if((fix_list.findViewHolderForLayoutPosition(i)) instanceof FixViewHolder){
                         FixViewHolder fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(i);
@@ -110,10 +108,13 @@ public class FixSettingActivity extends Activity {
                         money = fixViewHolder.fix_money.getText().toString();
                         if((!name.equals("")) && (!money.equals(""))){
                             Fix_ex.add(new FixModel(name,Integer.parseInt(money)));
+                            sum+=Integer.parseInt(money);
                         }
                     }
                 }
-                U.getInstance().log("배열 길이 :"+Fix_ex.size()+""+Fix_ex.toString());
+                U.getInstance().setFix(FixSettingActivity.this, sum);
+                U.getInstance().log("총고정 지출 액 : "+sum);
+
 
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
                 if(Fix_ex.size()>0){
@@ -125,13 +126,14 @@ public class FixSettingActivity extends Activity {
                             if (response.isSuccessful()) {
                                 if (response.body() != null) {
                                     if(response.body().getResult()==1){
+                                        U.getInstance().log( "고정지출"+response.body().toString());
                                         Toast.makeText(FixSettingActivity.this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(FixSettingActivity.this, PurposeSetActivity.class);
                                         startActivity(intent);
                                     }else{
                                         U.getInstance().log("고정 서버전송 에러");
                                     }
-                                    U.getInstance().log( ""+response.body().toString());
+
                                 } else {
                                     U.getInstance().log("통신실패1");
                                 }
@@ -149,12 +151,6 @@ public class FixSettingActivity extends Activity {
                             U.getInstance().log("통신실패3" + t.getLocalizedMessage());
                         }
                     });
-
-
-
-
-                    Intent intent = new Intent(FixSettingActivity.this,MainActivity.class);
-                    startActivity(intent);
                 }
                 //추가된 고정지출이 하나도 없을 경우 서버로 전송하지 않고 바로 다음 화면으로
                 else{
@@ -173,7 +169,7 @@ public class FixSettingActivity extends Activity {
         Fix_ex.clear();
     }
 
-    //고정 지출 입력 뷰홀더
+    //고정 지출 입력 뷰홀더=
     public class FixViewHolder extends RecyclerView.ViewHolder {
         EditText fix_name, fix_money;
 
@@ -238,5 +234,8 @@ public class FixSettingActivity extends Activity {
             return item_cnt;
         }
     }
+
+
+
 
 }

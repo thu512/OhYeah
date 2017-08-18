@@ -34,6 +34,7 @@ public class U {
         Log.d(TAG, msg);
     }
     String SAVE_TAG="EMAIL";
+
     public void setEmail(Context context, String value)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
@@ -70,8 +71,41 @@ public class U {
     }
 
 
+    public void setBudget(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("budget", value);
+        editor.commit();
+    }
 
+    public Integer getBudget(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("budget", 0);
+    }
 
+    public void setFix(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("Fix", value);
+        editor.commit();
+    }
+
+    public Integer getFix(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("Fix", 0);
+    }
+
+    public void setDay(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("Day", value);
+        editor.commit();
+    }
+
+    public Integer getDay(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("Day", 0);
+    }
 
 
     // DP ---> PX

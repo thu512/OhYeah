@@ -541,8 +541,10 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
 
     //서버로 예산 월급일 전송
-    public void pushBudget(int budget, int set_date){
+    public void pushBudget(final int budget, int set_date){
         String email = U.getInstance().getEmail(BudgetSettingActivity.this);
+        final int budg=budget;
+        final int day = set_date;
         Req_Budget req_budget = new Req_Budget(email,budget,set_date);
 
         Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushBudget(req_budget);
@@ -551,10 +553,12 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             public void onResponse(Call<Res> call, Response<Res> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        if(response.body().getResult()==1){
+                        if(response.body().getDoc().getOk()==1){
                             U.getInstance().log(response.body().getDoc().toString());
                             if(response.body().getDoc().getN()==1){
                                 Toast.makeText(BudgetSettingActivity.this,"예산과 월급일이 입력되었습니다.",Toast.LENGTH_SHORT).show();
+                                U.getInstance().setBudget(BudgetSettingActivity.this, budg);
+                                U.getInstance().setDay(BudgetSettingActivity.this,day);
                             }else{
                                 Toast.makeText(BudgetSettingActivity.this,"예산과 월급일이 입력실패.",Toast.LENGTH_SHORT).show();
                             }
