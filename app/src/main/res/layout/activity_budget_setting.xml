@@ -294,7 +294,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8.6"
-            android:background="@mipmap/enter" />
+            android:background="@drawable/blue_ract_bg"
+            android:text="@string/dialog_ok"
+            android:textSize="18.5sp"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
@@ -307,7 +310,8 @@
         android:orientation="horizontal"
         android:layout_marginBottom="21dp"
         android:layout_above="@+id/viewFlipper"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible">
         <Button
             android:id="@+id/num"
             android:layout_width="0dp"
