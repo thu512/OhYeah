@@ -302,14 +302,14 @@
             android:id="@+id/day_money"
             android:layout_width="145.8dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="11dp"
             android:gravity="center_horizontal|bottom"
             android:singleLine="true"
             android:textColor="#3b4aaa"
             android:textSize="46.3sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textView9"
@@ -321,7 +321,8 @@
             android:textStyle="bold"
             android:layout_alignBaseline="@+id/day_money"
             android:layout_alignBottom="@+id/day_money"
-            android:layout_toEndOf="@+id/day_money" />
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/day_money"/>
     </RelativeLayout>
     <android.support.v4.widget.Space
         android:layout_width="match_parent"

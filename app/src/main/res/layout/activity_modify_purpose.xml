@@ -117,7 +117,6 @@
             android:layout_weight="15"
             android:background="@drawable/gray_underline"
             android:gravity="center"
-            android:letterSpacing="-0.03"
             android:lineSpacingExtra="14.3sp"
             android:text="@string/purpose_money"
             android:textColor="#9b9b9b"
@@ -131,7 +130,6 @@
             android:background="@drawable/gray_underline"
             android:gravity="right|center_vertical"
             android:inputType="number"
-            android:letterSpacing="-0.03"
             android:lineSpacingExtra="9.3sp"
             android:maxLength="8"
             android:singleLine="true"
@@ -147,7 +145,6 @@
             android:layout_weight="3.7"
             android:background="@drawable/gray_underline"
             android:gravity="center"
-            android:letterSpacing="-0.03"
             android:lineSpacingExtra="17sp"
             android:text="@string/purpose_won"
             android:textColor="#9b9b9b"
@@ -277,15 +274,15 @@
             android:id="@+id/textView7"
             android:layout_width="145.8dp"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+
             android:text="D-12"
             android:gravity="center_horizontal|bottom"
-            android:textSize="57.8sp"
+            android:textSize="40sp"
             android:textColor="#3b4aaa"
             android:textStyle="bold"
+            android:layout_marginBottom="27.8dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"/>
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <android.support.v4.widget.Space

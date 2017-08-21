@@ -45,6 +45,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BudgetSettingActivity extends Activity implements View.OnClickListener {
+
+
+
     BackPressEditText editText;
     EditText day;
     TextView error1;
@@ -85,7 +88,8 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_setting);
-
+        View cal_keyboard = (View) getLayoutInflater().inflate(R.layout.cal_keyboard, null);
+        View num_keyboard = (View) getLayoutInflater().inflate(R.layout.default_keyboard, null);
         error_msg = (TextView)findViewById(R.id.error_msg);
         error1 = (TextView)findViewById(R.id.error1);
         day = (EditText)findViewById(R.id.day);
@@ -94,24 +98,24 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         spacer2 = (Space)findViewById(R.id.spacer2);
         num=(Button) findViewById(R.id.num);
         cal=(Button) findViewById(R.id.cal);
-        btn0 = (Button) findViewById(R.id.btn0);
-        btn1 = (Button) findViewById(R.id.btn1);
-        btn2 = (Button) findViewById(R.id.btn2);
-        btn3 = (Button) findViewById(R.id.btn3);
-        btn4 = (Button) findViewById(R.id.btn4);
-        btn5 = (Button) findViewById(R.id.btn5);
-        btn6 = (Button) findViewById(R.id.btn6);
-        btn7 = (Button) findViewById(R.id.btn7);
-        btn8 = (Button) findViewById(R.id.btn8);
-        btn9 = (Button) findViewById(R.id.btn9);
-        btn_ac = (Button) findViewById(R.id.btn_ac);
-        btn_del = (Button) findViewById(R.id.btn_del);
-        btn_sum = (Button) findViewById(R.id.btn_sum);
-        btn_sub = (Button) findViewById(R.id.btn_sub);
-        btn_divide = (Button) findViewById(R.id.btn_divide);
-        btn_mul = (Button) findViewById(R.id.btn_mul);
-        btn_result = (Button) findViewById(R.id.btn_result);
-        btn_down = (Button) findViewById(R.id.btn_down);
+        btn0 = (Button) cal_keyboard.findViewById(R.id.btn0);
+        btn1 = (Button) cal_keyboard.findViewById(R.id.btn1);
+        btn2 = (Button) cal_keyboard.findViewById(R.id.btn2);
+        btn3 = (Button) cal_keyboard.findViewById(R.id.btn3);
+        btn4 = (Button) cal_keyboard.findViewById(R.id.btn4);
+        btn5 = (Button) cal_keyboard.findViewById(R.id.btn5);
+        btn6 = (Button) cal_keyboard.findViewById(R.id.btn6);
+        btn7 = (Button) cal_keyboard.findViewById(R.id.btn7);
+        btn8 = (Button) cal_keyboard.findViewById(R.id.btn8);
+        btn9 = (Button) cal_keyboard.findViewById(R.id.btn9);
+        btn_ac = (Button) cal_keyboard.findViewById(R.id.btn_ac);
+        btn_del = (Button) cal_keyboard.findViewById(R.id.btn_del);
+        btn_sum = (Button) cal_keyboard.findViewById(R.id.btn_sum);
+        btn_sub = (Button) cal_keyboard.findViewById(R.id.btn_sub);
+        btn_divide = (Button) cal_keyboard.findViewById(R.id.btn_divide);
+        btn_mul = (Button) cal_keyboard.findViewById(R.id.btn_mul);
+        btn_result = (Button) cal_keyboard.findViewById(R.id.btn_result);
+        btn_down = (Button) cal_keyboard.findViewById(R.id.btn_down);
         submit = (Button)findViewById(R.id.submit);
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -141,8 +145,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         flipper.setInAnimation(appearSecurityKeyboardAnimation()); // 나타날때 애니메이션
         flipper.setOutAnimation(disappearSecurityKeyboardAnimation()); // 사라질때 애니메이션
 
-        //기본키보드 조작을위한 세팅
-        imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+
         select_key.setVisibility(View.INVISIBLE);
 
         //월급일 설정 키보드 띄움 막기
@@ -158,9 +161,13 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
         // 계산기 키보드의 오프 이미지를 표시하기 위해 임의의 empty view를 삽입
         TextView emptyView = new TextView(this);
+
         flipper.addView(emptyView, 0);
+        flipper.addView(cal_keyboard, 1);
+        flipper.addView(num_keyboard, 2);
         flipper.setDisplayedChild(0);
         editText = (BackPressEditText)findViewById(R.id.editText);
+        editText.setInputType(0);
         editText.setSelection(editText.getText().length());
         editText.setOnBackPressListener(onBackPressListener);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -170,6 +177,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                     Log.d("FFF","포커스받음");
                     spacer1.setVisibility(View.GONE);
                     spacer2.setVisibility(View.VISIBLE);
+                    flipper.setDisplayedChild(2);
                     select_key.setVisibility(View.VISIBLE);
                 }else{
                     flipper.setDisplayedChild(0);
@@ -186,6 +194,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 spacer1.setVisibility(View.GONE);
+                flipper.setDisplayedChild(2);
                 spacer2.setVisibility(View.VISIBLE);
                 select_key.setVisibility(View.VISIBLE);
             }
@@ -197,7 +206,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE){
-                    imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
                     flipper.setDisplayedChild(0);
                     select_key.setVisibility(View.INVISIBLE);
                     num.setBackgroundResource(R.mipmap.basic_on);
@@ -301,10 +309,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     public void number_key(View view){
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
-
-        flipper.setDisplayedChild(0);
-        imm.showSoftInput(editText, 0);
-
+        flipper.setDisplayedChild(2);
     }
 
 
@@ -312,7 +317,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     public void cal_key(View view){
         num.setBackgroundResource(R.mipmap.basic_off);
         cal.setBackgroundResource(R.mipmap.group_on);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
         flipper.setDisplayedChild(1);
     }
 
@@ -320,9 +324,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     //키보드 올라와있을때 빈화면 클릭시 키보드 내리기
     public void click(View view){
         flipper.setDisplayedChild(0);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
         select_key.setVisibility(View.INVISIBLE);
-
         spacer1.setVisibility(View.VISIBLE);
         spacer2.setVisibility(View.GONE);
         num.setBackgroundResource(R.mipmap.basic_on);
@@ -504,6 +506,12 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
             // 디바이스 키중 Back버튼 눌렀을때 키보드가 올라와있으면 키보드 닫기
             if(flipper.getCurrentView().getId() == R.id.firstViewFlipper){
+                flipper.setDisplayedChild(0);
+                spacer1.setVisibility(View.VISIBLE);
+                spacer2.setVisibility(View.GONE);
+                num.setBackgroundResource(R.mipmap.basic_on);
+                cal.setBackgroundResource(R.mipmap.group_off);
+            }else if(flipper.getCurrentView().getId() == R.id.secondViewFlipper){
                 flipper.setDisplayedChild(0);
                 spacer1.setVisibility(View.VISIBLE);
                 spacer2.setVisibility(View.GONE);

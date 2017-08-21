@@ -9,7 +9,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -94,31 +93,31 @@ public class SetActivity extends Activity {
             }
         });
 
-        soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    viveSwt.setChecked(false);
-                }else{
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    viveSwt.setChecked(true);
-                }
-            }
-        });
-
-        viveSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    soundSwt.setChecked(false);
-                }else{
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    soundSwt.setChecked(true);
-                }
-            }
-        });
+//        soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b){
+//                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+//                    viveSwt.setChecked(false);
+//                }else{
+//                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+//                    viveSwt.setChecked(true);
+//                }
+//            }
+//        });
+//
+//        viveSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if(b){
+//                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+//                    soundSwt.setChecked(false);
+//                }else{
+//                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+//                    soundSwt.setChecked(true);
+//                }
+//            }
+//        });
         //버전체크
         final PackageInfo pakageInfo;
         try {

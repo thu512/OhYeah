@@ -21,6 +21,8 @@
     <string name="join_pwd_check1">최소 8자리, 최대 15자리 이하</string>
     <string name="join_pwd_check2">"영문, 숫자 조합"</string>
     <string name="join_pwd_check_msg">비밀번호가 일치하지 않습니다.</string>
+    <string name="join_cencel">취소</string>
+    <string name="join_ok">가입</string>
 
 
     <!--main액티비티-->
@@ -43,7 +45,7 @@
     <string name="budget_error3">예산을 입력하세요.</string>
 
     <!--커스텀 다이얼로그-->
-    <string name="dialog_txt">월급일 지정</string>
+    <string name="dialog_txt">월급일</string>
     <string name="dialog_ok">확인</string>
     <string name="dialog_cencel">취소</string>
 
@@ -114,8 +116,12 @@
     <string name="pwd5"> / </string>
     <string name="pwd6">영문, 숫자 조합</string>
 
-
-
+    <!--비상금 추가 다이얼로그-->
+    <string name="nadd">오늘 예산에 비상금을\n얼마를 추가하시겠습니까?</string>
+    <string name="nadd1">남은 비상금</string>
+    <string name="nadd2">확인</string>
+    <string name="nadd3">취소</string>
+    <string name="nadd4">비상금보다 작은 금액을 입력해야 합니다.</string>
 
 
     <!--이용약관-->

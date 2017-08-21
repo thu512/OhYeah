@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -19,38 +20,48 @@
         <ProgressBar
             android:id="@+id/pb1"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="234.5dp"
+            android:layout_height="234.5dp"
             android:layout_gravity="center_horizontal"
             android:indeterminate="false"
             android:max="100"
             android:progress="25"
             android:progressDrawable="@drawable/progress"
             android:secondaryProgress="100"
-            />
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="첫번째 페이지"
-            android:textColor="#FFFFFF"
-            android:textSize="30dp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView"
+            android:layout_width="141.3dp"
+            android:layout_height="69dp"
+            android:text="77777"
+            android:textSize="46.5sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="44dp"
+            android:textSize="16.8sp"
+            android:textColor="#ffffff"
+            android:text="@string/main_won"
+            android:layout_alignBaseline="@+id/textView"
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/textView" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="92.8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
             android:textSize="12.3sp"
             android:textColor="#b6fff5"
-            android:gravity="center_horizontal"
-            android:text="@string/main_today_money" />
+            android:gravity="center"
+            android:text="@string/main_today_money"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <android.support.v4.widget.Space

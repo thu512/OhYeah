@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
+import com.changjoo.ohyeah.NestAddDialog;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.TradeModel;
 import com.changjoo.ohyeah.utill.U;
@@ -59,7 +60,7 @@ public class MainActivity extends Activity {
     pagerAdapter pagerAdapter;
     Button set_btn;
     Button wallet_btn;
-
+    NestAddDialog nestAddDialog;
 
     @Subscribe
     public void recvBus(String msg){
@@ -273,6 +274,27 @@ public class MainActivity extends Activity {
             }
         });
 
+
+
+
+        ///===============================팝업 테스트==============================================
+        //=========================================================================================
+        nestAddDialog = new NestAddDialog(MainActivity.this, "80000", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nestAddDialog.dismiss();
+            }
+        },
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        nestAddDialog.dismiss();
+                    }
+                }
+        );
+        nestAddDialog.show();
+
+
     }
 
 
@@ -367,6 +389,9 @@ public class MainActivity extends Activity {
             window.setStatusBarColor(Color.parseColor(color));
         }
     }
+
+
+
 
 }
 

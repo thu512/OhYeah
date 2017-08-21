@@ -27,15 +27,15 @@
         android:background="@color/colorEdittext">
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="38dp"
-            android:layout_height="44dp"
+            android:layout_width="28.5dp"
+            android:layout_height="33dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:srcCompat="@mipmap/sign_up_icon" />
         <TextView
             android:id="@+id/error_msg"
             android:layout_width="match_parent"
-            android:layout_height="21dp"
+            android:layout_height="19dp"
             android:text="@string/join_pwd_check_msg"
             android:textAlignment="center"
             android:textSize="10.8sp"
@@ -44,51 +44,74 @@
             android:layout_below="@+id/imageView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8.3dp"
             android:visibility="invisible"/>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="325dp"
-        android:layout_gravity="center"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="0.6"
         android:background="@drawable/gray_underline"
-        android:orientation="horizontal"
-        android:weightSum="10">
+        android:orientation="horizontal">
+
 
         <ImageView
             android:id="@+id/email_check_img"
-            android:layout_width="0dp"
-            android:layout_height="13.8dp"
-            android:layout_weight="0.5"
+            android:layout_width="15dp"
+            android:layout_height="10.8dp"
             android:layout_gravity="center"
             app:srcCompat="@mipmap/check_1" />
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="0dp"
+        <android.support.v4.widget.Space
+            android:layout_width="6dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="7.4"
             android:background="@null"
-            android:ems="10"
-            android:hint="@string/join_email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="6dp"
+            android:text="@string/join_email"
             android:singleLine="true"
             android:textColor="#9b9b9b"
-            android:textCursorDrawable="@null"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="133.4dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorEdittext"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="#4a4a4a"
+            android:textSize="15sp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:textCursorDrawable="@null"/>
+
+        <Button
+            android:id="@+id/email_delete"
+            android:layout_width="14.3dp"
+            android:layout_height="14.3dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/delete"
+            android:visibility="invisible"
+            android:onClick="textDelete"/>
+
+        <android.support.v4.widget.Space
+            android:layout_width="15.5dp"
+            android:layout_height="match_parent" />
+
         <Button
             android:id="@+id/dura_button"
-            android:layout_width="0dp"
-            android:layout_height="27.3dp"
-            android:layout_weight="2.1"
-            android:layout_gravity="center_vertical"
-            android:background="@mipmap/button"
-            android:layout_marginBottom="2dp"/>
+            android:layout_width="65.8dp"
+            android:layout_height="25.3dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/button" />
     </LinearLayout>
 
     <android.support.v4.widget.Space
@@ -104,33 +127,54 @@
         android:layout_weight="0.6"
         android:background="@drawable/gray_underline"
         android:orientation="horizontal"
-        android:weightSum="10">
+        >
 
         <ImageView
             android:id="@+id/pwd_check_img"
-            android:layout_width="0dp"
-            android:layout_height="13.8dp"
-            android:layout_weight="0.5"
+            android:layout_width="15dp"
+            android:layout_height="11dp"
             android:layout_gravity="center"
             app:srcCompat="@mipmap/check_1" />
+        <android.support.v4.widget.Space
+            android:layout_width="6dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:text="@string/join_pwd"
+            android:singleLine="true"
+            android:textColor="#9b9b9b"
+            android:textSize="12sp"
+            android:textStyle="normal" />
 
         <EditText
             android:id="@+id/pwd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="9.5"
             android:background="@null"
-            android:ems="10"
-            android:hint="@string/join_pwd"
+            android:ems="15"
+            android:layout_weight="1"
             android:inputType="textPassword"
-            android:paddingLeft="6dp"
             android:selectAllOnFocus="false"
             android:singleLine="true"
-            android:textColor="#9b9b9b"
+            android:textColor="#4a4a4a"
             android:textCursorDrawable="@null"
             android:textSize="13sp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"/>
+
+        <Button
+            android:id="@+id/pw_delete"
+            android:layout_width="14.3dp"
+            android:layout_height="14.3dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/delete"
+            android:visibility="invisible"
+            android:onClick="textDelete"/>
     </LinearLayout>
 
 
@@ -148,23 +192,23 @@
             android:id="@+id/pwd_max"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="8.5sp"
+            android:textSize="9.3sp"
             android:textColor="#9b9b9b"
-            android:textStyle="normal"
+            android:textStyle="italic"
             android:text="@string/join_pwd_check1"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="8.5sp"
-            android:textStyle="normal"
+            android:textSize="9.3sp"
+            android:textStyle="italic"
             android:textColor="#9b9b9b"
-            android:text="   /   "/>
+            android:text=" / "/>
         <TextView
             android:id="@+id/pwd_eng"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="8.5sp"
-            android:textStyle="normal"
+            android:textSize="9.3sp"
+            android:textStyle="italic"
             android:textColor="#9b9b9b"
             android:text="@string/join_pwd_check2"/>
     </LinearLayout>
@@ -176,31 +220,54 @@
         android:layout_weight="0.6"
         android:background="@drawable/gray_underline"
         android:orientation="horizontal"
-        android:weightSum="10">
+        >
 
         <ImageView
             android:id="@+id/pwd2_check_img"
-            android:layout_width="0dp"
-            android:layout_height="13.8dp"
-            android:layout_weight="0.5"
+            android:layout_width="15dp"
+            android:layout_height="10.8dp"
             android:layout_gravity="center"
             app:srcCompat="@mipmap/check_1" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="6dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:hint="@string/join_pwd_check"
+            android:singleLine="true"
+            android:textColor="#9b9b9b"
+            android:textSize="12sp"
+            android:textStyle="normal" />
+
 
         <EditText
             android:id="@+id/pwd2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="9.5"
+            android:layout_weight="1"
             android:background="@null"
-            android:ems="10"
-            android:hint="@string/join_pwd_check"
+            android:ems="15"
             android:textStyle="normal"
             android:inputType="textPassword"
-            android:paddingLeft="6dp"
-            android:textColor="#9b9b9b"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="#4a4a4a"
             android:textCursorDrawable="@null"
             android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/pw_ck_delete"
+            android:layout_width="14.3dp"
+            android:layout_height="14.3dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/delete"
+            android:visibility="invisible"
+            android:onClick="textDelete"/>
 
     </LinearLayout>
 
@@ -219,16 +286,21 @@
             android:id="@+id/join_cancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@mipmap/cancel_bt"
             android:layout_weight="1"
-             />
+            android:text="@string/join_cencel"
+            android:textSize="18.5sp"
+            android:textColor="#000000"
+            android:background="@drawable/gray_ract" />
 
         <Button
             android:id="@+id/join_ok"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@mipmap/ok_bt" />
+            android:text="@string/join_ok"
+            android:textSize="18.5sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/blue_ract_bg" />
     </LinearLayout>
 
 </LinearLayout>

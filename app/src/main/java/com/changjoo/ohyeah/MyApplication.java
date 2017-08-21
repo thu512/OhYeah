@@ -17,7 +17,8 @@ public class MyApplication extends MultiDexApplication
         Typekit.getInstance()
                 .addNormal(Typekit.createFromAsset(this, "NotoSansKR-DemiLight-Hestia.otf"))
                 .addBold(Typekit.createFromAsset(this, "NotoSansKR-Medium-Hestia.otf"))
-                .addCustom1(Typekit.createFromAsset(this, "NotoSansKR-Regular-Hestia.otf"));
+                .addItalic(Typekit.createFromAsset(this, "NotoSansKR-Regular-Hestia.otf"))
+                .addBoldItalic(Typekit.createFromAsset(this, "NotoSansKR-Light-Hestia.otf"));
     }
 //    .addNormal(Typekit.createFromAsset(this, "NanumGothic.ttf"))
 //        .addBold(Typekit.createFromAsset(this, "NanumGothicBold.ttf"))

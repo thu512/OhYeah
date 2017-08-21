@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="267dp"
+        android:layout_height="344.3dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="291dp">
+            <ImageView
+                android:layout_width="32.3dp"
+                android:layout_height="27.8dp"
+                android:src="@mipmap/wallet0"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="33.3dp"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nadd"
+                android:gravity="center"
+                android:layout_below="@+id/imageView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20.3dp"
+                android:textSize="18.5sp"
+                android:textColor="#000000"
+                android:lineSpacingExtra="9.3sp"
+                android:id="@+id/textView11" />
+
+
+            <RelativeLayout
+                android:layout_width="189dp"
+                android:layout_height="29.8dp"
+                android:background="@drawable/gray_underline"
+                android:layout_below="@+id/textView11"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12.3dp"
+                android:orientation="horizontal"
+                android:id="@+id/relativeLayout">
+                <EditText
+                    android:background="@color/colorEdittext"
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="40000"
+                    android:layout_marginBottom="1.5dp"
+                    android:textSize="18.5sp"
+                    android:textColor="#3b4aaa"
+                    android:textStyle="bold"
+                    android:inputType="number"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/main_won"
+                    android:textSize="13.5sp"
+                    android:textColor="#9b9b9b"
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+            
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:text="@string/nadd4"
+                android:textSize="10.8sp"
+                android:textColor="#c33b4d"
+                android:layout_below="@+id/relativeLayout"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true" />
+            
+            
+            
+            <LinearLayout
+                android:layout_width="125dp"
+                android:layout_height="65.5dp"
+                android:orientation="vertical"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18.3dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/nadd1"
+                    android:gravity="center_horizontal|bottom"
+                    android:textSize="25.3sp"
+                    android:textColor="#3b4aaa"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    >
+                    <TextView
+                        android:id="@+id/current_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="8000"
+                        android:textSize="25.3sp"
+                        android:textColor="#3b4aaa"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal|bottom"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/textView12" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/main_won"
+                        android:textSize="25.3sp"
+                        android:textColor="#3b4aaa"
+                        android:gravity="center_horizontal|bottom"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/textView12" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53.3dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/gray_ract"
+                android:textSize="18.5sp"
+                android:textColor="#000000"
+                android:text="취소" />
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/gray_ract"
+                android:textSize="18.5sp"
+                android:textColor="#000000"
+                android:text="확인" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
