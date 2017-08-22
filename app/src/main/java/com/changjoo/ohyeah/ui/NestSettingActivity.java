@@ -19,16 +19,15 @@ import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.changjoo.ohyeah.utill.U.doDiffOfDate;
 
 public class NestSettingActivity extends Activity {
 
@@ -194,7 +193,7 @@ public class NestSettingActivity extends Activity {
         U.getInstance().log(current+","+next+" 날짜 차 "+doDiffOfDate(next,current));
 
 
-        result = (budget-fix-nest)/(int)doDiffOfDate(next,current);
+        result = (budget-fix-nest)/(int)U.getInstance().doDiffOfDate(next,current);
         if(result<0){
             result=0;
         }
@@ -202,25 +201,6 @@ public class NestSettingActivity extends Activity {
     }
 
 
-    // 두날짜의 차이 구하기
-    public static long doDiffOfDate(String end, String start){
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-        Date beginDate = null;
-        Date endDate = null;
-        try {
-            beginDate = formatter.parse(start);
-            endDate = formatter.parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
-        long diff = endDate.getTime() - beginDate.getTime();
-
-        long diffDays = diff / (24 * 60 * 60 * 1000);
-
-        System.out.println("날짜차이=" + diffDays);
-        return diffDays;
-    }
 
 }

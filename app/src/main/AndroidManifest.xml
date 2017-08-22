@@ -44,7 +44,11 @@
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app" />
         <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.JoinActivity" />
@@ -54,16 +58,20 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".ui.BudgetSettingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".ui.PurposeSetActivity"></activity>
-        <activity android:name=".ui.NestSettingActivity"></activity>
+
+
+        <activity android:name=".ui.BudgetSettingActivity">
+
+        </activity>
+        <activity android:name=".ui.PurposeSetActivity">
+
+        </activity>
+        <activity android:name=".ui.NestSettingActivity">
+
+        </activity>
         <activity android:name=".terms.Terms1Activity" />
         <activity android:name=".terms.Terms2Activity" />
         <activity android:name=".ui.ModifySettingActivity" />

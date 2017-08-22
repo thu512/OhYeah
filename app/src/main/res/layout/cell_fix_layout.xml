@@ -7,6 +7,14 @@
     android:layout_marginBottom="13.8dp"
     android:weightSum="2">
 
+    <Button
+        android:id="@+id/del"
+        android:layout_width="17.5dp"
+        android:layout_height="17.5dp"
+        android:background="@mipmap/delete1"
+        android:visibility="gone"
+        />
+
     <EditText
         android:id="@+id/fix_name"
         android:background="@null"

@@ -52,18 +52,25 @@ public class FixSettingActivity extends Activity {
 
         //스와이프 아이템 삭제
         ItemTouchHelper.Callback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            int position;
+
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return true;
+                return false;
             }
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 // 삭제되는 아이템의 포지션을 가져온다
-                final int position = viewHolder.getAdapterPosition();
+                position = viewHolder.getAdapterPosition();
                 String name;
                 String money;
-                if((fix_list.findViewHolderForLayoutPosition(position)) instanceof FixViewHolder){
+                U.getInstance().log("스와이프 포지션: "+position);
+                U.getInstance().log("아이템 개수: "+item_cnt);
+                if(position == (item_cnt-1)){
+
+                    return;
+                } else if((fix_list.findViewHolderForLayoutPosition(position)) instanceof FixViewHolder){
                     FixViewHolder fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(position);
                     name = fixViewHolder.fix_name.getText().toString();
                     money = fixViewHolder.fix_money.getText().toString();
@@ -74,16 +81,17 @@ public class FixSettingActivity extends Activity {
                             }
                         }
                     }
+                    // 데이터의 해당 포지션을 삭제한다
+                    item_cnt--;
+                    // 아답타에게 알린다
+                    fixAdapter.notifyItemRemoved(position);
                 }
-                // 데이터의 해당 포지션을 삭제한다
-                item_cnt--;
-                // 아답타에게 알린다
-                fixAdapter.notifyItemRemoved(position);
+
             }
         };
+        simpleItemTouchCallback.isItemViewSwipeEnabled();
         itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(fix_list);
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,30 +178,18 @@ public class FixSettingActivity extends Activity {
     }
 
     //고정 지출 입력 뷰홀더=
-    public class FixViewHolder extends RecyclerView.ViewHolder {
+    public class FixViewHolder extends RecyclerView.ViewHolder{
         EditText fix_name, fix_money;
-
+        Button del;
         public FixViewHolder(View itemView) {
             super(itemView);
             fix_name = (EditText) itemView.findViewById(R.id.fix_name);
             fix_money = (EditText) itemView.findViewById(R.id.fix_money);
+            del = (Button)itemView.findViewById(R.id.del);
         }
     }
 
-    //고정지출 입력 뷰 추가하는 버튼 뷰홀더
-    class BtnViewHolder extends RecyclerView.ViewHolder {
-        Button add_btn;
-        public BtnViewHolder(View itemView) {
-            super(itemView);
-            add_btn = (Button) itemView.findViewById(R.id.add_btn);
-            add_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                }
-            });
-        }
-    }
 
     //adapter
     class FixAdapter extends RecyclerView.Adapter<FixViewHolder> {
@@ -204,6 +200,14 @@ public class FixSettingActivity extends Activity {
             switch (viewType) {
                 //고정지출입력 뷰
                 case 1:
+
+                    view1.findViewById(R.id.del).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
                     return new FixViewHolder(view1);
                 //버튼뷰
                 case 0:

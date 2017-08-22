@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.Space;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,7 +36,10 @@ import com.shawnlin.numberpicker.NumberPicker;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -50,6 +53,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     BackPressEditText editText;
     EditText day;
+    TextView remain_day;
     TextView error1;
     TextView error_msg;
     ViewFlipper flipper;
@@ -78,12 +82,27 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     Button btn_result;
     Button btn_down;
     Button submit;
+
+
+    Button bt0;
+    Button bt1;
+    Button bt2;
+    Button bt3;
+    Button bt4;
+    Button bt5;
+    Button bt6;
+    Button bt7;
+    Button bt8;
+    Button bt9;
+    Button bt_down;
+    Button bt_del;
+
     private ArrayList<String> operatorList;
     private boolean isPreOperator;
-    InputMethodManager imm;
+
     Boolean error_check1;
     Boolean error_check2;
-    Boolean cal_check;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +117,34 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         spacer2 = (Space)findViewById(R.id.spacer2);
         num=(Button) findViewById(R.id.num);
         cal=(Button) findViewById(R.id.cal);
+        remain_day = (TextView)findViewById(R.id.remain_day);
+
+        bt0 = (Button) num_keyboard.findViewById(R.id.bt0);
+        bt1 = (Button) num_keyboard.findViewById(R.id.bt1);
+        bt2 = (Button) num_keyboard.findViewById(R.id.bt2);
+        bt3 = (Button) num_keyboard.findViewById(R.id.bt3);
+        bt4 = (Button) num_keyboard.findViewById(R.id.bt4);
+        bt5 = (Button) num_keyboard.findViewById(R.id.bt5);
+        bt6 = (Button) num_keyboard.findViewById(R.id.bt6);
+        bt7 = (Button) num_keyboard.findViewById(R.id.bt7);
+        bt8 = (Button) num_keyboard.findViewById(R.id.bt8);
+        bt9 = (Button) num_keyboard.findViewById(R.id.bt9);
+        bt_down = (Button) num_keyboard.findViewById(R.id.bt_down);
+        bt_del = (Button) num_keyboard.findViewById(R.id.bt_del);
+        bt0.setOnClickListener(this);
+        bt1.setOnClickListener(this);
+        bt2.setOnClickListener(this);
+        bt3.setOnClickListener(this);
+        bt4.setOnClickListener(this);
+        bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
+        bt7.setOnClickListener(this);
+        bt8.setOnClickListener(this);
+        bt9.setOnClickListener(this);
+        bt_del.setOnClickListener(this);
+        bt_down.setOnClickListener(this);
+
+
         btn0 = (Button) cal_keyboard.findViewById(R.id.btn0);
         btn1 = (Button) cal_keyboard.findViewById(R.id.btn1);
         btn2 = (Button) cal_keyboard.findViewById(R.id.btn2);
@@ -136,6 +183,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         btn_result.setOnClickListener(this);
         btn_down.setOnClickListener(this);
 
+
         operatorList = new ArrayList<String>();
         isPreOperator = false;
 
@@ -167,7 +215,10 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         flipper.addView(num_keyboard, 2);
         flipper.setDisplayedChild(0);
         editText = (BackPressEditText)findViewById(R.id.editText);
-        editText.setInputType(0);
+        editText.setInputType(InputType.TYPE_NULL);
+        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setTextIsSelectable(true);
+
         editText.setSelection(editText.getText().length());
         editText.setOnBackPressListener(onBackPressListener);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -332,7 +383,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     }
 
 
-    //계산기 키보드 버튼 이벤트
+    //계산기 키보드/ 기본 키보드 버튼 이벤트
     @Override
     public void onClick(View v) {
         if( v.equals( btn1 )){
@@ -372,7 +423,6 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             operatorList.clear();
         }else if( v.equals( btn_del )){
             if( editText.getText().length() != 0 ) {
-                U.getInstance().log(operatorList.toString());
                 String str = editText.getText().subSequence( editText.getText().length()-1, editText.getText().length() ).toString();
                 if( "+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)){
                     operatorList.remove(operatorList.size()-1);
@@ -415,15 +465,64 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             operatorList.add("X");
         }else if(v.equals(btn_down)){
             flipper.setDisplayedChild(0);
-            imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
             select_key.setVisibility(View.INVISIBLE);
             spacer1.setVisibility(View.VISIBLE);
             spacer2.setVisibility(View.GONE);
             num.setBackgroundResource(R.mipmap.basic_on);
             cal.setBackgroundResource(R.mipmap.group_off);
         } else if( v.equals( btn_result )){
+            if(editText.getText().toString().equals("")){
+                return;
+            }else{
+                String str = editText.getText().subSequence( editText.getText().length()-1, editText.getText().length() ).toString();
+                if( "+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)){
+                    return;
+                }
+            }
             editText.setText( calc(editText.getText().toString()) );
             editText.setSelection(editText.length());
+        }else if( v.equals( bt0 )){
+            editText.setText( editText.getText()+"0");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt1 )){
+            editText.setText( editText.getText()+"1");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt2 )){
+            editText.setText( editText.getText()+"2");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt3 )){
+            editText.setText( editText.getText()+"3");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt4 )){
+            editText.setText( editText.getText()+"4");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt5 )){
+            editText.setText( editText.getText()+"5");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt6 )){
+            editText.setText( editText.getText()+"6");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt7 )){
+            editText.setText( editText.getText()+"7");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt8 )){
+            editText.setText( editText.getText()+"8");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt9 )){
+            editText.setText( editText.getText()+"9");
+            editText.setSelection(editText.length());
+        }else if( v.equals( bt_del )){
+            if( editText.getText().length() != 0 ) {
+                editText.setText( editText.getText().subSequence( 0 , editText.getText().length()-1));
+                editText.setSelection(editText.length());
+            }
+        }else if( v.equals( bt_down )){
+            flipper.setDisplayedChild(0);
+            select_key.setVisibility(View.INVISIBLE);
+            spacer1.setVisibility(View.VISIBLE);
+            spacer2.setVisibility(View.GONE);
+            num.setBackgroundResource(R.mipmap.basic_on);
+            cal.setBackgroundResource(R.mipmap.group_off);
         }
     }
 
@@ -624,6 +723,9 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
             public void onClick(View v)
             {
                 day.setText(Integer.toString(number_picker.getValue()));
+
+                remain_day.setText(""+calRemainDay(number_picker.getValue()));
+
                 myDialog.dismiss();
             }
         });
@@ -636,6 +738,46 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                 myDialog.cancel();
             }
         });
+    }
+
+
+
+    //남은 일 구하기
+    public int calRemainDay(int set_day){
+        int nYear;
+        int nMonth;
+        int nDay;
+
+        int nextMonth;
+        int nextYear;
+
+        // 현재 날짜 구하기
+        Calendar calendar = new GregorianCalendar(Locale.KOREA);
+        nYear = calendar.get(Calendar.YEAR);
+        nMonth = calendar.get(Calendar.MONTH) + 1;
+        nDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        if(set_day <= nDay ) {
+            if(nMonth==12) {
+                nextMonth=1;
+                nextYear=nYear+1;
+            }else {
+                nextMonth = nMonth+1;
+                nextYear=nYear;
+            }
+        }else {
+            nextMonth = nMonth;
+            nextYear=nYear;
+        }
+
+        String current= nYear+""+(nMonth<10? "0"+Integer.toString(nMonth):Integer.toString(nMonth)) +""+nDay;
+        String next= nextYear+""+(nextMonth<10? "0"+Integer.toString(nextMonth):Integer.toString(nextMonth)) +""+set_day;
+
+        U.getInstance().log(current+","+next+" 날짜 차 "+U.getInstance().doDiffOfDate(next,current));
+
+
+
+        return (int)U.getInstance().doDiffOfDate(next,current);
     }
 
 }

@@ -9,6 +9,9 @@ import android.util.TypedValue;
 
 import com.squareup.otto.Bus;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,6 +120,28 @@ public class U {
         }
         return (int) px;
     }
+
+    // 두날짜의 차이 구하기
+    public static long doDiffOfDate(String end, String start){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        Date beginDate = null;
+        Date endDate = null;
+        try {
+            beginDate = formatter.parse(start);
+            endDate = formatter.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+        long diff = endDate.getTime() - beginDate.getTime();
+
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+
+        System.out.println("날짜차이=" + diffDays);
+        return diffDays;
+    }
+
 
 
     //인증문자 파싱

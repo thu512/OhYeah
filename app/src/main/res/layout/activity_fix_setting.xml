@@ -152,8 +152,8 @@
         android:layout_weight="8.6"
         android:text="@string/submit"
         android:textSize="18.5sp"
-        android:textColor="#000000"
-        android:background="@drawable/gray_ract" />
+        android:textColor="#ffffff"
+        android:background="@drawable/blue_ract_bg" />
 
 
 </LinearLayout>

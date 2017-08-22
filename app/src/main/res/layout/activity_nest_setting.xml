@@ -135,7 +135,6 @@
             android:background="@drawable/gray_underline"
             android:gravity="center"
             android:inputType="number"
-            android:letterSpacing="-0.03"
             android:lineSpacingExtra="9.3sp"
             android:maxLength="8"
             android:paddingLeft="20dp"
@@ -149,7 +148,6 @@
             android:layout_height="match_parent"
             android:textSize="13.5sp"
             android:textColor="#9b9b9b"
-            android:letterSpacing="-0.03"
             android:lineSpacingExtra="17sp"
             android:gravity="center"
             android:text="@string/main_won"
@@ -175,7 +173,6 @@
         android:text="@string/nest_error"
         android:textSize="10.8sp"
         android:textColor="#c33b4d"
-        android:letterSpacing="-0.05"
         android:lineSpacingExtra="8.3sp"
         android:textStyle="bold"
         android:paddingLeft="20dp"
@@ -188,47 +185,53 @@
         android:layout_weight="2"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:paddingRight="20dp"
+        android:layout_weight="5"
         android:paddingLeft="20dp"
-        >
+        android:paddingRight="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:text="@string/nest_set"
-            android:textSize="25.3sp"
-            android:textColor="#3b4aaa"
             android:gravity="center"
-            />
+            android:text="@string/nest_set"
+            android:textColor="#3b4aaa"
+            android:textSize="25.3sp"
+            android:textStyle="bold"
+            android:id="@+id/textView15"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
         <TextView
             android:id="@+id/percent"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textStyle="bold"
-            android:text="00"
-            android:ems="2"
-            android:maxLength="3"
-            android:textSize="25.3sp"
-            android:textColor="#3b4aaa"
+
             android:gravity="center"
-            />
+            android:maxLength="3"
+            android:text="00"
+            android:textColor="#3b4aaa"
+            android:textSize="25.3sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView15" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/nest_per"
-            android:textSize="25.3sp"
-            android:textColor="#3b4aaa"
             android:gravity="center"
+            android:text="@string/nest_per"
+            android:textColor="#3b4aaa"
+            android:textSize="25.3sp"
             android:textStyle="bold"
-            />
-    </LinearLayout>
+            android:id="@+id/textView14"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/percent" />
+    </RelativeLayout>
 
 
     <android.support.v4.widget.Space
