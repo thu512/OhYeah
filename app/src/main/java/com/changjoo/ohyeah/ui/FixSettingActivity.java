@@ -127,7 +127,7 @@ public class FixSettingActivity extends Activity {
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
                 if(Fix_ex.size()>0){
                     Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(FixSettingActivity.this),Fix_ex);
-                    Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushFix(req_fix);
+                    Call<Res> res = SNet.getInstance().getAllFactoryIm().pushFix(req_fix);
                     res.enqueue(new Callback<Res>() {
                         @Override
                         public void onResponse(Call<Res> call, Response<Res> response) {

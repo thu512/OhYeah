@@ -62,7 +62,7 @@ public class PurposeSetActivity extends Activity {
                 if (!money.equals("")) {
                     int m = Integer.parseInt(money);
                     Req_Purpose req_purpose = new Req_Purpose(U.getInstance().getEmail(PurposeSetActivity.this), m, selectedItem);
-                    Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushPurpose(req_purpose);
+                    Call<Res> res = SNet.getInstance().getAllFactoryIm().pushPurpose(req_purpose);
                     res.enqueue(new Callback<Res>() {
                         @Override
                         public void onResponse(Call<Res> call, Response<Res> response) {

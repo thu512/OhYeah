@@ -52,9 +52,18 @@ public class Res {
         Expenditure Expenditure;
         Asset Asset;
         Member Member;
+        Goal Goal;
         int n;
         int nModified;
         int ok;
+
+        public Doc.Goal getGoal() {
+            return Goal;
+        }
+
+        public void setGoal(Doc.Goal goal) {
+            Goal = goal;
+        }
 
         public int getN() {
             return n;
@@ -88,6 +97,7 @@ public class Res {
                     ", Expenditure=" + Expenditure +
                     ", Asset=" + Asset +
                     ", Member=" + Member +
+                    ", Goal=" + Goal +
                     ", n=" + n +
                     ", nModified=" + nModified +
                     ", ok=" + ok +
@@ -135,25 +145,95 @@ public class Res {
         }
 
         public class Expenditure{
-            ArrayList<Integer> Income;
-            ArrayList<Integer> Expense;
+            ArrayList<Expense> Expense;
+            int total_ex_money;
+            int month_total_ex;
 
-            public ArrayList<Integer> getIncome() {
-                return Income;
+            @Override
+            public String toString() {
+                return "Expenditure{" +
+                        "Expense=" + Expense +
+                        ", total_ex_money=" + total_ex_money +
+                        ", month_total_ex=" + month_total_ex +
+                        '}';
             }
 
-            public void setIncome(ArrayList<Integer> income) {
-                Income = income;
-            }
-
-            public ArrayList<Integer> getExpense() {
+            public ArrayList<com.changjoo.ohyeah.model.Expense> getExpense() {
                 return Expense;
             }
 
-            public void setExpense(ArrayList<Integer> expense) {
+            public void setExpense(ArrayList<com.changjoo.ohyeah.model.Expense> expense) {
                 Expense = expense;
             }
+
+            public int getTotal_ex_money() {
+                return total_ex_money;
+            }
+
+            public void setTotal_ex_money(int total_ex_money) {
+                this.total_ex_money = total_ex_money;
+            }
+
+            public int getMonth_total_ex() {
+                return month_total_ex;
+            }
+
+            public void setMonth_total_ex(int month_total_ex) {
+                this.month_total_ex = month_total_ex;
+            }
         }
+
+
+        public class Goal{
+            int goal_item;
+            Double ratio_saving;
+            int now_saving;
+            int goal_money;
+
+            @Override
+            public String toString() {
+                return "Goal{" +
+                        "goal_item=" + goal_item +
+                        ", ratio_saving=" + ratio_saving +
+                        ", now_saving=" + now_saving +
+                        ", goal_money=" + goal_money +
+                        '}';
+            }
+
+            public int getGoal_item() {
+                return goal_item;
+            }
+
+            public void setGoal_item(int goal_item) {
+                this.goal_item = goal_item;
+            }
+
+            public Double getRatio_saving() {
+                return ratio_saving;
+            }
+
+            public void setRatio_saving(Double ratio_saving) {
+                this.ratio_saving = ratio_saving;
+            }
+
+            public int getNow_saving() {
+                return now_saving;
+            }
+
+            public void setNow_saving(int now_saving) {
+                this.now_saving = now_saving;
+            }
+
+            public int getGoal_money() {
+                return goal_money;
+            }
+
+            public void setGoal_money(int goal_money) {
+                this.goal_money = goal_money;
+            }
+        }
+
+
         public class Asset{
             int budget;
             int spare_money;

@@ -95,7 +95,7 @@ public class JoinActivity extends Activity {
                 }
                 Req_email req_email = new Req_email();
                 req_email.setEmail(email.getText().toString().trim());
-                Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().check_email(req_email);
+                Call<Res> res1 = SNet.getInstance().getAllFactoryIm().check_email(req_email);
                 res1.enqueue(new Callback<Res>() {
                     @Override
                     public void onResponse(Call<Res> call, Response<Res> response) {
@@ -233,7 +233,7 @@ public class JoinActivity extends Activity {
                     req_login.setPwd(pw);
                     U.getInstance().log(""+pw);
                     //이면 통신보냄
-                    Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().join(req_login);
+                    Call<Res> res1 = SNet.getInstance().getAllFactoryIm().join(req_login);
                     res1.enqueue(new Callback<Res>() {
                         @Override
                         public void onResponse(Call<Res> call, Response<Res> response) {

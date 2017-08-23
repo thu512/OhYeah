@@ -218,7 +218,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         editText.setInputType(InputType.TYPE_NULL);
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
         editText.setTextIsSelectable(true);
-
+        editText.setInputType(0);
         editText.setSelection(editText.getText().length());
         editText.setOnBackPressListener(onBackPressListener);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -654,7 +654,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         final int day = set_date;
         Req_Budget req_budget = new Req_Budget(email,budget,set_date);
 
-        Call<Res> res = SNet.getInstance().getMemberFactoryIm().pushBudget(req_budget);
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().pushBudget(req_budget);
         res.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {

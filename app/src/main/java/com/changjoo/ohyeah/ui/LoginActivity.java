@@ -151,7 +151,7 @@ public class LoginActivity extends Activity {
         //헤더 작성
         String authorization = "Bearer " + accessToken;
 
-        Call<NaverProfileModel> res = Net.getInstance().getMemberFactoryIm().profile(authorization);
+        Call<NaverProfileModel> res = Net.getInstance().getAllFactoryIm().profile(authorization);
         //응답 처리 작업
         res.enqueue(new Callback<NaverProfileModel>() {
             @Override
@@ -205,7 +205,7 @@ public class LoginActivity extends Activity {
         req_login.setEmail(email);
         req_login.setPwd(pwd);
         U.getInstance().log(req_login.toString());
-        Call<Res> res = SNet.getInstance().getMemberFactoryIm().login(req_login);
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().login(req_login);
         res.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {
@@ -271,7 +271,7 @@ public class LoginActivity extends Activity {
         //받아온이메일을 중복확인 -> 중복된이메일 존재 하면 sp이메일저장후 메인으로 점프
         //                    -> 중복 이메일 존재 하지않으면 회원가입도메인으로 ㄱㄱ
 
-        Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().check_email(req_email);
+        Call<Res> res1 = SNet.getInstance().getAllFactoryIm().check_email(req_email);
         res1.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {
@@ -318,7 +318,7 @@ public class LoginActivity extends Activity {
 
     //회원가입
     public void signUp(Req req_login){
-        Call<Res> res1 = SNet.getInstance().getMemberFactoryIm().join(req_login);
+        Call<Res> res1 = SNet.getInstance().getAllFactoryIm().join(req_login);
         res1.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {

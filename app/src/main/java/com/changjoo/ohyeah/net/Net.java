@@ -28,15 +28,15 @@ public class Net {
 
     //API담당 인터페이스 생성
     //API담당 인터페이스의 객체를 생성
-    MemberFactoryIm memberFactoryIm;
+    AllFactoryIm allFactoryIm;
 
 
     //객체를 리턴해주는 getter 준비
-    public MemberFactoryIm getMemberFactoryIm() {
-        if(memberFactoryIm == null){
-            memberFactoryIm=retrofit.create(MemberFactoryIm.class);
+    public AllFactoryIm getAllFactoryIm() {
+        if(allFactoryIm == null){
+            allFactoryIm =retrofit.create(AllFactoryIm.class);
         }
-        return memberFactoryIm;
+        return allFactoryIm;
     }
 
 

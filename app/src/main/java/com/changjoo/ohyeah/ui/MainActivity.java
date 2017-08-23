@@ -29,16 +29,23 @@ import android.widget.Toast;
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.NestAddDialog;
 import com.changjoo.ohyeah.R;
-import com.changjoo.ohyeah.model.TradeModel;
+import com.changjoo.ohyeah.model.Expense;
+import com.changjoo.ohyeah.model.Req_Main_day;
+import com.changjoo.ohyeah.model.Res;
+import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.otto.Subscribe;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import layout.FirstFragment;
 import layout.SecondFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
@@ -52,7 +59,10 @@ public class MainActivity extends Activity {
     boolean flag = false;
     RecyclerView list;
     ImageView down_img;
-    ArrayList<TradeModel> tradeModels = new ArrayList<>(); //임시 설정
+
+    ArrayList<Expense> expenses_total = new ArrayList<>(); //전제 거래내역 저장
+    ArrayList<Expense> expenses = new ArrayList<>(); //상황에 맞게 데이터 변경
+
     TradeAdapter tradeAdapter;
     Button all_btn;
     Button in_btn;
@@ -62,21 +72,32 @@ public class MainActivity extends Activity {
     Button wallet_btn;
     NestAddDialog nestAddDialog;
 
+
+    int budget;
+    int first_budget;
+    int daily_budget;
+    int goal_item;
+    int goal_money;
+    int now_saving;
+    double ratio_saving;
+
+
+
+
     @Subscribe
-    public void recvBus(String msg){
-        Log.d("FFF",""+msg);
-        Toast.makeText(this,""+msg,Toast.LENGTH_SHORT).show();
+    public void recvBus(String msg) {
+        Log.d("FFF", "" + msg);
+        Toast.makeText(this, "" + msg, Toast.LENGTH_SHORT).show();
 
-        NotificationManager notificationManager= (NotificationManager)MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(),MainActivity.class); //인텐트 생성.
-
+        NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
+        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(), MainActivity.class); //인텐트 생성.
 
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext());
-        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
+        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
 
 
-        PendingIntent pendingNotificationIntent = PendingIntent.getActivity( MainActivity.this,0, intent1, FLAG_UPDATE_CURRENT);
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(MainActivity.this, 0, intent1, FLAG_UPDATE_CURRENT);
 
         builder.setSmallIcon(R.mipmap.pin).setTicker("HETT").setWhen(System.currentTimeMillis())
                 .setNumber(1).setContentTitle("푸쉬 제목").setContentText("푸쉬내용")
@@ -93,16 +114,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-
-
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
 
-        wallet_btn = (Button)findViewById(R.id.wallet_btn);
-        set_btn = (Button)findViewById(R.id.set_btn);
-        all_btn = (Button)findViewById(R.id.all_btn);
-        in_btn = (Button)findViewById(R.id.in_btn);
-        out_btn = (Button)findViewById(R.id.out_btn);
+        wallet_btn = (Button) findViewById(R.id.wallet_btn);
+        set_btn = (Button) findViewById(R.id.set_btn);
+        all_btn = (Button) findViewById(R.id.all_btn);
+        in_btn = (Button) findViewById(R.id.in_btn);
+        out_btn = (Button) findViewById(R.id.out_btn);
         dragView = (LinearLayout) findViewById(R.id.dragView);
         alpha = dragView.getBackground();
         list = (RecyclerView) findViewById(R.id.list);
@@ -144,8 +163,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        //금액이 마이너스인 상황 가정
-        bg.setBackgroundResource(R.drawable.bg_gradation3);
+
+
+
+
+
         vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -155,24 +177,22 @@ public class MainActivity extends Activity {
             public void onPageSelected(int position) {
                 if (position == 0) {
                     //금액이 마이너스일때 해당 백그라운드 적용
-                    bg.setBackgroundResource(R.drawable.bg_transition2);
-                    if (true) {
-
+                    if(daily_budget<0){
+                        bg.setBackgroundResource(R.drawable.bg_transition2);
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition2);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
-                        changeStatusBarColor("#00360909");
+                        changeStatusBarColor("#360909");
                     }
+
                 } else {
-
-                    bg.setBackgroundResource(R.drawable.bg_transition1);
-                    //만약 현재 백그라운드가 빨간색이면 해당 if통과
-                    if (true) {
-
+                    if(daily_budget<0){
+                        bg.setBackgroundResource(R.drawable.bg_transition1);
+                        //만약 현재 백그라운드가 빨간색이면 해당 if통과
                         TransitionDrawable td = (TransitionDrawable) getResources().getDrawable(R.drawable.bg_transition1);
                         bg.setBackground(td);
                         td.startTransition(700); // duration 3 seconds
-                        changeStatusBarColor("#003b4aaa");
+                        changeStatusBarColor("#3b4aaa");
                     }
                 }
             }
@@ -187,7 +207,7 @@ public class MainActivity extends Activity {
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mLayout.setShadowHeight(0);
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        mLayout.setPanelHeight(U.getInstance().getDpToPixel(this,175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
+        mLayout.setPanelHeight(U.getInstance().getDpToPixel(this, 175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
         alpha.setAlpha(0);
         dragView.setBackground(alpha);
 
@@ -214,18 +234,11 @@ public class MainActivity extends Activity {
             }
         });
 
-        //임시 더미데이타
-        tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));
-        tradeModels.add(new TradeModel("08:19", "애버랜드", 55000));
-        tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));tradeModels.add(new TradeModel("08:18", "주식회사 카카오", 3500));
-        tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));tradeModels.add(new TradeModel("08:20", "롯데월드", 350000));
-
 
         //리싸이클러 뷰
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         tradeAdapter = new TradeAdapter();
         //데이터셋팅
-
         list.setAdapter(tradeAdapter);
 
         //전체, 입금, 출금 내역 불러오기 => 어댑터 notify
@@ -235,6 +248,11 @@ public class MainActivity extends Activity {
                 all_btn.setBackgroundResource(R.mipmap.all_bt_on);
                 in_btn.setBackgroundResource(R.mipmap.deposit_off);
                 out_btn.setBackgroundResource(R.mipmap.withdraw_off);
+                expenses.clear();
+                for(Expense expense:expenses_total){
+                    expenses.add(expense);
+                }
+                tradeAdapter.notifyDataSetChanged();
 
             }
         });
@@ -245,6 +263,14 @@ public class MainActivity extends Activity {
                 all_btn.setBackgroundResource(R.mipmap.all_bt_off);
                 in_btn.setBackgroundResource(R.mipmap.deposit_on);
                 out_btn.setBackgroundResource(R.mipmap.withdraw_off);
+
+                expenses.clear();
+                for(Expense expense:expenses_total){
+                    if(expense.getEx_in().equals("입금")){
+                        expenses.add(expense);
+                    }
+                }
+                tradeAdapter.notifyDataSetChanged();
             }
         });
 
@@ -254,6 +280,15 @@ public class MainActivity extends Activity {
                 all_btn.setBackgroundResource(R.mipmap.all_bt_off);
                 in_btn.setBackgroundResource(R.mipmap.deposit_off);
                 out_btn.setBackgroundResource(R.mipmap.withdraw_on);
+
+                expenses.clear();
+                for(Expense expense:expenses_total){
+                    if(expense.getEx_in().equals("출금")){
+                        expenses.add(expense);
+                    }
+                }
+                tradeAdapter.notifyDataSetChanged();
+
             }
         });
 
@@ -273,8 +308,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
 
 
         ///===============================팝업 테스트==============================================
@@ -298,6 +331,15 @@ public class MainActivity extends Activity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        expenses_total.clear();
+        expenses.clear();
+        //데이터 불러오기=========================================================================
+        readDay();
+    }
+
     //뷰페이저 아답타
     private class pagerAdapter extends FragmentStatePagerAdapter {
         public pagerAdapter(android.support.v4.app.FragmentManager fm) {
@@ -308,7 +350,7 @@ public class MainActivity extends Activity {
         public android.support.v4.app.Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new FirstFragment();
+                    return FirstFragment.create(first_budget,daily_budget,ratio_saving,goal_item);
                 case 1:
                     return new SecondFragment();
                 default:
@@ -332,6 +374,11 @@ public class MainActivity extends Activity {
                     return null;
             }
         }
+        @Override
+        public int getItemPosition(Object item) {
+            return POSITION_NONE;
+        }
+
     }
 
 
@@ -360,29 +407,29 @@ public class MainActivity extends Activity {
         @Override
         public void onBindViewHolder(TradeViewHolder holder, int position) {
             //데이터세팅!!!
-            TradeModel tradeModel = tradeModels.get(position);
-            holder.time.setText(tradeModel.getTime());
-            holder.content.setText(tradeModel.getContent());
-            holder.money.setText(Integer.toString(tradeModel.getMoney()));
+            Expense expense = expenses.get(position);
+            if(expense.getEx_in().equals("출금")){
+                holder.money.setText("-"+Integer.toString(expense.getMoney()));
+            }else{
+                holder.money.setText("+"+Integer.toString(expense.getMoney()));
+            }
+            holder.time.setText(expense.getTime());
+            holder.content.setText(expense.getRecord());
+
         }
 
         @Override
         public int getItemCount() {
-            return tradeModels == null ? 0 : tradeModels.size();
+            return expenses == null ? 0 : expenses.size();
         }
     }
 
 
-    //액티비티가 소멸되면 도착역도 폐기한다.
-    @Override
-    protected void onDestroy() {
-        U.getInstance().getAuthBus().unregister(this);
-        super.onDestroy();
-    }
+
 
 
     //상태바 색상 변경
-    public void changeStatusBarColor(String color){
+    public void changeStatusBarColor(String color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -390,8 +437,60 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void readDay() {
+        Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(this));
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().readDay(req_main_day);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
+                        U.getInstance().log("메인 하루 불러오기: " + response.body().toString());
 
+                        budget = response.body().getDoc().getAsset().getBudget();
+                        first_budget = response.body().getDoc().getAsset().getFirst_daily_budget();
+                        daily_budget = response.body().getDoc().getAsset().getDaily_budget();
+                        goal_item = response.body().getDoc().getGoal().getGoal_item();
+                        goal_money = response.body().getDoc().getGoal().getGoal_money();
+                        now_saving = response.body().getDoc().getGoal().getNow_saving();
+                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving();
+                        U.getInstance().log(budget+"/"+daily_budget+"/"+goal_item+"/"+goal_money+"/"+now_saving+"/"+ratio_saving);
+
+                        for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
+                            expenses_total.add(expense);
+                            expenses.add(expense);
+                        }
+
+                        if(daily_budget<0){
+                            bg.setBackgroundResource(R.drawable.bg_gradation3);
+                            changeStatusBarColor("#360909");
+                        }else {
+                            bg.setBackgroundResource(R.drawable.bg_gradation);
+                            changeStatusBarColor("#3b4aaa");
+                        }
+
+                        pagerAdapter.notifyDataSetChanged();
+                        tradeAdapter.notifyDataSetChanged();
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+            }
+        });
+    }
 
 }
 

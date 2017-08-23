@@ -141,7 +141,7 @@ public class SetActivity extends Activity {
                         new View.OnClickListener() { //로그아웃
                             @Override
                             public void onClick(View view) {
-                                Call<Res> res = SNet.getInstance().getMemberFactoryIm().logout();
+                                Call<Res> res = SNet.getInstance().getAllFactoryIm().logout();
                                 res.enqueue(new Callback<Res>() {
                                     @Override
                                     public void onResponse(Call<Res> call, Response<Res> response) {

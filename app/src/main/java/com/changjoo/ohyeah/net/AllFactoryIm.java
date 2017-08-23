@@ -4,6 +4,7 @@ import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req;
 import com.changjoo.ohyeah.model.Req_Budget;
 import com.changjoo.ohyeah.model.Req_Fix;
+import com.changjoo.ohyeah.model.Req_Main_day;
 import com.changjoo.ohyeah.model.Req_Nest;
 import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
@@ -19,7 +20,7 @@ import retrofit2.http.POST;
  * 통신API를 선언한다. 구현X
  */
 
-public interface MemberFactoryIm {
+public interface AllFactoryIm {
 
     // login 통신 담당 메소드 구현
     @GET("v1/nid/me")
@@ -51,6 +52,9 @@ public interface MemberFactoryIm {
 
     @GET("users/logout")
     Call<Res> logout();
+
+    @POST("main/today_view")
+    Call<Res> readDay(@Body Req_Main_day req_main_day);
 
 
 }
