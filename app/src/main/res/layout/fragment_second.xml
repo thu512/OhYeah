@@ -28,35 +28,45 @@
             android:progressDrawable="@drawable/progress"
             android:secondaryProgress="100"
             />
+
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="두번째 페이지"
-            android:textColor="#FFFFFF"
-            android:textSize="30dp"
-            android:layout_gravity="center"
-            android:textStyle="bold"
+            android:id="@+id/month_budget"
+            android:layout_width="141.3dp"
+            android:layout_height="69dp"
+            android:text="77777"
+            android:textSize="40sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:textStyle="bold|italic"
+            android:singleLine="true"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16.8sp"
+            android:textColor="#ffffff"
+            android:text="@string/main_won"
+            android:layout_alignBaseline="@+id/month_budget"
+            android:layout_alignBottom="@+id/month_budget"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/month_budget" />
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="44dp"
             android:textSize="12.3sp"
             android:textColor="#b6fff5"
             android:gravity="center_horizontal"
-            android:text="@string/main_month_money" />
+            android:text="@string/main_month_money"
+            android:layout_below="@+id/month_budget"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="0.2"
         />
 
 
@@ -69,7 +79,7 @@
         android:id="@+id/linearLayout">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/ratio_saving2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -79,7 +89,7 @@
             android:textColor="#b6fff5"
             android:text="80%" />
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/ratio_saving_pb2"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="200dp"
             android:layout_height="3dp"
@@ -91,7 +101,7 @@
             android:progressDrawable="@drawable/progress2"
             android:secondaryProgress="100" />
         <Button
-            android:id="@+id/button"
+            android:id="@+id/goal_item2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"

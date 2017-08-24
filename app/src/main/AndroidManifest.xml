@@ -74,8 +74,9 @@
         </activity>
         <activity android:name=".terms.Terms1Activity" />
         <activity android:name=".terms.Terms2Activity" />
-        <activity android:name=".ui.ModifySettingActivity" />
+        <activity android:name=".ui.ModifySettingActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.ModifyPurposeActivity" />
+        <activity android:name=".ui.ModifyFixActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.SetActivity"></activity>
         <activity android:name=".ui.ChangePwdActivity"></activity>
         <activity android:name=".ui.Widget_SettingActivity"></activity>

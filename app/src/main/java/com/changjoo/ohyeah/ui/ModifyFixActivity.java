@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FixSettingActivity extends Activity {
+public class ModifyFixActivity extends Activity {
     RecyclerView fix_list;
     ArrayList<FixModel> Fix_ex;
     FixAdapter fixAdapter;
@@ -39,7 +39,7 @@ public class FixSettingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fix_setting);
+        setContentView(R.layout.activity_modify_fix);
         submit= (Button)findViewById(R.id.submit);
         fix_list = (RecyclerView) findViewById(R.id.fix_list);
         fix_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -96,7 +96,7 @@ public class FixSettingActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FixSettingActivity.this.finish();
+                ModifyFixActivity.this.finish();
             }
         });
 
@@ -121,13 +121,13 @@ public class FixSettingActivity extends Activity {
                         }
                     }
                 }
-                U.getInstance().setFix(FixSettingActivity.this, sum);
+                U.getInstance().setFix(ModifyFixActivity.this, sum);
                 U.getInstance().log("총고정 지출 액 : "+sum);
 
 
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
                 if(Fix_ex.size()>0){
-                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(FixSettingActivity.this),Fix_ex);
+                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(ModifyFixActivity.this),Fix_ex);
                     Call<Res> res = SNet.getInstance().getAllFactoryIm().pushFix(req_fix);
                     res.enqueue(new Callback<Res>() {
                         @Override
@@ -136,8 +136,8 @@ public class FixSettingActivity extends Activity {
                                 if (response.body() != null) {
                                     if(response.body().getResult()==1){
                                         U.getInstance().log( "고정지출"+response.body().toString());
-                                        Toast.makeText(FixSettingActivity.this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(FixSettingActivity.this, PurposeSetActivity.class);
+                                        Toast.makeText(ModifyFixActivity.this,response.body().getMsg(),Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(ModifyFixActivity.this, PurposeSetActivity.class);
                                         startActivity(intent);
                                     }else{
                                         U.getInstance().log("고정 서버전송 에러");
@@ -165,7 +165,7 @@ public class FixSettingActivity extends Activity {
                 }
                 //추가된 고정지출이 하나도 없을 경우 서버로 전송하지 않고 바로 다음 화면으로
                 else{
-                    Intent intent = new Intent(FixSettingActivity.this, PurposeSetActivity.class);
+                    Intent intent = new Intent(ModifyFixActivity.this, PurposeSetActivity.class);
                     startActivity(intent);
                 }
                 stopPd();
@@ -199,8 +199,8 @@ public class FixSettingActivity extends Activity {
     class FixAdapter extends RecyclerView.Adapter<FixViewHolder> {
         @Override
         public FixViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(FixSettingActivity.this).inflate(R.layout.add_btn, parent, false);
-            final View view1 = LayoutInflater.from(FixSettingActivity.this).inflate(R.layout.cell_fix_layout, parent, false);
+            View view = LayoutInflater.from(ModifyFixActivity.this).inflate(R.layout.add_btn, parent, false);
+            final View view1 = LayoutInflater.from(ModifyFixActivity.this).inflate(R.layout.cell_fix_layout, parent, false);
             switch (viewType) {
                 //고정지출입력 뷰
                 case 1:

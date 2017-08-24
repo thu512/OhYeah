@@ -56,5 +56,9 @@ public interface AllFactoryIm {
     @POST("main/today_view")
     Call<Res> readDay(@Body Req_Main_day req_main_day);
 
+    @POST("main/month_view")
+    Call<Res> readMonth(@Body Req_Main_day req_main_day);
+
+
 
 }

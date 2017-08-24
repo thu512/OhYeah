@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "752057622700",
+    "firebase_url": "https://ohyeah-1159f.firebaseio.com",
+    "project_id": "ohyeah-1159f",
+    "storage_bucket": "ohyeah-1159f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752057622700:android:b3e6f4be4b530674",
+        "android_client_info": {
+          "package_name": "com.changjoo.ohyeah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752057622700-dojd2ahogngpvftkuak39akom996864f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTP2ThyhdyIkGLDYIVk_9hVGSbOHuaDZM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

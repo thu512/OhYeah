@@ -236,6 +236,7 @@ public class Res {
 
         public class Asset{
             int budget;
+            int first_month_budget;
             int spare_money;
             int ratio_spare;
             int d_day;
@@ -245,10 +246,19 @@ public class Res {
             String setb_yn;
             ArrayList<Fix_ex> Fix_ex;
 
+            public int getFirst_month_budget() {
+                return first_month_budget;
+            }
+
+            public void setFirst_month_budget(int first_month_budget) {
+                this.first_month_budget = first_month_budget;
+            }
+
             @Override
             public String toString() {
                 return "Asset{" +
                         "budget=" + budget +
+                        ", first_month_budget=" + first_month_budget +
                         ", spare_money=" + spare_money +
                         ", ratio_spare=" + ratio_spare +
                         ", d_day=" + d_day +

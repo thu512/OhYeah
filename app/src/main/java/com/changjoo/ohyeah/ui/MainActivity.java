@@ -21,8 +21,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,21 +58,33 @@ public class MainActivity extends Activity {
     private Drawable alpha;
     boolean flag = false;
     RecyclerView list;
-    ImageView down_img;
+
 
     ArrayList<Expense> expenses_total = new ArrayList<>(); //전제 거래내역 저장
     ArrayList<Expense> expenses = new ArrayList<>(); //상황에 맞게 데이터 변경
 
+    //한달
+    ArrayList<Expense> expenses_total_month = new ArrayList<>(); //전제 거래내역 저장
+    ArrayList<Expense> expenses_temp = new ArrayList<>(); //상황에 맞게 데이터 변경
+
     TradeAdapter tradeAdapter;
-    Button all_btn;
-    Button in_btn;
-    Button out_btn;
+    RelativeLayout all_btn;
+    RelativeLayout in_btn;
+    RelativeLayout out_btn;
     pagerAdapter pagerAdapter;
+    Button pin_btn;
     Button set_btn;
     Button wallet_btn;
+    Button all_bt;
+    Button in_bt;
+    Button out_bt;
+    TextView all_txt;
+    TextView in_txt;
+    TextView out_txt;
+
     NestAddDialog nestAddDialog;
 
-
+    int first_budget_month;
     int budget;
     int first_budget;
     int daily_budget;
@@ -117,15 +129,24 @@ public class MainActivity extends Activity {
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
 
+
+        all_bt = (Button)findViewById(R.id.all_bt);
+        in_bt = (Button)findViewById(R.id.in_bt);
+        out_bt = (Button)findViewById(R.id.out_bt);
+        all_txt = (TextView)findViewById(R.id.all_txt);
+        in_txt = (TextView)findViewById(R.id.in_txt);
+        out_txt = (TextView)findViewById(R.id.out_txt);
+
+        pin_btn= (Button) findViewById(R.id.pin_btn);
         wallet_btn = (Button) findViewById(R.id.wallet_btn);
         set_btn = (Button) findViewById(R.id.set_btn);
-        all_btn = (Button) findViewById(R.id.all_btn);
-        in_btn = (Button) findViewById(R.id.in_btn);
-        out_btn = (Button) findViewById(R.id.out_btn);
+        all_btn = (RelativeLayout) findViewById(R.id.all_btn);
+        in_btn = (RelativeLayout) findViewById(R.id.in_btn);
+        out_btn = (RelativeLayout) findViewById(R.id.out_btn);
         dragView = (LinearLayout) findViewById(R.id.dragView);
         alpha = dragView.getBackground();
         list = (RecyclerView) findViewById(R.id.list);
-        down_img = (ImageView) findViewById(R.id.down_img);
+
         ll = (LinearLayout) findViewById(R.id.ll);
         bg = (LinearLayout) findViewById(R.id.bg);
         vp = (ViewPager) findViewById(R.id.vp);
@@ -176,6 +197,14 @@ public class MainActivity extends Activity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
+                    U.getInstance().log("호출됨!!");
+                    expenses.clear();
+                    for(Expense expense:expenses_total){
+                        expenses.add(expense);
+                        expenses_temp.add(expense);
+                    }
+                    tradeAdapter.notifyDataSetChanged();
+
                     //금액이 마이너스일때 해당 백그라운드 적용
                     if(daily_budget<0){
                         bg.setBackgroundResource(R.drawable.bg_transition2);
@@ -186,6 +215,12 @@ public class MainActivity extends Activity {
                     }
 
                 } else {
+                    expenses.clear();
+                    for(Expense expense:expenses_total_month){
+                        expenses.add(expense);
+                        expenses_temp.add(expense);
+                    }
+                    tradeAdapter.notifyDataSetChanged();
                     if(daily_budget<0){
                         bg.setBackgroundResource(R.drawable.bg_transition1);
                         //만약 현재 백그라운드가 빨간색이면 해당 if통과
@@ -207,7 +242,8 @@ public class MainActivity extends Activity {
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
         mLayout.setShadowHeight(0);
         mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        mLayout.setPanelHeight(U.getInstance().getDpToPixel(this, 175));//초기 패널 높이 => 픽셀 값이므로 변환 필요
+        mLayout.setPanelHeight(U.getInstance().getDpToPixel(this, 170));//초기 패널 높이 => 픽셀 값이므로 변환 필요
+
         alpha.setAlpha(0);
         dragView.setBackground(alpha);
 
@@ -221,9 +257,9 @@ public class MainActivity extends Activity {
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
                 if (newState.equals(SlidingUpPanelLayout.PanelState.EXPANDED)) {
-                    down_img.setVisibility(View.VISIBLE);
+
                 } else {
-                    down_img.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -245,12 +281,16 @@ public class MainActivity extends Activity {
         all_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                all_btn.setBackgroundResource(R.mipmap.all_bt_on);
-                in_btn.setBackgroundResource(R.mipmap.deposit_off);
-                out_btn.setBackgroundResource(R.mipmap.withdraw_off);
-                expenses.clear();
-                for(Expense expense:expenses_total){
-                    expenses.add(expense);
+                all_bt.setBackgroundResource(R.mipmap.radio_on);
+                in_bt.setBackgroundResource(R.mipmap.radio_off);
+                out_bt.setBackgroundResource(R.mipmap.radio_off);
+                all_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_bold);
+                in_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                out_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+
+                expenses_temp.clear();
+                for(Expense expense:expenses){
+                    expenses_temp.add(expense);
                 }
                 tradeAdapter.notifyDataSetChanged();
 
@@ -260,14 +300,18 @@ public class MainActivity extends Activity {
         in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                all_btn.setBackgroundResource(R.mipmap.all_bt_off);
-                in_btn.setBackgroundResource(R.mipmap.deposit_on);
-                out_btn.setBackgroundResource(R.mipmap.withdraw_off);
 
-                expenses.clear();
-                for(Expense expense:expenses_total){
+                all_bt.setBackgroundResource(R.mipmap.radio_off);
+                in_bt.setBackgroundResource(R.mipmap.radio_on);
+                out_bt.setBackgroundResource(R.mipmap.radio_off);
+                all_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                in_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_bold);
+                out_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+
+                expenses_temp.clear();
+                for(Expense expense:expenses){
                     if(expense.getEx_in().equals("입금")){
-                        expenses.add(expense);
+                        expenses_temp.add(expense);
                     }
                 }
                 tradeAdapter.notifyDataSetChanged();
@@ -277,14 +321,18 @@ public class MainActivity extends Activity {
         out_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                all_btn.setBackgroundResource(R.mipmap.all_bt_off);
-                in_btn.setBackgroundResource(R.mipmap.deposit_off);
-                out_btn.setBackgroundResource(R.mipmap.withdraw_on);
 
-                expenses.clear();
-                for(Expense expense:expenses_total){
+                all_bt.setBackgroundResource(R.mipmap.radio_off);
+                in_bt.setBackgroundResource(R.mipmap.radio_off);
+                out_bt.setBackgroundResource(R.mipmap.radio_on);
+                all_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                in_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                out_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_bold);
+
+                expenses_temp.clear();
+                for(Expense expense:expenses){
                     if(expense.getEx_in().equals("출금")){
-                        expenses.add(expense);
+                        expenses_temp.add(expense);
                     }
                 }
                 tradeAdapter.notifyDataSetChanged();
@@ -309,25 +357,30 @@ public class MainActivity extends Activity {
             }
         });
 
-
-        ///===============================팝업 테스트==============================================
-        //=========================================================================================
-        nestAddDialog = new NestAddDialog(MainActivity.this, "80000", new View.OnClickListener() {
+        pin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nestAddDialog.dismiss();
+                Intent intent = new Intent(MainActivity.this, ModifyFixActivity.class);
+                startActivity(intent);
             }
-        },
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        nestAddDialog.dismiss();
-                    }
-                }
-        );
-        nestAddDialog.show();
+        });
 
-
+//        ///===============================팝업 테스트==============================================
+//        //=========================================================================================
+//        nestAddDialog = new NestAddDialog(MainActivity.this, "80000", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                nestAddDialog.dismiss();
+//            }
+//        },
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        nestAddDialog.dismiss();
+//                    }
+//                }
+//        );
+//        nestAddDialog.show();
     }
 
 
@@ -338,6 +391,7 @@ public class MainActivity extends Activity {
         expenses.clear();
         //데이터 불러오기=========================================================================
         readDay();
+        readMonth();
     }
 
     //뷰페이저 아답타
@@ -352,7 +406,7 @@ public class MainActivity extends Activity {
                 case 0:
                     return FirstFragment.create(first_budget,daily_budget,ratio_saving,goal_item);
                 case 1:
-                    return new SecondFragment();
+                    return SecondFragment.create(first_budget_month, budget, ratio_saving, goal_item);
                 default:
                     return null;
             }
@@ -407,7 +461,7 @@ public class MainActivity extends Activity {
         @Override
         public void onBindViewHolder(TradeViewHolder holder, int position) {
             //데이터세팅!!!
-            Expense expense = expenses.get(position);
+            Expense expense = expenses_temp.get(position);
             if(expense.getEx_in().equals("출금")){
                 holder.money.setText("-"+Integer.toString(expense.getMoney()));
             }else{
@@ -420,7 +474,7 @@ public class MainActivity extends Activity {
 
         @Override
         public int getItemCount() {
-            return expenses == null ? 0 : expenses.size();
+            return expenses_temp == null ? 0 : expenses_temp.size();
         }
     }
 
@@ -438,6 +492,7 @@ public class MainActivity extends Activity {
     }
 
     public void readDay() {
+        showPd();
         Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(this));
         Call<Res> res = SNet.getInstance().getAllFactoryIm().readDay(req_main_day);
         res.enqueue(new Callback<Res>() {
@@ -453,6 +508,7 @@ public class MainActivity extends Activity {
                         daily_budget = response.body().getDoc().getAsset().getDaily_budget();
                         goal_item = response.body().getDoc().getGoal().getGoal_item();
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
+
                         now_saving = response.body().getDoc().getGoal().getNow_saving();
                         ratio_saving = response.body().getDoc().getGoal().getRatio_saving();
                         U.getInstance().log(budget+"/"+daily_budget+"/"+goal_item+"/"+goal_money+"/"+now_saving+"/"+ratio_saving);
@@ -460,6 +516,7 @@ public class MainActivity extends Activity {
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
                             expenses_total.add(expense);
                             expenses.add(expense);
+                            expenses_temp.add(expense);
                         }
 
                         if(daily_budget<0){
@@ -483,11 +540,61 @@ public class MainActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
+                stopPd();
             }
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
+            }
+        });
+    }
+
+    public void readMonth() {
+        showPd();
+        Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(this));
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().readMonth(req_main_day);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+
+                        U.getInstance().log("메인 하루 불러오기: " + response.body().toString());
+
+                        budget = response.body().getDoc().getAsset().getBudget();
+                        first_budget_month = response.body().getDoc().getAsset().getFirst_month_budget();
+
+                        goal_item = response.body().getDoc().getGoal().getGoal_item();
+                        goal_money = response.body().getDoc().getGoal().getGoal_money();
+                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving();
+                        U.getInstance().log(budget+"/"+first_budget_month+"/"+goal_item+"/"+goal_money+"/"+ratio_saving);
+
+                        for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
+                            expenses_total_month.add(expense);
+                        }
+
+                        pagerAdapter.notifyDataSetChanged();
+                        tradeAdapter.notifyDataSetChanged();
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopPd();
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }

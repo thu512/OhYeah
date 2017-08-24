@@ -58,6 +58,7 @@ public class PurposeSetActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showPd();
                 String money = pupose_money.getText().toString();
                 if (!money.equals("")) {
                     int m = Integer.parseInt(money);
@@ -87,17 +88,19 @@ public class PurposeSetActivity extends Activity {
                                     e.printStackTrace();
                                 }
                             }
+                            stopPd();
                         }
 
                         @Override
                         public void onFailure(Call<Res> call, Throwable t) {
-
+                            stopPd();
                         }
                     });
 
                 } else {
                     Intent intent = new Intent(PurposeSetActivity.this, NestSettingActivity.class);
                     startActivity(intent);
+                    stopPd();
                 }
             }
         });

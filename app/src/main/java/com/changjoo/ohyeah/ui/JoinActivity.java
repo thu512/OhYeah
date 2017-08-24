@@ -93,8 +93,13 @@ public class JoinActivity extends Activity {
                     email.setError("이메일을 입력하세요.");
                     return;
                 }
+
+                showPd();
+
                 Req_email req_email = new Req_email();
                 req_email.setEmail(email.getText().toString().trim());
+
+
                 Call<Res> res1 = SNet.getInstance().getAllFactoryIm().check_email(req_email);
                 res1.enqueue(new Callback<Res>() {
                     @Override
@@ -130,11 +135,13 @@ public class JoinActivity extends Activity {
                                 e.printStackTrace();
                             }
                         }
+                        stopPd();
                     }
 
                     @Override
                     public void onFailure(Call<Res> call, Throwable t) {
                         U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                        stopPd();
                     }
                 });
 
@@ -226,6 +233,7 @@ public class JoinActivity extends Activity {
                     return;
                 }
                 if(id_check && pw_check && pw_double){
+                    showPd();
                     Req req_login = new Req();
                     final String id = email.getText().toString();
                     String pw = pwd.getText().toString();
@@ -260,11 +268,13 @@ public class JoinActivity extends Activity {
                                     e.printStackTrace();
                                 }
                             }
+                            stopPd();
                         }
 
                         @Override
                         public void onFailure(Call<Res> call, Throwable t) {
                             U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                            stopPd();
                         }
                     });
 

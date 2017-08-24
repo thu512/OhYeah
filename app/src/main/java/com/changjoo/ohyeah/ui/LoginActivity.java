@@ -150,7 +150,7 @@ public class LoginActivity extends Activity {
     public void getProfile(String accessToken) {
         //헤더 작성
         String authorization = "Bearer " + accessToken;
-
+        showPd();
         Call<NaverProfileModel> res = Net.getInstance().getAllFactoryIm().profile(authorization);
         //응답 처리 작업
         res.enqueue(new Callback<NaverProfileModel>() {
@@ -187,11 +187,14 @@ public class LoginActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
+
+                stopPd();
             }
 
             @Override
             public void onFailure(Call<NaverProfileModel> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }
@@ -205,6 +208,7 @@ public class LoginActivity extends Activity {
         req_login.setEmail(email);
         req_login.setPwd(pwd);
         U.getInstance().log(req_login.toString());
+        showPd();
         Call<Res> res = SNet.getInstance().getAllFactoryIm().login(req_login);
         res.enqueue(new Callback<Res>() {
             @Override
@@ -254,11 +258,14 @@ public class LoginActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
+
+                stopPd();
             }
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }
@@ -270,7 +277,7 @@ public class LoginActivity extends Activity {
         //===========서버로 전송==========================================================
         //받아온이메일을 중복확인 -> 중복된이메일 존재 하면 sp이메일저장후 메인으로 점프
         //                    -> 중복 이메일 존재 하지않으면 회원가입도메인으로 ㄱㄱ
-
+        showPd();
         Call<Res> res1 = SNet.getInstance().getAllFactoryIm().check_email(req_email);
         res1.enqueue(new Callback<Res>() {
             @Override
@@ -305,11 +312,13 @@ public class LoginActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
+                stopPd();
             }
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }
@@ -318,6 +327,7 @@ public class LoginActivity extends Activity {
 
     //회원가입
     public void signUp(Req req_login){
+        showPd();
         Call<Res> res1 = SNet.getInstance().getAllFactoryIm().join(req_login);
         res1.enqueue(new Callback<Res>() {
             @Override
@@ -346,11 +356,13 @@ public class LoginActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
+                stopPd();
             }
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }

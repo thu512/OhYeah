@@ -1,5 +1,6 @@
 package layout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.ui.ModifyPurposeActivity;
 import com.changjoo.ohyeah.utill.U;
 
 
@@ -64,7 +66,6 @@ public class FirstFragment extends Fragment
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_first, container, false);
         pb1 = (ProgressBar)layout.findViewById(R.id.pb1);
         ratio_saving_pb = (ProgressBar)layout.findViewById(R.id.ratio_saving_pb);
-
         daily_budget = (TextView) layout.findViewById(R.id.daily_budget);
         ratio_saving = (TextView) layout.findViewById(R.id.ratio_saving);
         goal_item = (Button)layout.findViewById(R.id.goal_item);
@@ -73,7 +74,7 @@ public class FirstFragment extends Fragment
         U.getInstance().log("플래그먼트"+daily_budget_rr+"/"+goal_item_rr+"/"+ratio_saving_rr);
         pb1.setProgress((int)(((double)daily_budget_rr/(double)first_budget) *100.0));
         daily_budget.setText(""+daily_budget_rr);
-        ratio_saving.setText(""+(int) ratio_saving_rr);
+        ratio_saving.setText(""+(int) ratio_saving_rr+" %");
         ratio_saving_pb.setProgress((int) ratio_saving_rr);
         switch (goal_item_rr){
             case 1:
@@ -98,6 +99,14 @@ public class FirstFragment extends Fragment
                 goal_item.setBackgroundResource(R.drawable.purpose_house);
                 break;
         }
+
+        goal_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ModifyPurposeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return layout;
     }

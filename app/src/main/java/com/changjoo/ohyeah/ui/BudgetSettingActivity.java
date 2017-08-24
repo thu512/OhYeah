@@ -349,6 +349,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                     U.getInstance().setBoolean(BudgetSettingActivity.this,U.getInstance().getEmail(BudgetSettingActivity.this),true);
                     Intent intent = new Intent(BudgetSettingActivity.this, FixSettingActivity.class);
                     startActivity(intent);
+
                 }
 
             }
@@ -649,6 +650,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
     //서버로 예산 월급일 전송
     public void pushBudget(final int budget, int set_date){
+        showPd();
         String email = U.getInstance().getEmail(BudgetSettingActivity.this);
         final int budg=budget;
         final int day = set_date;
@@ -683,10 +685,12 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                         e.printStackTrace();
                     }
                 }
+                stopPd();
             }
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
             }
         });
     }

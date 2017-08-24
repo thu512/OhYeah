@@ -1,6 +1,7 @@
 package com.changjoo.ohyeah.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -86,6 +87,7 @@ public class NestSettingActivity extends Activity {
                     flag = false;
                 } else {
                     nest_error.setVisibility(View.INVISIBLE);
+                    U.getInstance().log("예상 일일 예산: " + calDayMoney(month, fix, money, day));
                     day_money.setText("" + calDayMoney(month, fix, money, day));
                     U.getInstance().log("" + (double) money);
                     U.getInstance().log("" + (double) month);
@@ -107,6 +109,7 @@ public class NestSettingActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showPd();
                 if (nest_money.getText().toString().equals("")) {
                     Intent intent = new Intent(NestSettingActivity.this, MainActivity.class);
                     startActivity(intent);
@@ -122,9 +125,19 @@ public class NestSettingActivity extends Activity {
                                     U.getInstance().log("비상금 서버 내용: " + response.body().toString());
                                     U.getInstance().log("비상금 설정 완료");
                                     U.getInstance().log("" + response.body().toString());
+
+
+                                    //앞에 열려있던 액티비티 모두 종료
                                     Intent intent = new Intent(NestSettingActivity.this, MainActivity.class);
+                                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    } else {
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    }
                                     startActivity(intent);
                                     finish();
+
+
                                 } else {
                                     U.getInstance().log("통신실패1");
                                 }
@@ -149,7 +162,7 @@ public class NestSettingActivity extends Activity {
             }
         });
 
-
+    stopPd();
     }
 
     //일일 예상 예산 구하기
@@ -194,6 +207,4 @@ public class NestSettingActivity extends Activity {
         }
         return result;
     }
-
-
 }
