@@ -1,4 +1,4 @@
-package com.changjoo.ohyeah;
+package com.changjoo.ohyeah.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.changjoo.ohyeah.R;
 
 /**
  * Created by Changjoo on 2017-08-18.

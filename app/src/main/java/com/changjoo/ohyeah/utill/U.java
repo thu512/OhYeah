@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.TypedValue;
 
+import com.nhn.android.naverlogin.OAuthLogin;
 import com.squareup.otto.Bus;
 
 import java.text.ParseException;
@@ -57,6 +58,9 @@ public class U {
 
     public void logout(Context context)
     {
+        if(OAuthLogin.getInstance().getRefreshToken(context) != null){
+            OAuthLogin.getInstance().logout(context);
+        }
         SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
         editor.putString("email", "");
         editor.commit();

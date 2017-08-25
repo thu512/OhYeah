@@ -7,6 +7,10 @@ package com.changjoo.ohyeah.model;
 public class Req_email {
     String email;
 
+    public Req_email(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

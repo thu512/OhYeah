@@ -359,6 +359,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/send_email"
                 android:layout_width="match_parent"
                 android:layout_height="52.8dp"
                 android:background="@drawable/gray_underline">

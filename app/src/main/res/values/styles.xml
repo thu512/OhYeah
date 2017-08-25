@@ -37,14 +37,14 @@
 
     <style name="TextStyle_bold">
         <item name="android:gravity">center_horizontal|bottom</item>>
-        <item name="android:textSize">12.5sp</item>
+        <item name="android:textSize">13.5sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextStyle_normal">
         <item name="android:gravity">center_horizontal|bottom</item>>
-        <item name="android:textSize">12.5sp</item>
+        <item name="android:textSize">13.5sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">normal</item>
     </style>

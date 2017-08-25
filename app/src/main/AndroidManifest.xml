@@ -54,32 +54,42 @@
         <activity android:name=".ui.JoinActivity" />
         <activity
             android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
-        </activity>
-
-
-        <activity android:name=".ui.BudgetSettingActivity">
-
-        </activity>
-        <activity android:name=".ui.PurposeSetActivity">
-
-        </activity>
-        <activity android:name=".ui.NestSettingActivity">
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".ui.BudgetSettingActivity" />
+        <activity android:name=".ui.PurposeSetActivity" />
+        <activity android:name=".ui.NestSettingActivity" />
         <activity android:name=".terms.Terms1Activity" />
         <activity android:name=".terms.Terms2Activity" />
-        <activity android:name=".ui.ModifySettingActivity" android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.ModifySettingActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.ModifyPurposeActivity" />
-        <activity android:name=".ui.ModifyFixActivity" android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.SetActivity"></activity>
-        <activity android:name=".ui.ChangePwdActivity"></activity>
-        <activity android:name=".ui.Widget_SettingActivity"></activity>
+        <activity
+            android:name=".ui.ModifyFixActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.SetActivity" />
+        <activity android:name=".ui.ChangePwdActivity" />
+        <activity android:name=".ui.Widget_SettingActivity" />
+        <activity android:name=".ui.WidgetSettingActivity" />
+
+        <receiver android:name=".OhYeahWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/oh_yeah_widget_info" />
+        </receiver>
+
+        <activity android:name=".ui.SendEmailActivity">
+
+        </activity>
     </application>
 
 </manifest>

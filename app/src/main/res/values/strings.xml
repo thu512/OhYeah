@@ -124,6 +124,28 @@
     <string name="nadd4">비상금보다 작은 금액을 입력해야 합니다.</string>
 
 
+    <!--회원탈퇴-->
+    <string name="out">그동안 오예를\n사용해주셔서 감사합니다.</string>
+    <string name="out2">더 나은 오예가 되기 위해 건의 사항이\n있으시면  감사히 받겠습니다.</string>
+    <string name="out3">탈퇴</string>
+    <string name="out4">건의하기</string>
+    <string name="out5">오예에서 탈퇴하고\n모든 개인정보를\n삭제하시겠습니까?</string>
+    <string name="out6">탈퇴하기</string>
+    <string name="out7">계속 사용하기</string>
+
+
+    <!--문의하기-->
+    <string name="send">문의하기</string>
+    <string name="send2">개선사항 또는 기타 문의 사항을 보내주세요.</string>
+    <string name="send3">문의 내용 입력</string>
+    <string name="send4">보내기</string>
+
+
+    <!--비번 변경-->
+    <string name="change">비밀번호가\n변경되었습니다.</string>
+
+
+
     <!--이용약관-->
     <string name="term">오예 이용약관</string>
     <string name="term1">제1장 총칙</string>
@@ -290,5 +312,7 @@
 개인정보처리방침 내용상 추가, 삭제 및 수정이 있을 시에는 개정 이전 이용자에게 고지합니다.  이 개인정보 처리방침은 2017년 1월 1일부터 적용됩니다.</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

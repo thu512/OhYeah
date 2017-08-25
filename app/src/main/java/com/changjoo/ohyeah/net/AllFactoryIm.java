@@ -3,11 +3,13 @@ package com.changjoo.ohyeah.net;
 import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req;
 import com.changjoo.ohyeah.model.Req_Budget;
+import com.changjoo.ohyeah.model.Req_Change_pw;
 import com.changjoo.ohyeah.model.Req_Fix;
 import com.changjoo.ohyeah.model.Req_Main_day;
 import com.changjoo.ohyeah.model.Req_Nest;
 import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Req_msg;
 import com.changjoo.ohyeah.model.Res;
 
 import retrofit2.Call;
@@ -59,6 +61,16 @@ public interface AllFactoryIm {
     @POST("main/month_view")
     Call<Res> readMonth(@Body Req_Main_day req_main_day);
 
+    @POST("main/today_expend")
+    Call<Res> sendMsg(@Body Req_msg req_msg);
 
+    @POST("update/budget_spare_view")
+    Call<Res> getState(@Body Req_email req_email);
+
+    @POST("users/delete")
+    Call<Res> signOut(@Body Req_email req_email);
+
+    @POST("update/pw")
+    Call<Res> changePw(@Body Req_Change_pw req_change_pw);
 
 }

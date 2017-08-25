@@ -96,9 +96,7 @@ public class JoinActivity extends Activity {
 
                 showPd();
 
-                Req_email req_email = new Req_email();
-                req_email.setEmail(email.getText().toString().trim());
-
+                Req_email req_email = new Req_email(email.getText().toString().trim());
 
                 Call<Res> res1 = SNet.getInstance().getAllFactoryIm().check_email(req_email);
                 res1.enqueue(new Callback<Res>() {

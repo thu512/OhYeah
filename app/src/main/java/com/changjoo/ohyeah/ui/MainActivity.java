@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
-import com.changjoo.ohyeah.NestAddDialog;
+import com.changjoo.ohyeah.dialog.NestAddDialog;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.Expense;
 import com.changjoo.ohyeah.model.Req_Main_day;
@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
     RelativeLayout all_btn;
     RelativeLayout in_btn;
     RelativeLayout out_btn;
+    RelativeLayout pagedown;
     pagerAdapter pagerAdapter;
     Button pin_btn;
     Button set_btn;
@@ -95,7 +96,7 @@ public class MainActivity extends Activity {
 
 
 
-
+    //버스 ==================문자===================================
     @Subscribe
     public void recvBus(String msg) {
         Log.d("FFF", "" + msg);
@@ -143,6 +144,7 @@ public class MainActivity extends Activity {
         all_btn = (RelativeLayout) findViewById(R.id.all_btn);
         in_btn = (RelativeLayout) findViewById(R.id.in_btn);
         out_btn = (RelativeLayout) findViewById(R.id.out_btn);
+        pagedown = (RelativeLayout) findViewById(R.id.pagedown);
         dragView = (LinearLayout) findViewById(R.id.dragView);
         alpha = dragView.getBackground();
         list = (RecyclerView) findViewById(R.id.list);
@@ -257,9 +259,9 @@ public class MainActivity extends Activity {
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
                 if (newState.equals(SlidingUpPanelLayout.PanelState.EXPANDED)) {
-
+                    pagedown.setVisibility(View.VISIBLE);
                 } else {
-
+                    pagedown.setVisibility(View.GONE);
                 }
             }
         });
@@ -365,9 +367,12 @@ public class MainActivity extends Activity {
             }
         });
 
-//        ///===============================팝업 테스트==============================================
-//        //=========================================================================================
-//        nestAddDialog = new NestAddDialog(MainActivity.this, "80000", new View.OnClickListener() {
+
+
+
+        ///===============================팝업 테스트==============================================
+        //=========================================================================================
+//        nestAddDialog = new NestAddDialog(MainActivity.this, new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                nestAddDialog.dismiss();
@@ -384,14 +389,18 @@ public class MainActivity extends Activity {
     }
 
 
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
         expenses_total.clear();
         expenses.clear();
+        expenses_temp.clear();
         //데이터 불러오기=========================================================================
-        readDay();
-        readMonth();
+        //readDay();
+        //readMonth();
     }
 
     //뷰페이저 아답타

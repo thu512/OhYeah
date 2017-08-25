@@ -166,8 +166,7 @@ public class LoginActivity extends Activity {
                             U.getInstance().log(profile.toString());
 
                             //중복확인 요청 모델
-                            Req_email req_email = new Req_email();
-                            req_email.setEmail(profile.getEmail());
+                            Req_email req_email = new Req_email(profile.getEmail());
                             String pw= profile.getId();
 
                             checkServer(req_email,pw);
