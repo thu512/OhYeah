@@ -144,7 +144,8 @@
     <!--비번 변경-->
     <string name="change">비밀번호가\n변경되었습니다.</string>
 
-
+    <!--토스연결-->
+    <string name="toss">Toss로 저금</string>
 
     <!--이용약관-->
     <string name="term">오예 이용약관</string>

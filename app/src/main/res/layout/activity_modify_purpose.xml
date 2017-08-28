@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9.3"
+        android:layout_weight="8.6"
         android:background="@drawable/black_underline"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -49,11 +49,11 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.4" />
+        android:layout_weight="3.1" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.9"
+        android:layout_weight="4.5"
         android:weightSum="100">
 
         <android.support.v4.widget.Space
@@ -72,7 +72,7 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.9" />
+        android:layout_weight="2.7" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="4.1"
         android:weightSum="100">
 
         <android.support.v4.widget.Space
@@ -124,6 +124,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/pupose_money"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="33.6"
@@ -155,7 +156,7 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.3" />
+        android:layout_weight="3" />
 
 
     <RadioGroup
@@ -267,33 +268,31 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="17.2"
+        android:layout_weight="15.8"
         android:layout_gravity="center"
         android:background="@mipmap/back_purpose">
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/dday"
             android:layout_width="145.8dp"
             android:layout_height="wrap_content"
-
-            android:text="D-12"
-            android:gravity="center_horizontal|bottom"
+            android:gravity="center"
             android:textSize="40sp"
+
             android:textColor="#3b4aaa"
             android:textStyle="bold"
-            android:layout_marginBottom="27.8dp"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="27dp"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.2"/>
+        android:layout_weight="3"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="4.6"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -307,7 +306,7 @@
             android:textColor="#9b9b9b"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/day"
             android:layout_width="73.8dp"
             android:layout_height="match_parent"
@@ -336,7 +335,26 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11.1"/>
+        android:layout_weight="4"/>
+
+    <Button
+        android:id="@+id/toss"
+        android:layout_width="204.8dp"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@drawable/blue_ract"
+        android:text="@string/toss"
+        android:textSize="18sp"
+        android:textColor="#3b4aaa"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
+
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
@@ -344,8 +362,8 @@
         android:layout_weight="8.6"
         android:text="@string/submit"
         android:textSize="18.5sp"
-        android:textColor="#000000"
-        android:background="@drawable/gray_ract" />
+        android:textColor="#ffffff"
+        android:background="@drawable/blue_ract_bg" />
 
 
 </LinearLayout>

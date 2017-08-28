@@ -2,54 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/gray_underline"
-    android:orientation="horizontal"
-    android:layout_marginBottom="13.8dp"
-    android:weightSum="2">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/del"
-        android:layout_width="17.5dp"
-        android:layout_height="17.5dp"
-        android:background="@mipmap/delete1"
-        android:visibility="gone"
-        />
-
-    <EditText
-        android:id="@+id/fix_name"
-        android:background="@null"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/form"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="6"
-        android:layout_weight="1"
-        android:layout_gravity="left"
-        android:inputType="text"
-        android:hint="@string/fix_name"
-        android:textColorHint="#9b9b9b"
-        android:textSize="18.5sp"
-        android:textStyle="bold"
-        android:textColor="#3b4aaa"/>
+        android:layout_marginBottom="13.8dp"
+        android:background="@drawable/gray_underline"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-    <EditText
-        android:id="@+id/fix_money"
-        android:background="@null"
-        android:layout_width="0dp"
+        <Button
+            android:id="@+id/del"
+            android:layout_width="17.5dp"
+            android:layout_height="17.5dp"
+            android:background="@mipmap/delete1"
+            android:visibility="gone"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:id="@+id/fix_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="6"
+            android:hint="@string/fix_name"
+            android:inputType="text"
+            android:textColor="#3b4aaa"
+            android:textColorHint="#9b9b9b"
+            android:textSize="18.5sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/fix_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="8"
+            android:gravity="right"
+            android:inputType="number"
+            android:textColor="#3b4aaa"
+            android:textSize="18.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/main_won"
+            android:textColor="#9b9b9b"
+            android:textSize="13.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/add"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="8"
-        android:gravity="right"
-        android:inputType="number"
-        android:layout_marginRight="10dp"
-        android:textSize="18.5sp"
-        android:textStyle="bold"
-        android:textColor="#3b4aaa"
-         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="13.5sp"
-        android:textColor="#9b9b9b"
-        android:textStyle="bold"
-        android:text="@string/main_won"/>
+        >
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="22.3dp"
+            android:layout_height="22.3dp"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/plus"/>
+    </RelativeLayout>
 </LinearLayout>

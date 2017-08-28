@@ -189,6 +189,15 @@ public class Res {
             Double ratio_saving;
             int now_saving;
             int goal_money;
+            int recent_saving;
+
+            public int getRecent_saving() {
+                return recent_saving;
+            }
+
+            public void setRecent_saving(int recent_saving) {
+                this.recent_saving = recent_saving;
+            }
 
             @Override
             public String toString() {
@@ -197,6 +206,7 @@ public class Res {
                         ", ratio_saving=" + ratio_saving +
                         ", now_saving=" + now_saving +
                         ", goal_money=" + goal_money +
+                        ", recent_saving=" + recent_saving +
                         '}';
             }
 
@@ -244,7 +254,7 @@ public class Res {
             int daily_budget;
             int set_date;
             String setb_yn;
-            ArrayList<Fix_ex> Fix_ex;
+            ArrayList<FixModel> Fix_ex;
 
             public int getFirst_month_budget() {
                 return first_month_budget;
@@ -334,11 +344,11 @@ public class Res {
                 this.setb_yn = setb_yn;
             }
 
-            public ArrayList<Doc.Asset.Fix_ex> getFix_ex() {
+            public ArrayList<FixModel> getFix_ex() {
                 return Fix_ex;
             }
 
-            public void setFix_ex(ArrayList<Doc.Asset.Fix_ex> fix_ex) {
+            public void setFix_ex(ArrayList<FixModel> fix_ex) {
                 Fix_ex = fix_ex;
             }
 

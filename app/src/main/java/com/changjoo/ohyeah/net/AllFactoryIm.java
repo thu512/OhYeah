@@ -73,4 +73,19 @@ public interface AllFactoryIm {
     @POST("update/pw")
     Call<Res> changePw(@Body Req_Change_pw req_change_pw);
 
+    @POST("update/fix_ex_view")
+    Call<Res> updateFix(@Body Req_email req_email);
+
+    @POST("update/fix_ex")
+    Call<Res> update_Fix(@Body Req_Fix fix_ex);
+
+    @POST("update/goal_view")
+    Call<Res> updatePP(@Body Req_email req_email);
+
+    @POST("update/goal")
+    Call<Res> update_PP(@Body Req_Purpose req_purpose);
+
+
+
+
 }

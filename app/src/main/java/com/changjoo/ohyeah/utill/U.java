@@ -4,6 +4,7 @@ package com.changjoo.ohyeah.utill;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Tacademy on 2017-06-29.
@@ -167,6 +170,54 @@ public class U {
     Bus authBus= new Bus();
     public Bus getAuthBus(){
         return authBus;
+    }
+
+
+
+
+
+
+
+
+    public void showPopup3(Context context, String title, String msg,
+                           String cName, SweetAlertDialog.OnSweetClickListener cEvent,
+                           String oName, SweetAlertDialog.OnSweetClickListener oEvent
+    ){
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(title)
+                .setContentText(msg)
+                .setConfirmText(cName)
+                .setConfirmClickListener(cEvent)
+                .setCancelText(oName)
+                .setCancelClickListener(oEvent)
+                .show();
+    }
+
+
+    public SweetAlertDialog showLoading(Context context){
+
+        return showLoading(context,"LOADING","#A5DC86");
+    }
+
+    public SweetAlertDialog showLoading(Context context, String msg){
+
+        return showLoading(context,msg,"#A5DC86");
+    }
+
+    public SweetAlertDialog showLoading(Context context, String msg, String color){
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor(color));
+        pDialog.setTitleText(msg);
+        pDialog.setCancelable(false);
+        pDialog.show();
+        return pDialog;
+    }
+
+    public void showSimplePopup(Context context, String title, String content, int type){
+        new SweetAlertDialog(context, type)
+                .setTitleText(title)
+                .setContentText(content)
+                .show();
     }
 
 }

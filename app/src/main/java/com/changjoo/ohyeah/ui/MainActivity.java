@@ -1,8 +1,5 @@
 package com.changjoo.ohyeah.ui;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -27,8 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
-import com.changjoo.ohyeah.dialog.NestAddDialog;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.dialog.NestAddDialog;
 import com.changjoo.ohyeah.model.Expense;
 import com.changjoo.ohyeah.model.Req_Main_day;
 import com.changjoo.ohyeah.model.Res;
@@ -46,8 +43,6 @@ import layout.SecondFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 public class MainActivity extends Activity {
     private ViewPager vp;
@@ -88,6 +83,7 @@ public class MainActivity extends Activity {
     int first_budget_month;
     int budget;
     int first_budget;
+
     int daily_budget;
     int goal_item;
     int goal_money;
@@ -101,23 +97,25 @@ public class MainActivity extends Activity {
     public void recvBus(String msg) {
         Log.d("FFF", "" + msg);
         Toast.makeText(this, "" + msg, Toast.LENGTH_SHORT).show();
-
-        NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(), MainActivity.class); //인텐트 생성.
-
-
-        Notification.Builder builder = new Notification.Builder(getApplicationContext());
-        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
-
-
-        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(MainActivity.this, 0, intent1, FLAG_UPDATE_CURRENT);
-
-        builder.setSmallIcon(R.mipmap.pin).setTicker("HETT").setWhen(System.currentTimeMillis())
-                .setNumber(1).setContentTitle("푸쉬 제목").setContentText("푸쉬내용")
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
-
-
-        notificationManager.notify(1, builder.build()); // Notification send
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+//        NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
+//        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(), MainActivity.class); //인텐트 생성.
+//
+//
+//        Notification.Builder builder = new Notification.Builder(getApplicationContext());
+//        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
+//
+//
+//        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(MainActivity.this, 0, intent1, FLAG_UPDATE_CURRENT);
+//
+//        builder.setSmallIcon(R.mipmap.pin).setTicker("HETT").setWhen(System.currentTimeMillis())
+//                .setNumber(1).setContentTitle("푸쉬 제목").setContentText("푸쉬내용")
+//                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
+//
+//
+//        notificationManager.notify(1, builder.build()); // Notification send
 
     }
 
@@ -199,8 +197,15 @@ public class MainActivity extends Activity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
+                    all_bt.setBackgroundResource(R.mipmap.radio_on);
+                    in_bt.setBackgroundResource(R.mipmap.radio_off);
+                    out_bt.setBackgroundResource(R.mipmap.radio_off);
+                    all_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_bold);
+                    in_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                    out_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
                     U.getInstance().log("호출됨!!");
                     expenses.clear();
+                    expenses_temp.clear();
                     for(Expense expense:expenses_total){
                         expenses.add(expense);
                         expenses_temp.add(expense);
@@ -217,7 +222,14 @@ public class MainActivity extends Activity {
                     }
 
                 } else {
+                    all_bt.setBackgroundResource(R.mipmap.radio_on);
+                    in_bt.setBackgroundResource(R.mipmap.radio_off);
+                    out_bt.setBackgroundResource(R.mipmap.radio_off);
+                    all_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_bold);
+                    in_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
+                    out_txt.setTextAppearance(MainActivity.this, R.style.TextStyle_normal);
                     expenses.clear();
+                    expenses_temp.clear();
                     for(Expense expense:expenses_total_month){
                         expenses.add(expense);
                         expenses_temp.add(expense);
@@ -396,11 +408,12 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         expenses_total.clear();
+        expenses_total_month.clear();
         expenses.clear();
         expenses_temp.clear();
         //데이터 불러오기=========================================================================
-        //readDay();
-        //readMonth();
+        readDay();
+        readMonth();
     }
 
     //뷰페이저 아답타
@@ -471,13 +484,26 @@ public class MainActivity extends Activity {
         public void onBindViewHolder(TradeViewHolder holder, int position) {
             //데이터세팅!!!
             Expense expense = expenses_temp.get(position);
-            if(expense.getEx_in().equals("출금")){
-                holder.money.setText("-"+Integer.toString(expense.getMoney()));
+            U.getInstance().log("뷰페이저 아이템: "+vp.getCurrentItem());
+
+            if(vp.getCurrentItem()==1) {
+                if (expense.getEx_in().equals("출금")) {
+                    holder.money.setText("-" + Integer.toString(expense.getMoney()));
+                } else {
+                    holder.money.setText("+" + Integer.toString(expense.getMoney()));
+                }
+                holder.time.setText(expense.getDate()+" "+expense.getTime());
+                holder.content.setText(expense.getRecord());
             }else{
-                holder.money.setText("+"+Integer.toString(expense.getMoney()));
+                if (expense.getEx_in().equals("출금")) {
+                    holder.money.setText("-" + Integer.toString(expense.getMoney()));
+                } else {
+                    holder.money.setText("+" + Integer.toString(expense.getMoney()));
+                }
+                holder.time.setText(expense.getTime());
+                holder.content.setText(expense.getRecord());
             }
-            holder.time.setText(expense.getTime());
-            holder.content.setText(expense.getRecord());
+
 
         }
 
@@ -570,7 +596,7 @@ public class MainActivity extends Activity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
 
-                        U.getInstance().log("메인 하루 불러오기: " + response.body().toString());
+                        U.getInstance().log("메인 한달 불러오기: " + response.body().toString());
 
                         budget = response.body().getDoc().getAsset().getBudget();
                         first_budget_month = response.body().getDoc().getAsset().getFirst_month_budget();
