@@ -16,12 +16,14 @@ import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req;
 import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Req_login;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.Net;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.terms.Terms1Activity;
 import com.changjoo.ohyeah.terms.Terms2Activity;
 import com.changjoo.ohyeah.utill.U;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
@@ -53,6 +55,8 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        U.getInstance().log("파베 토큰(로그인): "+FirebaseInstanceId.getInstance().getToken());
         mContext = getApplicationContext();
 
         mOAuthLoginModule = OAuthLogin.getInstance();
@@ -203,9 +207,9 @@ public class LoginActivity extends Activity {
     //일반 이메일 로그인
     public void login(String email, String pwd) {
 
-        Req req_login = new Req();
+        Req_login req_login = new Req_login();
         req_login.setEmail(email);
-        req_login.setPwd(pwd);
+        req_login.setPw(pwd);
         U.getInstance().log(req_login.toString());
         showPd();
         Call<Res> res = SNet.getInstance().getAllFactoryIm().login(req_login);
@@ -293,7 +297,7 @@ public class LoginActivity extends Activity {
                             Req req = new Req();
                             req.setEmail(req_email.getEmail());
                             req.setPwd(pw);
-
+                            req.setToken(FirebaseInstanceId.getInstance().getToken());
                             signUp(req);
 
                         }else if(response.body().getResult()==2){

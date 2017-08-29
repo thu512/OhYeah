@@ -9,8 +9,10 @@ import com.changjoo.ohyeah.model.Req_Main_day;
 import com.changjoo.ohyeah.model.Req_Nest;
 import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Req_login;
 import com.changjoo.ohyeah.model.Req_msg;
 import com.changjoo.ohyeah.model.Req_set;
+import com.changjoo.ohyeah.model.Req_token;
 import com.changjoo.ohyeah.model.Req_use_nest;
 import com.changjoo.ohyeah.model.Res;
 
@@ -40,7 +42,7 @@ public interface AllFactoryIm {
     Call<Res> check_email(@Body Req_email req_email);
 
     @POST("users/login")
-    Call<Res> login(@Body Req req);
+    Call<Res> login(@Body Req_login req_login);
 
     @POST("asset/set_budget")
     Call<Res> pushBudget(@Body Req_Budget req_budget);
@@ -94,6 +96,7 @@ public interface AllFactoryIm {
     @POST("update/budget_spare")
     Call<Res> modifyBudget(@Body Req_set req_set);
 
-
+    @POST("update/new_token")
+    Call<Res> refreshToken(@Body Req_token req_token);
 
 }

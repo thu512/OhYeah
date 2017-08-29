@@ -4,10 +4,10 @@ package com.changjoo.ohyeah.model;
  * Created by Changjoo on 2017-08-01.
  */
 
-public class Req {
+public class Req_login {
     private String email;
     private String pw;
-    private String token;
+
 
     public String getPw() {
         return pw;
@@ -17,13 +17,6 @@ public class Req {
         this.pw = pw;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public String getEmail() {
         return email;
@@ -33,11 +26,5 @@ public class Req {
         this.email = email;
     }
 
-    public String getPwd() {
-        return pw;
-    }
 
-    public void setPwd(String pw) {
-        this.pw = pw;
-    }
 }

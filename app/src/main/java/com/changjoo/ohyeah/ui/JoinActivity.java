@@ -19,6 +19,7 @@ import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -60,7 +61,7 @@ public class JoinActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-
+        U.getInstance().log("파베 토큰(회원가입): "+FirebaseInstanceId.getInstance().getToken());
         email_check_img=(ImageView)findViewById(R.id.email_check_img);
         pwd_check_img=(ImageView)findViewById(R.id.pwd_check_img);
         pwd2_check_img=(ImageView)findViewById(R.id.pwd2_check_img);
@@ -237,6 +238,7 @@ public class JoinActivity extends Activity {
                     String pw = pwd.getText().toString();
                     req_login.setEmail(id);
                     req_login.setPwd(pw);
+                    req_login.setToken(FirebaseInstanceId.getInstance().getToken());
                     U.getInstance().log(""+pw);
                     //이면 통신보냄
                     Call<Res> res1 = SNet.getInstance().getAllFactoryIm().join(req_login);

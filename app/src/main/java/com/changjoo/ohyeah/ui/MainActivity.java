@@ -28,9 +28,11 @@ import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.dialog.NestAddDialog;
 import com.changjoo.ohyeah.model.Expense;
 import com.changjoo.ohyeah.model.Req_Main_day;
+import com.changjoo.ohyeah.model.Req_token;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.otto.Subscribe;
@@ -123,7 +125,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        refreshToken();
 
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
@@ -633,6 +635,43 @@ public class MainActivity extends Activity {
         });
     }
 
+
+    public void refreshToken(){
+        showPd();
+        Req_token req_token = new Req_token(U.getInstance().getEmail(this), FirebaseInstanceId.getInstance().getToken());
+
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().refreshToken(req_token);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if(response.body().getResult()==1){
+                            U.getInstance().log("토큰갱신 완료");
+                        }else{
+                            U.getInstance().log("토큰갱신 실패");
+                        }
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopPd();
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
+            }
+        });
+    }
 }
 
 

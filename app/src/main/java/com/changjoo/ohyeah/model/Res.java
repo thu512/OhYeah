@@ -386,6 +386,15 @@ public class Res {
             String email;
             String del_yn;
             String setb_yn;
+            String token;
+
+            public String getToken() {
+                return token;
+            }
+
+            public void setToken(String token) {
+                this.token = token;
+            }
 
             public String getSetb_yn() {
                 return setb_yn;
@@ -402,6 +411,7 @@ public class Res {
                         ", email='" + email + '\'' +
                         ", del_yn='" + del_yn + '\'' +
                         ", setb_yn='" + setb_yn + '\'' +
+                        ", token='" + token + '\'' +
                         '}';
             }
 

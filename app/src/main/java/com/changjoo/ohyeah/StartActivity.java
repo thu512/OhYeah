@@ -10,6 +10,7 @@ import com.changjoo.ohyeah.ui.BudgetSettingActivity;
 import com.changjoo.ohyeah.ui.LoginActivity;
 import com.changjoo.ohyeah.ui.MainActivity;
 import com.changjoo.ohyeah.utill.U;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-
+        U.getInstance().log("파베 토큰: "+FirebaseInstanceId.getInstance().getToken());
         U.getInstance().log("로그인: "+U.getInstance().getEmail(StartActivity.this));
 
         if(!U.getInstance().isLogin(StartActivity.this)){
