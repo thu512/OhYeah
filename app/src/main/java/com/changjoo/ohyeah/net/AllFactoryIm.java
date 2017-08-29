@@ -10,6 +10,8 @@ import com.changjoo.ohyeah.model.Req_Nest;
 import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Req_msg;
+import com.changjoo.ohyeah.model.Req_set;
+import com.changjoo.ohyeah.model.Req_use_nest;
 import com.changjoo.ohyeah.model.Res;
 
 import retrofit2.Call;
@@ -85,6 +87,12 @@ public interface AllFactoryIm {
     @POST("update/goal")
     Call<Res> update_PP(@Body Req_Purpose req_purpose);
 
+
+    @POST("update/use_spare")
+    Call<Res> nestAdd(@Body Req_use_nest req_use_nest);
+
+    @POST("update/budget_spare")
+    Call<Res> modifyBudget(@Body Req_set req_set);
 
 
 

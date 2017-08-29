@@ -1,7 +1,9 @@
 package layout;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +37,11 @@ public class FirstFragment extends Fragment
 
 
 
-    public static FirstFragment create(int first_budget, int daily_budget_rr, double ratio_saving_rr, int goal_item_rr) {
+    public static FirstFragment create(int first_budget, double daily_budget_rr, double ratio_saving_rr, int goal_item_rr) {
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
         args.putInt("first_budget", first_budget);
-        args.putInt("daily_budget_rr", daily_budget_rr);
+        args.putInt("daily_budget_rr", (int)daily_budget_rr);
         args.putDouble("ratio_saving_rr", ratio_saving_rr);
         args.putInt("goal_item_rr", goal_item_rr);
         U.getInstance().log("플래그먼트 create"+daily_budget_rr+"/"+goal_item_rr+"/"+ratio_saving_rr);
@@ -72,10 +74,26 @@ public class FirstFragment extends Fragment
 
 
         U.getInstance().log("플래그먼트"+daily_budget_rr+"/"+goal_item_rr+"/"+ratio_saving_rr);
-        pb1.setProgress((int)(((double)daily_budget_rr/(double)first_budget) *100.0));
+        U.getInstance().log("하루 퍼센트: " + (int)(((double)daily_budget_rr/(double)first_budget) *100.0));
+
         daily_budget.setText(""+daily_budget_rr);
         ratio_saving.setText(""+(int) ratio_saving_rr+" %");
-        ratio_saving_pb.setProgress((int) ratio_saving_rr);
+
+        Handler handler = new Handler() {};
+        handler.postDelayed(new Runnable() {
+
+            public void run() {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    pb1.setProgress((int)(((double)daily_budget_rr/(double)first_budget) *100.0),true);
+                    ratio_saving_pb.setProgress((int) ratio_saving_rr,true);
+                }else{
+                    pb1.setProgress((int)(((double)daily_budget_rr/(double)first_budget) *100.0));
+                    ratio_saving_pb.setProgress((int) ratio_saving_rr);
+                }
+            }
+        },1000);
+
         switch (goal_item_rr){
             case 1:
                 goal_item.setBackgroundResource(R.drawable.purpose_house);

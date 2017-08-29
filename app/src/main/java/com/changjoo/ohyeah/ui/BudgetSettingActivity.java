@@ -49,8 +49,6 @@ import retrofit2.Response;
 
 public class BudgetSettingActivity extends Activity implements View.OnClickListener {
 
-
-
     BackPressEditText editText;
     EditText day;
     TextView remain_day;

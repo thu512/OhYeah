@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.model.Req_email;
+import com.changjoo.ohyeah.model.Req_use_nest;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
@@ -158,5 +159,37 @@ public class NestAddDialog extends Dialog {
         if(pd != null && pd.isShowing()){
             pd.dismiss();
         }
+    }
+
+
+    public void pushServer(){
+        showPd();
+        Req_use_nest req_use_nest= new Req_use_nest(U.getInstance().getEmail(getContext()), Integer.parseInt(money.getText().toString()));
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().nestAdd(req_use_nest);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        U.getInstance().log("비상금 추가: " + response.body().getMsg());
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopPd();
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
+            }
+        });
     }
 }

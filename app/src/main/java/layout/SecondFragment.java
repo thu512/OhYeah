@@ -1,7 +1,9 @@
 package layout;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +81,22 @@ public class SecondFragment extends Fragment
         month_budget.setText(""+daily_budget_month);
         ratio_saving2.setText(""+(int) ratio_saving_rr+" %");
         ratio_saving_pb2.setProgress((int) ratio_saving_rr);
+
+
+        Handler handler = new Handler() {};
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    pb2.setProgress((int)(((double)daily_budget_month/(double)first_month_budget) *100.0),true);
+                    ratio_saving_pb2.setProgress((int) ratio_saving_rr,true);
+                }else{
+                    pb2.setProgress((int)(((double)daily_budget_month/(double)first_month_budget) *100.0));
+                    ratio_saving_pb2.setProgress((int) ratio_saving_rr);
+                }
+            }
+        },1000);
+
+
         switch (goal_item_rr){
             case 1:
                 goal_item2.setBackgroundResource(R.drawable.purpose_house);

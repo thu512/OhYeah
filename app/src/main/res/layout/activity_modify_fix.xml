@@ -8,6 +8,8 @@
     android:background="@color/colorEdittext"
     android:orientation="vertical"
     android:weightSum="100"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.changjoo.ohyeah.ui.FixSettingActivity">
 
     <LinearLayout

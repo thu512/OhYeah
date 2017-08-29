@@ -251,7 +251,7 @@ public class Res {
             int ratio_spare;
             int d_day;
             int first_daily_budget;
-            int daily_budget;
+            double daily_budget;
             int set_date;
             String setb_yn;
             ArrayList<FixModel> Fix_ex;
@@ -320,11 +320,11 @@ public class Res {
                 this.first_daily_budget = first_daily_budget;
             }
 
-            public int getDaily_budget() {
+            public double getDaily_budget() {
                 return daily_budget;
             }
 
-            public void setDaily_budget(int daily_budget) {
+            public void setDaily_budget(double daily_budget) {
                 this.daily_budget = daily_budget;
             }
 

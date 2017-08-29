@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     int budget;
     int first_budget;
 
-    int daily_budget;
+    double daily_budget;
     int goal_item;
     int goal_money;
     int now_saving;
@@ -503,7 +503,6 @@ public class MainActivity extends Activity {
                 holder.time.setText(expense.getTime());
                 holder.content.setText(expense.getRecord());
             }
-
 
         }
 
