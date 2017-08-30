@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context="com.changjoo.ohyeah.ui.LoginActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="14.7" />
+
+    <ImageView
+        android:layout_width="67dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="10.9"
+        android:src="@mipmap/symbol" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7.6" />
+
+    <TextView
+        android:id="@+id/login_error"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="3.8"
+        android:background="@drawable/round_bg"
+        android:padding="5dp"
+        android:text="아이디가 없습니다."
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="10.8sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.7" />
+
+    <LinearLayout
+        android:layout_width="238.5dp"
+        android:layout_height="0dp"
+        android:layout_weight="4.6"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="16.9" />
+
+
+
+
+        <LinearLayout
+            android:layout_width="238.5dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="66.2"
+            android:background="@drawable/gray_underline"
+            android:orientation="horizontal"
+            >
+            <android.support.v4.widget.Space
+                android:layout_width="14.3dp"
+                android:layout_height="14.3dp" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:hint="@string/login_email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="#9b9b9b"
+                android:textColorHint="#9b9b9b"
+                android:textCursorDrawable="@null"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/id_delete"
+                android:layout_width="14.3dp"
+                android:layout_height="14.3dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/delete"
+                android:visibility="invisible"
+                android:onClick="textDelete"/>
+
+        </LinearLayout>
+
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="16.9" />
+    </LinearLayout>
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.3" />
+
+
+    <LinearLayout
+        android:layout_width="238.5dp"
+        android:layout_height="0dp"
+        android:layout_weight="4.7"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="66.2"
+            android:background="@drawable/gray_underline"
+            android:orientation="horizontal"
+            >
+            <android.support.v4.widget.Space
+                android:layout_width="14.3dp"
+                android:layout_height="14.3dp" />
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/login_pwd"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="#9b9b9b"
+                android:textColorHint="#9b9b9b"
+                android:textCursorDrawable="@null"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/pw_delete"
+                android:layout_width="14.3dp"
+                android:layout_height="14.3dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/delete"
+                android:visibility="invisible"
+                android:onClick="textDelete"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.6" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="238.5dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="8.4"
+        android:background="@drawable/login_round_bg"
+        android:text="@string/login"
+        android:textColor="#9b9b9b"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.7" />
+
+    <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+        android:id="@+id/buttonOAuthLoginImg"
+        android:layout_width="238.5dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="8.4"
+        android:background="@drawable/login_white2" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <TextView
+        android:id="@+id/findpwd"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="3.9"
+        android:gravity="center"
+        android:text="@string/findpw"
+        android:textColor="#9b9b9b"
+        android:textSize="13sp"
+        android:textStyle="italic" />
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3.1"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_pro"
+            android:textColor="#9b9b9b"
+            android:textSize="7.5sp" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="2dp"
+            android:layout_height="match_parent"></android.support.v4.widget.Space>
+
+        <TextView
+            android:id="@+id/login_pro1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:onClick="term1"
+            android:text="@string/login_pro1"
+            android:textColor="#9b9b9b"
+            android:textSize="7.5sp"
+            android:textStyle="bold" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="2dp"
+            android:layout_height="match_parent"></android.support.v4.widget.Space>
+
+        <TextView
+            android:id="@+id/login_pro2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:onClick="term2"
+            android:text="@string/login_pro2"
+            android:textColor="#9b9b9b"
+            android:textSize="7.5sp"
+            android:textStyle="bold" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="2dp"
+            android:layout_height="match_parent"></android.support.v4.widget.Space>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:text="@string/login_pro3"
+            android:textColor="#9b9b9b"
+            android:textSize="7.5sp" />
+    </LinearLayout>
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.7" />
+
+    <Button
+        android:id="@+id/join_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="8.6"
+        android:background="#3b4aaa"
+        android:gravity="center"
+        android:text="@string/login_join"
+        android:textColor="#ffffff"
+        android:textSize="18.5sp" />
+</LinearLayout>

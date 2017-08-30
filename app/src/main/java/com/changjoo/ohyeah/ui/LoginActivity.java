@@ -3,7 +3,9 @@ package com.changjoo.ohyeah.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,17 +46,21 @@ public class LoginActivity extends Activity {
     TextView login_error; //로그인 에러메세지 띄움
     TextView login_pro1; //이용약관
     TextView login_pro2; //개인정보 수집
+    TextView findpwd;
     EditText email;
     EditText pwd;
     Button login_btn;
     Button join_btn;
+    Button id_delete;
+    Button pw_delete;
+
     OAuthLoginButton mOAuthLoginButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login1);
 
         U.getInstance().log("파베 토큰(로그인): "+FirebaseInstanceId.getInstance().getToken());
         mContext = getApplicationContext();
@@ -72,6 +78,9 @@ public class LoginActivity extends Activity {
 
     //네이버 로그인 버튼 및 뷰 세팅
     private void initSetting() {
+        id_delete = (Button)findViewById(R.id.id_delete);
+        pw_delete = (Button)findViewById(R.id.pw_delete);
+        findpwd = (TextView)findViewById(R.id.findpwd);
         login_error = (TextView) findViewById(R.id.login_error);
         login_pro1 = (TextView) findViewById(R.id.login_pro1);
         login_pro2 = (TextView) findViewById(R.id.login_pro2);
@@ -79,6 +88,63 @@ public class LoginActivity extends Activity {
         pwd = (EditText) findViewById(R.id.pwd);
         login_btn = (Button) findViewById(R.id.login_btn);
         join_btn = (Button) findViewById(R.id.join_btn);
+
+
+        findpwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, FindPwdActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //글자입력시 지우기 버튼 생성
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String s = editable.toString();
+                if(s.length()>=1){
+                    id_delete.setVisibility(View.VISIBLE);
+                }else{
+                    id_delete.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        pwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String s = editable.toString();
+                if(s.length()>=1){
+                    pw_delete.setVisibility(View.VISIBLE);
+                }else{
+                    pw_delete.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+
         join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +152,7 @@ public class LoginActivity extends Activity {
                 startActivity(intent);
             }
         });
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +286,7 @@ public class LoginActivity extends Activity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         //코드 숫자별로 상황 분할해야함
-                        U.getInstance().log("응답직후"+response.body().getResult());
+                        U.getInstance().log("응답직후"+response.body().toString());
                         if(response.body().getResult()==1){
                             Toast.makeText(LoginActivity.this,"로그인되었습니다.",Toast.LENGTH_SHORT).show();
                             //로그인 성공시 -> sp저장
@@ -379,5 +446,15 @@ public class LoginActivity extends Activity {
     public void term2(View view){
         Intent intent = new Intent(LoginActivity.this, Terms2Activity.class);
         startActivity(intent);
+    }
+
+
+    //x버튼 클릭시 입력한데이터 삭제
+    public void textDelete(View view){
+        if(view.equals(id_delete)){
+            email.setText("");
+        }else if(view.equals(pw_delete)){
+            pwd.setText("");
+        }
     }
 }

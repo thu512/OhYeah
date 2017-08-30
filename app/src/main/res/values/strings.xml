@@ -12,6 +12,12 @@
     <string name="login_pro1">이용약관, </string>
     <string name="login_pro2">개인정보 수집 </string>
     <string name="login_pro3">이용 내용을 확인하였으며, 동의합니다.</string>
+    <string name="findpw">비밀번호 찾기</string>
+
+    <!--비밀번호 찾기-->
+    <string name="pwdmsg">메일로 비밀번호가\n전송되었습니다.</string>
+
+
 
     <!--join액티비티-->
     <string name="join_text">회원가입</string>

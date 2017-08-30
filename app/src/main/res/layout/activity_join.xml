@@ -7,11 +7,11 @@
     android:orientation="vertical"
     tools:context="com.changjoo.ohyeah.ui.JoinActivity"
     android:background="#ffffff"
-    android:weightSum="10">
+    android:weightSum="100">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9"
+        android:layout_weight="9.4"
         android:textSize="20.3sp"
         android:textColor="#3b4aaa"
         android:gravity="center"
@@ -23,7 +23,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.2"
+        android:layout_weight="19.6"
         android:background="@color/colorEdittext">
         <ImageView
             android:id="@+id/imageView2"
@@ -52,7 +52,7 @@
         android:layout_width="325dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="0.6"
+        android:layout_weight="5"
         android:background="@drawable/gray_underline"
         android:orientation="horizontal">
 
@@ -117,14 +117,14 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="1.5"
         />
 
     <LinearLayout
         android:layout_width="325dp"
         android:layout_gravity="center"
         android:layout_height="0dp"
-        android:layout_weight="0.6"
+        android:layout_weight="5"
         android:background="@drawable/gray_underline"
         android:orientation="horizontal"
         >
@@ -181,12 +181,12 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"/>
+        android:layout_weight="0.5"/>
 
     <LinearLayout
         android:layout_width="325dp"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="2.4"
         android:layout_gravity="center">
         <TextView
             android:id="@+id/pwd_max"
@@ -213,14 +213,18 @@
             android:text="@string/join_pwd_check2"/>
     </LinearLayout>
 
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.6"/>
+
     <LinearLayout
         android:layout_width="325dp"
-        android:layout_gravity="center"
         android:layout_height="0dp"
-        android:layout_weight="0.6"
+        android:layout_gravity="center"
+        android:layout_weight="5"
         android:background="@drawable/gray_underline"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/pwd2_check_img"
@@ -232,6 +236,7 @@
         <android.support.v4.widget.Space
             android:layout_width="6dp"
             android:layout_height="match_parent" />
+
         <TextView
             android:layout_width="75dp"
             android:layout_height="wrap_content"
@@ -252,13 +257,13 @@
             android:layout_weight="1"
             android:background="@null"
             android:ems="15"
-            android:textStyle="normal"
             android:inputType="textPassword"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textColor="#4a4a4a"
             android:textCursorDrawable="@null"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="normal" />
 
         <Button
             android:id="@+id/pw_ck_delete"
@@ -266,20 +271,20 @@
             android:layout_height="14.3dp"
             android:layout_gravity="center"
             android:background="@mipmap/delete"
-            android:visibility="invisible"
-            android:onClick="textDelete"/>
+            android:onClick="textDelete"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.8"/>
+        android:layout_weight="41.7"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="8.4"
         android:orientation="horizontal">
 
         <Button

@@ -99,4 +99,9 @@ public interface AllFactoryIm {
     @POST("update/new_token")
     Call<Res> refreshToken(@Body Req_token req_token);
 
+    @POST("users/findpw")
+    Call<Res> findPwd(@Body Req_email req_email);
+
+
+
 }
