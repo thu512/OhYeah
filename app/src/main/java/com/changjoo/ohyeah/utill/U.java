@@ -220,4 +220,21 @@ public class U {
                 .show();
     }
 
+
+    //콤마 찍기
+    public  String toNumFormat(String num) {
+        if(num.equals("")){
+            return "0";
+        }
+        int result= Integer.parseInt(removeComa(num));
+        return new java.text.DecimalFormat("#,###").format( result );
+    }
+
+
+    //콤마제거
+    public String removeComa(String num){
+
+        return num.replaceAll("\\,", "");
+    }
+
 }

@@ -17,11 +17,13 @@ import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.ui.ModifyPurposeActivity;
 import com.changjoo.ohyeah.utill.U;
 
+import me.grantland.widget.AutofitTextView;
+
 
 public class SecondFragment extends Fragment
 {
     ProgressBar pb2;
-    TextView month_budget;
+    AutofitTextView month_budget;
     ProgressBar ratio_saving_pb2;
     TextView ratio_saving2;
     Button goal_item2;
@@ -71,14 +73,14 @@ public class SecondFragment extends Fragment
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_second, container, false);
         pb2 = (ProgressBar)layout.findViewById(R.id.pb2);
         ratio_saving_pb2 = (ProgressBar)layout.findViewById(R.id.ratio_saving_pb2);
-        month_budget = (TextView) layout.findViewById(R.id.month_budget);
+        month_budget = (AutofitTextView) layout.findViewById(R.id.month_budget);
         ratio_saving2 = (TextView) layout.findViewById(R.id.ratio_saving2);
         goal_item2 = (Button)layout.findViewById(R.id.goal_item2);
 
 
         U.getInstance().log("플래그먼트"+daily_budget_month+"/"+goal_item_rr+"/"+ratio_saving_rr);
         pb2.setProgress((int)(((double)daily_budget_month/(double)first_month_budget) *100.0));
-        month_budget.setText(""+daily_budget_month);
+        month_budget.setText(U.getInstance().toNumFormat(""+daily_budget_month));
         ratio_saving2.setText(""+(int) ratio_saving_rr+" %");
         ratio_saving_pb2.setProgress((int) ratio_saving_rr);
 

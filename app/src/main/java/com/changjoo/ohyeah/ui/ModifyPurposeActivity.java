@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +46,7 @@ public class ModifyPurposeActivity extends Activity {
     TextView dday;
 
     int selectedItem=1;
-
+    String result= "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +99,27 @@ public class ModifyPurposeActivity extends Activity {
 
 
 
+        pupose_money.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    result = U.getInstance().toNumFormat(charSequence.toString());   // 에딧텍스트의 값을 변환하여, result에 저장.
+                    pupose_money.setText(result);    // 결과 텍스트 셋팅.
+                    pupose_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
 
@@ -109,7 +131,7 @@ public class ModifyPurposeActivity extends Activity {
                     pupose_money.setText("0");
                 }
 
-                Req_Purpose req_purpose = new Req_Purpose(U.getInstance().getEmail(ModifyPurposeActivity.this), Integer.parseInt(pupose_money.getText().toString()),selectedItem);
+                Req_Purpose req_purpose = new Req_Purpose(U.getInstance().getEmail(ModifyPurposeActivity.this), Integer.parseInt(U.getInstance().removeComa(pupose_money.getText().toString())),selectedItem);
 
                 Call<Res> res = SNet.getInstance().getAllFactoryIm().update_PP(req_purpose);
                 res.enqueue(new Callback<Res>() {
@@ -231,7 +253,7 @@ public class ModifyPurposeActivity extends Activity {
                     if (response.body() != null) {
                         if (response.body().getResult() == 1) {
                             U.getInstance().log("목표수정" + response.body().toString());
-                            pupose_money.setText(""+response.body().getDoc().getGoal().getGoal_money());
+                            pupose_money.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getGoal().getGoal_money()));
                             day.setText(""+response.body().getDoc().getGoal().getNow_saving());
 
                             if(response.body().getDoc().getGoal().getRecent_saving() ==0){

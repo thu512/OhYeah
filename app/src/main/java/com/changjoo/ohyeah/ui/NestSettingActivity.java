@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import me.grantland.widget.AutofitTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +34,7 @@ import static com.changjoo.ohyeah.utill.U.doDiffOfDate;
 public class NestSettingActivity extends Activity {
 
     EditText nest_money;
-    TextView day_money;
+    AutofitTextView day_money;
     TextView percent;
     TextView nest_error;
     ProgressBar pb1;
@@ -42,7 +43,7 @@ public class NestSettingActivity extends Activity {
     ImageButton back;
 
     Boolean flag = false; //예산보다 초과하지 않았는지
-
+    String result="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class NestSettingActivity extends Activity {
         back = (ImageButton) findViewById(R.id.back);
         submit = (Button) findViewById(R.id.submit);
         nest_error = (TextView) findViewById(R.id.nest_error);
-        day_money = (TextView) findViewById(R.id.day_money);
+        day_money = (AutofitTextView) findViewById(R.id.day_money);
         percent = (TextView) findViewById(R.id.percent);
         nest_money = (EditText) findViewById(R.id.nest_money);
         pb1 = (ProgressBar) findViewById(R.id.pb1);
@@ -68,7 +69,11 @@ public class NestSettingActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    result = U.getInstance().toNumFormat(charSequence.toString());
+                    nest_money.setText(result);    // 결과 텍스트 셋팅.
+                    nest_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                }
             }
 
             @Override
@@ -77,18 +82,18 @@ public class NestSettingActivity extends Activity {
                 if (editable.toString().equals("")) {
                     money = 0;
                 } else {
-                    money = Integer.parseInt(editable.toString());
+                    money = Integer.parseInt(U.getInstance().removeComa(editable.toString()));
                 }
                 if (money >= month - fix) {
                     nest_error.setVisibility(View.VISIBLE);
-                    day_money.setText("" + calDayMoney(month, fix, money, day));
+                    day_money.setText(U.getInstance().toNumFormat("" + calDayMoney(month, fix, money, day)));
                     pb1.setProgress((int) ((double) money / (double) (month - fix) * 100.0));
                     percent.setText("" + (int) ((double) money / (double) (month - fix) * 100.0));
                     flag = false;
                 } else {
                     nest_error.setVisibility(View.INVISIBLE);
                     U.getInstance().log("예상 일일 예산: " + calDayMoney(month, fix, money, day));
-                    day_money.setText("" + calDayMoney(month, fix, money, day));
+                    day_money.setText(U.getInstance().toNumFormat("" + calDayMoney(month, fix, money, day)));
                     U.getInstance().log("" + (double) money);
                     U.getInstance().log("" + (double) month);
                     U.getInstance().log("" + ((double) money / (double) (month - fix) * 100.0));
@@ -115,7 +120,7 @@ public class NestSettingActivity extends Activity {
                     startActivity(intent);
                     finish();
                 } else if (flag) {
-                    Req_Nest req_nest = new Req_Nest(U.getInstance().getEmail(NestSettingActivity.this), Integer.parseInt(nest_money.getText().toString()));
+                    Req_Nest req_nest = new Req_Nest(U.getInstance().getEmail(NestSettingActivity.this), Integer.parseInt(U.getInstance().removeComa(nest_money.getText().toString())));
                     Call<Res> res = SNet.getInstance().getAllFactoryIm().pushNest(req_nest);
                     res.enqueue(new Callback<Res>() {
                         @Override

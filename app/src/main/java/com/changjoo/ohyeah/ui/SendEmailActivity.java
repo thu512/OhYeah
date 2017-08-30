@@ -68,7 +68,7 @@ public class SendEmailActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                String to = "phantom9401@naver.com";
+                String to = "gogolab2017@gmail.com";
                 String subject = "오예 문의 사항";
                 String message = contents.getText().toString();
 

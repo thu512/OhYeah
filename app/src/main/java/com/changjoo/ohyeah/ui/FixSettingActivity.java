@@ -38,7 +38,7 @@ public class FixSettingActivity extends Activity {
     ImageButton back;
 
     int item_cnt = 1;
-
+    String result="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +180,8 @@ public class FixSettingActivity extends Activity {
                     }
                 }
             });
+
+
             del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -237,7 +239,6 @@ public class FixSettingActivity extends Activity {
 
                 }
             });
-
 
             return new FixViewHolder(view);
         }

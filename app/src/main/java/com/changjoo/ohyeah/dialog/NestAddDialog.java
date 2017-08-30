@@ -39,7 +39,7 @@ public class NestAddDialog extends Dialog {
     Button btn_right; //확인
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
-
+    String result = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,11 @@ public class NestAddDialog extends Dialog {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    result = U.getInstance().toNumFormat(charSequence.toString());   // 에딧텍스트의 값을 변환하여, result에 저장.
+                    money.setText(result);    // 결과 텍스트 셋팅.
+                    money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                }
 
             }
 
@@ -80,9 +85,9 @@ public class NestAddDialog extends Dialog {
                 if(s.equals("")){
                     nest = 0;
                 }else{
-                    nest = Integer.parseInt(s);
+                    nest = Integer.parseInt(U.getInstance().removeComa(s));
                 }
-                current_money.setText(""+(cm-nest));
+                current_money.setText(U.getInstance().toNumFormat(""+(cm-nest)));
                 if((cm-nest)<0){
                     error2.setVisibility(View.VISIBLE);
                 }else{
@@ -121,7 +126,7 @@ public class NestAddDialog extends Dialog {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         U.getInstance().log("남은 비상금: " + response.body().toString());
-                        current_money.setText(""+response.body().getDoc().getAsset().getSpare_money());
+                        current_money.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getAsset().getSpare_money()));
                         cm = response.body().getDoc().getAsset().getSpare_money();
                     } else {
                         U.getInstance().log("통신실패1");
@@ -164,7 +169,7 @@ public class NestAddDialog extends Dialog {
 
     public void pushServer(){
         showPd();
-        Req_use_nest req_use_nest= new Req_use_nest(U.getInstance().getEmail(getContext()), Integer.parseInt(money.getText().toString()));
+        Req_use_nest req_use_nest= new Req_use_nest(U.getInstance().getEmail(getContext()), Integer.parseInt(U.getInstance().removeComa(money.getText().toString())));
         Call<Res> res = SNet.getInstance().getAllFactoryIm().nestAdd(req_use_nest);
         res.enqueue(new Callback<Res>() {
             @Override

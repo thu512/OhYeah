@@ -87,7 +87,7 @@ public class FindPwdActivity extends Activity {
                     email.setError("올바른 이메일 형식을 입력해주세요.");
                     return;
                 }
-                find();
+                find(email.getText().toString());
             }
         });
 
@@ -101,9 +101,9 @@ public class FindPwdActivity extends Activity {
     }
 
 
-    public void find(){
+    public void find(String email){
         showPd();
-        Req_email req_email= new Req_email(U.getInstance().getEmail(FindPwdActivity.this));
+        Req_email req_email= new Req_email(email);
         Call<Res> res = SNet.getInstance().getAllFactoryIm().findPwd(req_email);
         res.enqueue(new Callback<Res>() {
             @Override
@@ -141,6 +141,7 @@ public class FindPwdActivity extends Activity {
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {
+                Toast.makeText(FindPwdActivity.this,"올바른 메일주소를 입력하세요.",Toast.LENGTH_SHORT).show();
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
                 stopPd();
             }

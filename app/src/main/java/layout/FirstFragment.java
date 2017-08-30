@@ -1,6 +1,8 @@
 package layout;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +19,14 @@ import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.ui.ModifyPurposeActivity;
 import com.changjoo.ohyeah.utill.U;
 
+import me.grantland.widget.AutofitTextView;
+
 
 public class FirstFragment extends Fragment
 {
     ProgressBar pb1;
     ProgressBar ratio_saving_pb;
-    TextView daily_budget;
+    AutofitTextView daily_budget;
     TextView ratio_saving;
     Button goal_item;
 
@@ -68,15 +72,22 @@ public class FirstFragment extends Fragment
         LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_first, container, false);
         pb1 = (ProgressBar)layout.findViewById(R.id.pb1);
         ratio_saving_pb = (ProgressBar)layout.findViewById(R.id.ratio_saving_pb);
-        daily_budget = (TextView) layout.findViewById(R.id.daily_budget);
+        daily_budget = (AutofitTextView) layout.findViewById(R.id.daily_budget);
         ratio_saving = (TextView) layout.findViewById(R.id.ratio_saving);
         goal_item = (Button)layout.findViewById(R.id.goal_item);
 
 
         U.getInstance().log("플래그먼트"+daily_budget_rr+"/"+goal_item_rr+"/"+ratio_saving_rr);
         U.getInstance().log("하루 퍼센트: " + (int)(((double)daily_budget_rr/(double)first_budget) *100.0));
+        if(daily_budget_rr<0){
+            Resources res = getResources();
+            Drawable draw=res.getDrawable(R.drawable.progress_warn);
+            Drawable draw2=res.getDrawable(R.drawable.progress2_warn);
+            pb1.setProgressDrawable(draw);
+            ratio_saving_pb.setProgressDrawable(draw2);
 
-        daily_budget.setText(""+daily_budget_rr);
+        }
+        daily_budget.setText(U.getInstance().toNumFormat(""+daily_budget_rr));
         ratio_saving.setText(""+(int) ratio_saving_rr+" %");
 
         Handler handler = new Handler() {};

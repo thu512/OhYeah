@@ -48,6 +48,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import me.grantland.widget.AutofitTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,7 +63,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
     BackPressEditText nest_money;
     TextView day;
     TextView percent;
-    TextView money;
+    AutofitTextView money;
     ProgressBar pb;
     Button add_money;
     TextView err;
@@ -109,7 +110,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
     Button bt_del;
     private ArrayList<String> operatorList;
     private boolean isPreOperator;
-
+    String result ="";
     NestAddDialog nestAddDialog;
 
     @Override
@@ -145,7 +146,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         day = (TextView) findViewById(R.id.day);
         percent = (TextView) findViewById(R.id.percent);
         pb = (ProgressBar) findViewById(R.id.pb);
-        money = (TextView) findViewById(R.id.money);
+        money = (AutofitTextView) findViewById(R.id.money);
 
 
         //월급일 설정 키보드 띄움 막기
@@ -191,7 +192,11 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    result = U.getInstance().toNumFormat(charSequence.toString());
+                    nest_money.setText(result);    // 결과 텍스트 셋팅.
+                    nest_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                }
             }
 
             @Override
@@ -200,26 +205,26 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                 if (editable.toString().equals("")) {
                     money = 0;
                 } else {
-                    money = Integer.parseInt(editable.toString());
+                    money = Integer.parseInt(U.getInstance().removeComa(editable.toString()));
                 }
-                if (money >= Integer.parseInt(editText.getText().toString())) {
+                if (money >= Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) {
                     err.setVisibility(View.VISIBLE);
-                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(editText.getText().toString()), 0, money, Integer.parseInt(day.getText().toString())));
+                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
 
-                    pb.setProgress((int) ((double) money / (double) (Integer.parseInt(editText.getText().toString())) * 100.0));
-                    percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(editText.getText().toString()))) * 100.0));
+                    pb.setProgress((int) ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
+                    percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())))) * 100.0));
 
                     flag = false;
                 } else {
                     err.setVisibility(View.INVISIBLE);
-                    U.getInstance().log("예상 일일 예산: " +  calDayMoney(Integer.parseInt(editText.getText().toString()), 0, money, Integer.parseInt(day.getText().toString())));
-                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(editText.getText().toString()), 0, money, Integer.parseInt(day.getText().toString())));
+                    U.getInstance().log("예상 일일 예산: " +  calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
+                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
 
                     U.getInstance().log("" + (double) money);
-                    U.getInstance().log("" + (double) Integer.parseInt(editText.getText().toString()));
-                    U.getInstance().log("" + ((double) money / (double) (Integer.parseInt(editText.getText().toString()) * 100.0)));
-                    pb.setProgress((int) ((double) money / (double) (Integer.parseInt(editText.getText().toString())) * 100.0));
-                    percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(editText.getText().toString()))) * 100.0));
+                    U.getInstance().log("" + (double) Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())));
+                    U.getInstance().log("" + ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
+                    pb.setProgress((int) ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
+                    percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())))) * 100.0));
                     flag = true;
                 }
             }
@@ -230,12 +235,20 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         submit1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isPreOperator){
+                    editText.setError("계산을 완료해주세요.");
+                    return;
+                }
                 if(TextUtils.isEmpty(editText.getText())){
                     editText.setError("에산을 입력해주세요.");
                     return;
                 }
+                if(U.getInstance().removeComa(editText.getText().toString()).length() > 9){
+                    editText.setError("10억미만으로 입력해주세요.");
+                    return;
+                }
                 if(flag){
-                    sendServer(Integer.parseInt(editText.getText().toString()),Integer.parseInt(day.getText().toString()),Integer.parseInt(nest_money.getText().toString()));
+                    sendServer(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())),Integer.parseInt(day.getText().toString()),Integer.parseInt(U.getInstance().removeComa(nest_money.getText().toString())));
                 }
             }
         });
@@ -394,8 +407,8 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                         U.getInstance().log("예산수정: " + response.body().toString());
                         if (response.body().getResult() == 1) {
                             day.setText("" + response.body().getDoc().getAsset().getSet_date());
-                            editText.setText("" + response.body().getDoc().getAsset().getBudget());
-                            nest_money.setText("" + response.body().getDoc().getAsset().getSpare_money());
+                            editText.setText(U.getInstance().toNumFormat("" + response.body().getDoc().getAsset().getBudget()));
+                            nest_money.setText(U.getInstance().toNumFormat("" + response.body().getDoc().getAsset().getSpare_money()));
                             percent.setText("" + response.body().getDoc().getAsset().getRatio_spare());
                             Handler handler = new Handler() {
                             };
@@ -472,6 +485,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
         flipper.setDisplayedChild(2);
+        editText.setSelection(editText.length());
     }
 
 
@@ -480,6 +494,10 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         num.setBackgroundResource(R.mipmap.basic_off);
         cal.setBackgroundResource(R.mipmap.group_on);
         flipper.setDisplayedChild(1);
+        if(!editText.getText().toString().equals("")){
+            editText.setText(U.getInstance().removeComa(editText.getText().toString()));
+        }
+        editText.setSelection(editText.length());
     }
 
 
@@ -495,135 +513,178 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
     //계산기 키보드/ 기본 키보드 버튼 이벤트
     @Override
     public void onClick(View v) {
-        if (v.equals(btn1)) {
-            editText.setText(editText.getText() + "1");
+        if( v.equals( btn1 )){
+            editText.setText(editText.getText()+"1");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn2)) {
-            editText.setText(editText.getText() + "2");
+        }else if( v.equals( btn2 )){
+            editText.setText( editText.getText()+"2");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn3)) {
-            editText.setText(editText.getText() + "3");
+        }else if( v.equals( btn3 )){
+            editText.setText( editText.getText()+"3");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn4)) {
-            editText.setText(editText.getText() + "4");
+        }else if( v.equals( btn4 )){
+            editText.setText( editText.getText()+"4");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn5)) {
-            editText.setText(editText.getText() + "5");
+        }else if( v.equals( btn5 )){
+            editText.setText( editText.getText()+"5");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn6)) {
-            editText.setText(editText.getText() + "6");
+        }else if( v.equals( btn6 )){
+            editText.setText( editText.getText()+"6");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn7)) {
-            editText.setText(editText.getText() + "7");
+        }else if( v.equals( btn7 )){
+            editText.setText( editText.getText()+"7");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn8)) {
-            editText.setText(editText.getText() + "8");
+        }else if( v.equals( btn8 )){
+            editText.setText( editText.getText()+"8");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn9)) {
-            editText.setText(editText.getText() + "9");
+        }else if( v.equals( btn9 )){
+            editText.setText( editText.getText()+"9");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn0)) {
+        }else if( v.equals( btn0 )){
             editText.setText(editText.getText() + "0");
             editText.setSelection(editText.length());
-        } else if (v.equals(btn_ac)) {
+        }else if( v.equals( btn_ac )){
             isPreOperator = false;
             editText.setText("");
             editText.setSelection(editText.length());
             operatorList.clear();
-        } else if (v.equals(btn_del)) {
-            if (editText.getText().length() != 0) {
-                String str = editText.getText().subSequence(editText.getText().length() - 1, editText.getText().length()).toString();
-                if ("+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)) {
-                    operatorList.remove(operatorList.size() - 1);
-                    isPreOperator = false;
+        }else if( v.equals( btn_del )){
+
+            if( editText.getText().length() != 0 ) {
+                String str = editText.getText().subSequence( editText.getText().length()-1, editText.getText().length() ).toString();
+                if( "+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)){
+                    operatorList.remove(operatorList.size()-1);
+                    isPreOperator=false;
                 }
-                editText.setText(editText.getText().subSequence(0, editText.getText().length() - 1));
+                editText.setText( editText.getText().subSequence( 0 , editText.getText().length()-1));
                 editText.setSelection(editText.length());
             }
-        } else if (v.equals(btn_divide)) {
-            if (isPreOperator == true) {
+        }else if( v.equals( btn_divide )){
+            if( isPreOperator == true ) {
                 return;
             }
-            editText.setText(editText.getText() + "/");
+            if(editText.getText().length() >= 9){
+                return;
+            }
+            editText.setText( editText.getText()+"/");
             editText.setSelection(editText.length());
             isPreOperator = true;
             operatorList.add("/");
-        } else if (v.equals(btn_sum)) {
-            if (isPreOperator == true) {
+        }else if( v.equals( btn_sum )){
+            if( isPreOperator == true ) {
+                return;
+            }
+            if(editText.getText().length() >= 9){
                 return;
             }
             isPreOperator = true;
-            editText.setText(editText.getText() + "+");
+            editText.setText( editText.getText()+"+");
             editText.setSelection(editText.length());
             operatorList.add("+");
-        } else if (v.equals(btn_sub)) {
-            if (isPreOperator == true) {
+        }else if( v.equals( btn_sub )){
+            if( isPreOperator == true ) {
+                return;
+            }
+            if(editText.getText().length() >= 9){
                 return;
             }
             isPreOperator = true;
-            editText.setText(editText.getText() + "-");
+            editText.setText( editText.getText()+"-");
             editText.setSelection(editText.length());
             operatorList.add("-");
-        } else if (v.equals(btn_mul)) {
-            if (isPreOperator == true) {
+        }else if( v.equals( btn_mul )){
+            if( isPreOperator == true ) {
+                return;
+            }
+            if(editText.getText().length() >= 9){
                 return;
             }
             isPreOperator = true;
-            editText.setText(editText.getText() + "X");
+            editText.setText( editText.getText()+"X");
             editText.setSelection(editText.length());
             operatorList.add("X");
-        } else if (v.equals(btn_down)) {
+        }else if(v.equals(btn_down)){
             flipper.setDisplayedChild(0);
             select_key.setVisibility(View.INVISIBLE);
             num.setBackgroundResource(R.mipmap.basic_on);
             cal.setBackgroundResource(R.mipmap.group_off);
-        } else if (v.equals(btn_result)) {
-            if (editText.getText().toString().equals("")) {
+        } else if( v.equals( btn_result )){
+            if(editText.getText().toString().equals("")){
                 return;
-            } else {
-                String str = editText.getText().subSequence(editText.getText().length() - 1, editText.getText().length()).toString();
-                if ("+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)) {
+            }else{
+                String str = editText.getText().subSequence( editText.getText().length()-1, editText.getText().length() ).toString();
+                if( "+".equals(str) || "-".equals(str) || "X".equals(str) || "/".equals(str)){
                     return;
                 }
             }
-            editText.setText(calc(editText.getText().toString()));
+            editText.setText( calc(editText.getText().toString()) );
             editText.setSelection(editText.length());
-        } else if (v.equals(bt0)) {
-            editText.setText(editText.getText() + "0");
+        }else if( v.equals( bt0 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText( U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"0"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt1)) {
-            editText.setText(editText.getText() + "1");
+        }else if( v.equals( bt1 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"1"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt2)) {
-            editText.setText(editText.getText() + "2");
+        }else if( v.equals( bt2 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"2"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt3)) {
-            editText.setText(editText.getText() + "3");
+        }else if( v.equals( bt3 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"3"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt4)) {
-            editText.setText(editText.getText() + "4");
+        }else if( v.equals( bt4 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"4"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt5)) {
-            editText.setText(editText.getText() + "5");
+        }else if( v.equals( bt5 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"5"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt6)) {
-            editText.setText(editText.getText() + "6");
+        }else if( v.equals( bt6 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"6"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt7)) {
-            editText.setText(editText.getText() + "7");
+        }else if( v.equals( bt7 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"7"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt8)) {
-            editText.setText(editText.getText() + "8");
+        }else if( v.equals( bt8 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"8"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt9)) {
-            editText.setText(editText.getText() + "9");
+        }else if( v.equals( bt9 )){
+            if(editText.getText().length() >= 11){
+                return;
+            }
+            editText.setText(  U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString())+"9"));
             editText.setSelection(editText.length());
-        } else if (v.equals(bt_del)) {
-            if (editText.getText().length() != 0) {
-                editText.setText(editText.getText().subSequence(0, editText.getText().length() - 1));
+        }else if( v.equals( bt_del )){
+            if( editText.getText().length() != 0 ) {
+                editText.setText(U.getInstance().toNumFormat(U.getInstance().removeComa(editText.getText().toString()).subSequence( 0 , U.getInstance().removeComa(editText.getText().toString()).length()-1).toString()));
                 editText.setSelection(editText.length());
             }
-        } else if (v.equals(bt_down)) {
+        }else if( v.equals( bt_down )){
             flipper.setDisplayedChild(0);
             select_key.setVisibility(View.INVISIBLE);
             num.setBackgroundResource(R.mipmap.basic_on);

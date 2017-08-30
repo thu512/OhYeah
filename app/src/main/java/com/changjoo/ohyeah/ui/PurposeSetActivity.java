@@ -2,6 +2,8 @@ package com.changjoo.ohyeah.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +35,7 @@ public class PurposeSetActivity extends Activity {
     Button submit;
     ImageButton back;
     int selectedItem = 1;
-
+    String result="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class PurposeSetActivity extends Activity {
             @Override
             public void onClick(View view) {
                 showPd();
-                String money = pupose_money.getText().toString();
+                String money = U.getInstance().removeComa(pupose_money.getText().toString());
                 if (!money.equals("")) {
                     int m = Integer.parseInt(money);
                     Req_Purpose req_purpose = new Req_Purpose(U.getInstance().getEmail(PurposeSetActivity.this), m, selectedItem);
@@ -178,6 +180,26 @@ public class PurposeSetActivity extends Activity {
         gift.setOnClickListener(optionOnClickListener);
         heart.setOnClickListener(optionOnClickListener);
         etc.setOnClickListener(optionOnClickListener);
+        pupose_money.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    result = U.getInstance().toNumFormat(charSequence.toString());
+                    pupose_money.setText(result);    // 결과 텍스트 셋팅.
+                    pupose_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 }

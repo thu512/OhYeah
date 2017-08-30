@@ -34,7 +34,8 @@
             android:textColor="#3b4aaa"
             android:textColorHint="#9b9b9b"
             android:textSize="18.5sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textCursorDrawable="@null"/>
 
         <EditText
             android:id="@+id/fix_money"
@@ -43,12 +44,13 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@null"
-            android:ems="8"
+            android:maxLength="9"
             android:gravity="right"
             android:inputType="number"
             android:textColor="#3b4aaa"
             android:textSize="18.5sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textCursorDrawable="@null"/>
 
         <TextView
             android:layout_width="wrap_content"
