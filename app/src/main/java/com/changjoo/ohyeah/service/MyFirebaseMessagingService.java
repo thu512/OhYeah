@@ -33,7 +33,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Gson gson = new Gson();
             ResPushModel res = gson.fromJson(remoteMessage.getData().get("data"),ResPushModel.class);
 
-            Log.i("FCM",res.getBody()+" / "+res.getTitle());
+            Log.i("FCM",res.getBody()+" / "+res.getTitle()+"/"+res.getResult());
             showNotification(res);
 
         }

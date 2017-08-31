@@ -5,8 +5,17 @@ package com.changjoo.ohyeah.model;
  */
 
 public class ResPushModel {
+    int result;
     String body;
     String title;
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
 
     public String getTitle() {
         return title;

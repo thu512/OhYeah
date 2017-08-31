@@ -209,7 +209,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                 }
                 if (money >= Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) {
                     err.setVisibility(View.VISIBLE);
-                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
+                    ModifySettingActivity.this.money.setText(U.getInstance().toNumFormat("" + calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString()))));
 
                     pb.setProgress((int) ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
                     percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())))) * 100.0));
@@ -218,13 +218,14 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                 } else {
                     err.setVisibility(View.INVISIBLE);
                     U.getInstance().log("예상 일일 예산: " +  calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
-                    ModifySettingActivity.this.money.setText("" + calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString())));
+                    ModifySettingActivity.this.money.setText(U.getInstance().toNumFormat(""+calDayMoney(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())), 0, money, Integer.parseInt(day.getText().toString()))));
 
                     U.getInstance().log("" + (double) money);
                     U.getInstance().log("" + (double) Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())));
                     U.getInstance().log("" + ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
                     pb.setProgress((int) ((double) money / (double) (Integer.parseInt(U.getInstance().removeComa(editText.getText().toString()))) * 100.0));
                     percent.setText("" + (int) ((double) money / (double) ((Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())))) * 100.0));
+
                     flag = true;
                 }
             }
@@ -417,7 +418,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                                     pb.setProgress(response.body().getDoc().getAsset().getRatio_spare());
                                 }
                             }, 100);
-                            money.setText("" + (int)response.body().getDoc().getAsset().getDaily_budget());
+                            money.setText(U.getInstance().toNumFormat("" + (int)response.body().getDoc().getAsset().getDaily_budget()));
                         } else {
 
                         }
