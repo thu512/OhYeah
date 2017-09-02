@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class NestAddDialog extends Dialog {
 
     EditText money;
-    TextView current_money;
+    me.grantland.widget.AutofitTextView current_money;
     TextView error2;
     int cm=0;
     Button btn_left; //취소
@@ -55,7 +55,7 @@ public class NestAddDialog extends Dialog {
         getNest(U.getInstance().getEmail(getContext()));
 
         money = (EditText) findViewById(R.id.money);
-        current_money= (TextView) findViewById(R.id.current_money);
+        current_money= (me.grantland.widget.AutofitTextView) findViewById(R.id.current_money);
         btn_left = (Button) findViewById(R.id.btn_left);
         btn_right = (Button) findViewById(R.id.btn_right);
         error2 = (TextView)findViewById(R.id.error2);

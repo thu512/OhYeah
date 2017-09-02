@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.service.AlarmProcessingService;
 import com.changjoo.ohyeah.ui.BudgetSettingActivity;
 import com.changjoo.ohyeah.ui.LoginActivity;
 import com.changjoo.ohyeah.ui.MainActivity;
@@ -24,6 +25,8 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+
 
         U.getInstance().log("파베 토큰: "+FirebaseInstanceId.getInstance().getToken());
         U.getInstance().log("로그인: "+U.getInstance().getEmail(StartActivity.this));

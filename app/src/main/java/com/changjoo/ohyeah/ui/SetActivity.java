@@ -1,5 +1,6 @@
 package com.changjoo.ohyeah.ui;
 
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,14 +21,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
-import com.changjoo.ohyeah.dialog.LogoutDialog;
 import com.changjoo.ohyeah.R;
 import com.changjoo.ohyeah.StartActivity;
+import com.changjoo.ohyeah.dialog.LogoutDialog;
 import com.changjoo.ohyeah.dialog.SignoutCheckDialog;
 import com.changjoo.ohyeah.dialog.SignoutDialog;
 import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.service.AlarmProcessingMonthService;
+import com.changjoo.ohyeah.service.AlarmProcessingService;
 import com.changjoo.ohyeah.utill.U;
 import com.nhn.android.naverlogin.OAuthLogin;
 
@@ -58,11 +62,15 @@ public class SetActivity extends Activity {
     LogoutDialog logoutDialog;
     SignoutDialog signoutDialog;
     SignoutCheckDialog signoutCheckDialog;
+
+    NotificationManager mangager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
 
+        mangager = (NotificationManager)getSystemService( Context.NOTIFICATION_SERVICE ) ;
 
         aManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
 
@@ -83,6 +91,43 @@ public class SetActivity extends Activity {
         logout = (Button)findViewById(R.id.logout);
         signout = (Button)findViewById(R.id.signout);
         back = (ImageButton)findViewById(R.id.back);
+
+
+        if(U.getInstance().getDayHour(this) != 0 || U.getInstance().getDayMin(this)!=0){
+            if(U.getInstance().getDayHour(this)<12){
+                dayTime1.setText("오전");
+                dayTime2.setText(U.getInstance().getDayHour(this)<10? "0"+Integer.toString(U.getInstance().getDayHour(this)):Integer.toString(U.getInstance().getDayHour(this)));
+                dayTime3.setText(U.getInstance().getDayMin(this)<10? "0"+Integer.toString(U.getInstance().getDayMin(this)):Integer.toString(U.getInstance().getDayMin(this)));
+            }
+            else{
+                dayTime1.setText("오후");
+                dayTime2.setText(U.getInstance().getDayHour(this)-12 <10? "0"+Integer.toString(U.getInstance().getDayHour(this)-12):Integer.toString(U.getInstance().getDayHour(this)-12));
+                dayTime3.setText(U.getInstance().getDayMin(this)<10? "0"+Integer.toString(U.getInstance().getDayMin(this)):Integer.toString(U.getInstance().getDayMin(this)));
+            }
+        }else{
+            dayTime1.setText("오전");
+            dayTime2.setText("09");
+            dayTime3.setText("00");
+        }
+
+
+        if(U.getInstance().getMonthHour(this) != 0 || U.getInstance().getMonthMin(this)!=0){
+            if(U.getInstance().getMonthHour(this)<12){
+                monthTime1.setText("오전");
+                monthTime2.setText(U.getInstance().getMonthHour(this)<10? "0"+Integer.toString(U.getInstance().getMonthHour(this)):Integer.toString(U.getInstance().getMonthHour(this)));
+                monthTime3.setText(U.getInstance().getMonthMin(this)<10? "0"+Integer.toString(U.getInstance().getMonthMin(this)):Integer.toString(U.getInstance().getMonthMin(this)));
+            }
+            else{
+                monthTime1.setText("오후");
+                monthTime2.setText(U.getInstance().getMonthHour(this)-12 <10? "0"+Integer.toString(U.getInstance().getMonthHour(this)-12):Integer.toString(U.getInstance().getMonthHour(this)-12));
+                monthTime3.setText(U.getInstance().getMonthMin(this)<10? "0"+Integer.toString(U.getInstance().getMonthMin(this)):Integer.toString(U.getInstance().getMonthMin(this)));
+            }
+        }else{
+            monthTime1.setText("오전");
+            monthTime2.setText("09");
+            monthTime3.setText("00");
+        }
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,31 +172,39 @@ public class SetActivity extends Activity {
             }
         });
 
-//        soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b){
-//                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-//                    viveSwt.setChecked(false);
-//                }else{
-//                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-//                    viveSwt.setChecked(true);
-//                }
-//            }
-//        });
-//
-//        viveSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(b){
-//                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-//                    soundSwt.setChecked(false);
-//                }else{
-//                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-//                    soundSwt.setChecked(true);
-//                }
-//            }
-//        });
+
+        if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE ){ //진동모드일 경우
+            viveSwt.setChecked(true);
+
+        }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
+            soundSwt.setChecked(true);
+        }
+
+        soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
+                    viveSwt.setChecked(false);
+                }else{
+                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    viveSwt.setChecked(true);
+                }
+            }
+        });
+
+        viveSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);  //진동
+                    soundSwt.setChecked(false);
+                }else{
+                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    soundSwt.setChecked(true);
+                }
+            }
+        });
         //버전체크
         final PackageInfo pakageInfo;
         try {
@@ -338,7 +391,10 @@ public class SetActivity extends Activity {
                 monthTime2.setText(hourOfDay-12 <10? "0"+Integer.toString(hourOfDay-12):Integer.toString(hourOfDay-12));
                 monthTime3.setText(minute<10? "0"+Integer.toString(minute):Integer.toString(minute));
             }
-
+            U.getInstance().setMonthHour(SetActivity.this, hourOfDay);
+            U.getInstance().setMonthMin(SetActivity.this, minute);
+            Intent intent = new Intent(SetActivity.this, AlarmProcessingMonthService.class);
+            startService(intent);
         }
     };
 
@@ -359,6 +415,12 @@ public class SetActivity extends Activity {
                 dayTime2.setText(hourOfDay-12 <10? "0"+Integer.toString(hourOfDay-12):Integer.toString(hourOfDay-12));
                 dayTime3.setText(minute<10? "0"+Integer.toString(minute):Integer.toString(minute));
             }
+
+            U.getInstance().setDayHour(SetActivity.this, hourOfDay);
+            U.getInstance().setDayMin(SetActivity.this, minute);
+            Intent intent = new Intent(SetActivity.this, AlarmProcessingService.class);
+            startService(intent);
+
         }
     };
 

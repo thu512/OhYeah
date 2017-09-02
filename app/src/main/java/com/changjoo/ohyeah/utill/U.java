@@ -42,6 +42,57 @@ public class U {
     }
     String SAVE_TAG="EMAIL";
 
+
+
+    public void setDayHour(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("dayhour", value);
+        editor.commit();
+    }
+
+    public int getDayHour(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("dayhour", 0);
+    }
+
+    public void setDayMin(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("daymin", value);
+        editor.commit();
+    }
+
+    public int getDayMin(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("daymin", 0);
+    }
+
+
+    public void setMonthHour(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("monthhour", value);
+        editor.commit();
+    }
+
+    public int getMonthHour(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("monthhour", 0);
+    }
+
+    public void setMonthMin(Context context, int value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.putInt("monthmin", value);
+        editor.commit();
+    }
+
+    public int getMonthMin(Context context)
+    {
+        return context.getSharedPreferences(SAVE_TAG, 0).getInt("monthmin", 0);
+    }
+
     public void setEmail(Context context, String value)
     {
         SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
@@ -224,6 +275,9 @@ public class U {
     //콤마 찍기
     public  String toNumFormat(String num) {
         if(num.equals("")){
+            return "0";
+        }
+        if(num.equals("-")){
             return "0";
         }
         int result= Integer.parseInt(removeComa(num));

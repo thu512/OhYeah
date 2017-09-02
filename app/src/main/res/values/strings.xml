@@ -60,7 +60,6 @@
     <string name="fix">고정지출 설정</string>
     <string name="fix_txt">고정지출을 입력해주세요</string>
     <string name="fix_name">명칭</string>
-    <string name="fix_won">원</string>
 
 
     <!--목표설정-->
@@ -110,7 +109,6 @@
     <string name="set11">로그아웃</string>
     <string name="set12">회원탈퇴</string>
     <string name="set13">최신 버전입니다</string>
-    <string name="set14">오전</string>
 
 
     <!--비밀번호 변경-->
@@ -119,16 +117,15 @@
     <string name="pwd2">새 비밀번호</string>
     <string name="pwd3">새 비밀번호 확인</string>
     <string name="pwd4">최소 8자리, 최대 15자리 이하</string>
-    <string name="pwd5"> / </string>
     <string name="pwd6">영문, 숫자 조합</string>
 
     <!--비상금 추가 다이얼로그-->
     <string name="nadd">오늘 예산에 비상금을\n얼마를 추가하시겠습니까?</string>
     <string name="nadd1">남은 비상금</string>
-    <string name="nadd2">확인</string>
-    <string name="nadd3">취소</string>
     <string name="nadd4">비상금보다 작은 금액을 입력해야 합니다.</string>
 
+    <!--예산 새롭게 설정-->
+    <string name="newbudget">이번 달 예산을 입력해주세요</string>
 
     <!--회원탈퇴-->
     <string name="out">그동안 오예를\n사용해주셔서 감사합니다.</string>
@@ -152,6 +149,18 @@
 
     <!--토스연결-->
     <string name="toss">Toss로 저금</string>
+
+    <!--고정지출 확인-->
+    <string name="fix_ok">네</string>
+    <string name="fix_no">아니오</string>
+    <string name="fix_msg1">위 내역이 고정지출</string>
+    <string name="fix_msg2">이(가) 맞나요?</string>
+    <string name="fix_msg3">한 번 확인시 다음 달부터 자동으로\n고정지출로 인식합니다. </string>
+
+    <!--목표 달성-->
+    <string name="pp_msg">목표 달성을 축하합니다!</string>
+    <string name="pp_msg2">저금액</string>
+
 
     <!--이용약관-->
     <string name="term">오예 이용약관</string>
@@ -317,9 +326,6 @@
 회사는 이용자에게 다른 웹사이트에 대한 링크를 제공할 수 있습니다. 그러나 링크 웹사이트들은 회사의 개인정보처리방침이 적용되지 않으므로, 해당 링크를 통해 외부 웹사이트로 이동하시는 경우, 해당 서비스의 정책을 검토하시기 바랍니다. 본 개인정보처리방침에서 규정되지 않은 사항은 관계법령의 범위 내에서 회사 이용약관을 우선적으로 적용합니다.
 개인정보 처리방침의 변경에 관한 사항
 개인정보처리방침 내용상 추가, 삭제 및 수정이 있을 시에는 개정 이전 이용자에게 고지합니다.  이 개인정보 처리방침은 2017년 1월 1일부터 적용됩니다.</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 
 </resources>

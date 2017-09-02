@@ -42,7 +42,7 @@ public class ModifyPurposeActivity extends Activity {
     Button toss;
     ImageButton back;
     EditText pupose_money;
-    TextView day;
+    me.grantland.widget.AutofitTextView day;
     TextView dday;
 
     int selectedItem=1;
@@ -53,7 +53,7 @@ public class ModifyPurposeActivity extends Activity {
         setContentView(R.layout.activity_modify_purpose);
         toss = (Button)findViewById(R.id.toss);
         dday = (TextView)findViewById(R.id.dday);
-        day = (TextView)findViewById(R.id.day);
+        day = (me.grantland.widget.AutofitTextView)findViewById(R.id.day);
         pupose_money = (EditText)findViewById(R.id.pupose_money);
         home = (RadioButton)findViewById(R.id.home);
         car = (RadioButton)findViewById(R.id.car);
@@ -252,9 +252,9 @@ public class ModifyPurposeActivity extends Activity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         if (response.body().getResult() == 1) {
-                            U.getInstance().log("목표수정" + response.body().toString());
+                            U.getInstance().log("목표수정" + response.body().getDoc().getGoal());
                             pupose_money.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getGoal().getGoal_money()));
-                            day.setText(""+response.body().getDoc().getGoal().getNow_saving());
+                            day.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getGoal().getNow_saving()));
 
                             if(response.body().getDoc().getGoal().getRecent_saving() ==0){
                                 ModifyPurposeActivity.this.dday.setText("저금을 시작해주세요.");

@@ -6,6 +6,7 @@ import com.changjoo.ohyeah.model.Req_Budget;
 import com.changjoo.ohyeah.model.Req_Change_pw;
 import com.changjoo.ohyeah.model.Req_Fix;
 import com.changjoo.ohyeah.model.Req_Main_day;
+import com.changjoo.ohyeah.model.Req_ModiFix;
 import com.changjoo.ohyeah.model.Req_Nest;
 import com.changjoo.ohyeah.model.Req_Purpose;
 import com.changjoo.ohyeah.model.Req_email;
@@ -102,6 +103,7 @@ public interface AllFactoryIm {
     @POST("users/findpw")
     Call<Res> findPwd(@Body Req_email req_email);
 
-
+    @POST("main/fix_yn")
+    Call<Res> modiFix(@Body Req_ModiFix req_modiFix);
 
 }

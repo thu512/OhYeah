@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 윈도우에 띄우기 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".MyApplication"
@@ -26,7 +28,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:icon">
         <receiver
-            android:name=".CallAndSmsReceiver"
+            android:name=".receiver.CallAndSmsReceiver"
             android:enabled="true"
             android:exported="true">
 
@@ -38,13 +40,54 @@
             </intent-filter>
         </receiver>
 
-        <!-- [START firebase_service] -->
+        <!--폰껏다켜도 알람 갱신-->
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!--일일알람-->
+        <receiver
+            android:name=".receiver.NotiDayReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
+        <!--매달알람-->
+        <receiver
+            android:name=".receiver.NotiMonthReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
+        <!--매일 푸쉬 서비스-->
+        <service
+            android:name=".service.AlarmProcessingService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <!--매달 푸쉬서비스-->
+        <service
+            android:name=".service.AlarmProcessingMonthService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <!-- [END firebase_service] -->
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
@@ -75,14 +118,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity android:name=".ui.BudgetSettingActivity" />
         <activity android:name=".ui.PurposeSetActivity" />
-        <activity android:name=".ui.NestSettingActivity">
-
-        </activity>
+        <activity android:name=".ui.NestSettingActivity"></activity>
         <activity android:name=".terms.Terms1Activity" />
         <activity android:name=".terms.Terms2Activity" />
         <activity
@@ -107,8 +146,10 @@
                 android:resource="@xml/oh_yeah_widget_info" />
         </receiver>
 
-        <activity android:name=".ui.SendEmailActivity"></activity>
-        <activity android:name=".ui.FindPwdActivity"></activity>
+        <activity android:name=".ui.SendEmailActivity" />
+        <activity android:name=".ui.FindPwdActivity" />
+
+
     </application>
 
 </manifest>

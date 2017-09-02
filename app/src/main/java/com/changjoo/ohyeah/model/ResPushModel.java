@@ -8,6 +8,25 @@ public class ResPushModel {
     int result;
     String body;
     String title;
+    Fix fix;
+
+    public Fix getFix() {
+        return fix;
+    }
+
+    public void setFix(Fix fix) {
+        this.fix = fix;
+    }
+
+    @Override
+    public String toString() {
+        return "ResPushModel{" +
+                "result=" + result +
+                ", body='" + body + '\'' +
+                ", title='" + title + '\'' +
+                ", fix=" + fix +
+                '}';
+    }
 
     public int getResult() {
         return result;
@@ -32,4 +51,5 @@ public class ResPushModel {
     public void setBody(String body) {
         this.body = body;
     }
+
 }

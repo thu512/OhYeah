@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="267dp"
+        android:layout_height="373.1dp"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="319.8dp">
+
+
+
+
+            <RelativeLayout
+                android:layout_width="204.8dp"
+                android:layout_height="129.5dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="31dp"
+                android:background="@mipmap/contents"
+                android:id="@+id/relativeLayout2">
+
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/msg_content"
+                    android:layout_width="183.8dp"
+                    android:layout_height="25.8dp"
+                    android:singleLine="true"
+                    android:textSize="18.5sp"
+                    android:textColor="#3b4aaa"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="58.5dp" />
+                
+                <RelativeLayout
+                    android:layout_width="183.8dp"
+                    android:layout_height="25.8dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@+id/msg_content"
+                    android:layout_marginBottom="24dp">
+                    <me.grantland.widget.AutofitTextView
+                        android:id="@+id/msg_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:singleLine="true"
+                        android:textSize="18.5sp"
+                        android:textColor="#3b4aaa"
+                        android:textStyle="bold"
+                        android:gravity="bottom"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:text="@string/main_won"
+                        android:textSize="13.5sp"
+                        android:textColor="#9b9b9b"
+                        android:textStyle="bold"
+                        android:paddingBottom="2.5dp"
+                        android:layout_toEndOf="@+id/msg_money" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="189.3dp"
+                android:layout_height="51.5dp"
+                android:layout_below="@+id/relativeLayout2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="28.5dp"
+                android:orientation="vertical"
+                android:id="@+id/linearLayout2">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/fix_msg1"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:textColor="#000000"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:id="@+id/fix_name"
+                        android:textSize="16sp"
+                        android:textColor="#3b4aaa"
+                        android:gravity="center"
+                        android:maxEms="6"
+                        android:textStyle="italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingTop="2dp"
+                        android:paddingLeft="1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/fix_msg2"
+                        android:gravity="left"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:textStyle="italic"
+                        android:layout_toEndOf="@+id/fix_name"/>
+                </RelativeLayout>
+            </LinearLayout>
+            
+            
+            <TextView
+                android:layout_width="183.3dp"
+                android:layout_height="33.5dp"
+                android:text="@string/fix_msg3"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="10.8sp"
+                android:textColor="#4a4a4a"
+                android:lineSpacingExtra="6sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="28.5dp" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="53.3dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/gray_ract"
+                android:textSize="18.5sp"
+                android:textColor="#000000"
+                android:text="@string/fix_no" />
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/gray_ract"
+                android:textSize="18.5sp"
+                android:textColor="#000000"
+                android:text="@string/fix_ok" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

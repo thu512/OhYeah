@@ -107,6 +107,10 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_setting);
+
+
+
+
         View cal_keyboard = (View) getLayoutInflater().inflate(R.layout.cal_keyboard, null);
         View num_keyboard = (View) getLayoutInflater().inflate(R.layout.default_keyboard, null);
         error_msg = (TextView)findViewById(R.id.error_msg);
@@ -352,7 +356,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
                     error_msg.setText("계산을 완료해주세요.");
                     return;
                 }
-                if(editText.getText().length() > 9){
+                if(U.getInstance().removeComa(editText.getText().toString()).length() > 9){
                     error_msg.setText("10억 미만으로 입력해주세요.");
                     return;
                 }
@@ -361,6 +365,7 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
 
                     pushBudget(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())),Integer.parseInt(day.getText().toString()));
                     U.getInstance().setBoolean(BudgetSettingActivity.this,U.getInstance().getEmail(BudgetSettingActivity.this),true);
+                    U.getInstance().setDay(BudgetSettingActivity.this, Integer.parseInt(day.getText().toString()));
                     Intent intent = new Intent(BudgetSettingActivity.this, FixSettingActivity.class);
                     startActivity(intent);
 

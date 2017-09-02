@@ -2,6 +2,7 @@ package com.changjoo.ohyeah.ui;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -35,6 +36,7 @@ import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Req_set;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
+import com.changjoo.ohyeah.service.AlarmProcessingMonthService;
 import com.changjoo.ohyeah.utill.BackPressEditText;
 import com.changjoo.ohyeah.utill.U;
 import com.shawnlin.numberpicker.NumberPicker;
@@ -249,6 +251,9 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                     return;
                 }
                 if(flag){
+                    U.getInstance().setDay(ModifySettingActivity.this, Integer.parseInt(day.getText().toString()));
+                    startService(new Intent(ModifySettingActivity.this, AlarmProcessingMonthService.class));
+
                     sendServer(Integer.parseInt(U.getInstance().removeComa(editText.getText().toString())),Integer.parseInt(day.getText().toString()),Integer.parseInt(U.getInstance().removeComa(nest_money.getText().toString())));
                 }
             }

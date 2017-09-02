@@ -1,6 +1,8 @@
 package com.changjoo.ohyeah.ui;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -25,9 +27,14 @@ import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.dialog.FixModiDialog;
 import com.changjoo.ohyeah.dialog.NestAddDialog;
+import com.changjoo.ohyeah.dialog.NewBudgetDialog;
+import com.changjoo.ohyeah.dialog.Purpose1Dialog;
 import com.changjoo.ohyeah.model.Expense;
+import com.changjoo.ohyeah.model.Fix;
 import com.changjoo.ohyeah.model.Req_Main_day;
+import com.changjoo.ohyeah.model.Req_ModiFix;
 import com.changjoo.ohyeah.model.Req_token;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
@@ -39,7 +46,9 @@ import com.squareup.otto.Subscribe;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import layout.FirstFragment;
 import layout.SecondFragment;
 import retrofit2.Call;
@@ -81,6 +90,9 @@ public class MainActivity extends Activity {
     TextView out_txt;
 
     NestAddDialog nestAddDialog;
+    NewBudgetDialog newBudgetDialog;
+    FixModiDialog fixModiDialog;
+    Purpose1Dialog purpose1Dialog;
 
     int first_budget_month;
     int budget;
@@ -96,39 +108,118 @@ public class MainActivity extends Activity {
 
     //버스 ==================문자===================================
     @Subscribe
-    public void recvBus(String msg) {
-        Log.d("FFF", "" + msg);
-        Toast.makeText(this, "" + msg, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-//        NotificationManager notificationManager = (NotificationManager) MainActivity.this.getSystemService(MainActivity.this.NOTIFICATION_SERVICE);
-//        Intent intent1 = new Intent(MainActivity.this.getApplicationContext(), MainActivity.class); //인텐트 생성.
-//
-//
-//        Notification.Builder builder = new Notification.Builder(getApplicationContext());
-//        intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);//현재 액티비티를 최상으로 올리고, 최상의 액티비티를 제외한 모든 액티비티를
-//
-//
-//        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(MainActivity.this, 0, intent1, FLAG_UPDATE_CURRENT);
-//
-//        builder.setSmallIcon(R.mipmap.pin).setTicker("HETT").setWhen(System.currentTimeMillis())
-//                .setNumber(1).setContentTitle("푸쉬 제목").setContentText("푸쉬내용")
-//                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingNotificationIntent).setAutoCancel(true).setOngoing(true);
-//
-//
-//        notificationManager.notify(1, builder.build()); // Notification send
-
+    public void recvBus(String msg) throws InterruptedException {
+        U.getInstance().log(msg);
+        Thread.sleep(2000);
+        readDay();
+        readMonth();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         refreshToken();
+
+//        //알람 서비스 시작
+//        Intent intentsev = new Intent(this, AlarmProcessingService.class);
+//        startService(intentsev);
+//        startService(new Intent(this, AlarmProcessingMonthService.class));
 
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
+        String str = getIntent().getStringExtra("popup");
+        //예산 초과시 푸쉬타고와서 비상금 추가 팝업띄우기
+        if(str != null){
+            if(str.equals("nest")) //비상금 추가
+            {
+                nestAddDialog = new NestAddDialog(MainActivity.this, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        nestAddDialog.dismiss();
+                    }
+                },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                nestAddDialog.pushServer();
+                                nestAddDialog.dismiss();
+                                readDay();
+                                readMonth();
+                                Toast.makeText(getApplicationContext(),"비상금이 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
+                nestAddDialog.show();
+
+            }else if(str.equals("budgetSet"))  //새로운 예산 설정
+            {
+                newBudgetDialog = new NewBudgetDialog(MainActivity.this);
+                newBudgetDialog.show();
+            }
+            else if(str.equals("fix")) //고정지출 확인 알림
+            {
+
+                final String msg_content = getIntent().getStringExtra("msg_content");
+                final int msg_money = getIntent().getIntExtra("msg_money",0);
+                final String msg_date = getIntent().getStringExtra("msg_date");
+                final String msg_time = getIntent().getStringExtra("msg_time");
+                final String fix_data = getIntent().getStringExtra("fix_data");
+
+                U.getInstance().log("고정지출 내역 받아옴!!"+msg_content+" / "+msg_money+" / "+msg_date+" / "+msg_time+" / "+fix_data);
+
+                fixModiDialog = new FixModiDialog(this, msg_content, msg_money, fix_data, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) { //아니오
+                        Req_ModiFix req_modiFix = new Req_ModiFix(U.getInstance().getEmail(MainActivity.this), 0,new Fix(msg_content,msg_money,msg_date,msg_time,fix_data));
+                        modiFix(req_modiFix);
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) { //네
+
+                        Req_ModiFix req_modiFix = new Req_ModiFix(U.getInstance().getEmail(MainActivity.this), 1,new Fix(msg_content,msg_money,msg_date,msg_time,fix_data));
+                        modiFix(req_modiFix);
+                    }
+                });
+
+                fixModiDialog.show();
+            }
+            else if(str.equals("purpose")) //목표 달성
+            {
+                purpose1Dialog = new Purpose1Dialog(this, 800000000, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) { //토스연결후 목표 설정 팝업 띄우기
+                        purpose1Dialog.dismiss();
+                        checkToss();
+
+                    }
+                }, new View.OnClickListener() { //그냥 끄고 다음 저축 확인 팝업
+                    @Override
+                    public void onClick(View view) {
+                        purpose1Dialog.dismiss();
+                    }
+                });
+                purpose1Dialog.show();
+            }
+        }
+
+        purpose1Dialog = new Purpose1Dialog(this, 800000000, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { //토스연결후 목표 설정 팝업 띄우기
+                purpose1Dialog.dismiss();
+                checkToss();
+
+            }
+        }, new View.OnClickListener() { //그냥 끄고 다음 저축 확인 팝업
+            @Override
+            public void onClick(View view) {
+                purpose1Dialog.dismiss();
+            }
+        });
+        purpose1Dialog.show();
+
 
 
         all_bt = (Button)findViewById(R.id.all_bt);
@@ -161,7 +252,7 @@ public class MainActivity extends Activity {
         final TextView view1 = (TextView) viewPagerTab.getTabAt(1);
         view0.setTypeface(Typeface.DEFAULT);
         view1.setTypeface(Typeface.DEFAULT);
-        view0.setTextSize(21);
+        view0.setTextSize(20);
         view1.setTextSize(15);
         viewPagerTab.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -380,26 +471,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-
-
-
-        ///===============================팝업 테스트==============================================
-        //=========================================================================================
-//        nestAddDialog = new NestAddDialog(MainActivity.this, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                nestAddDialog.dismiss();
-//            }
-//        },
-//                new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        nestAddDialog.dismiss();
-//                    }
-//                }
-//        );
-//        nestAddDialog.show();
     }
 
 
@@ -486,7 +557,6 @@ public class MainActivity extends Activity {
         public void onBindViewHolder(TradeViewHolder holder, int position) {
             //데이터세팅!!!
             Expense expense = expenses_temp.get(position);
-            U.getInstance().log("뷰페이저 아이템: "+vp.getCurrentItem());
 
             if(vp.getCurrentItem()==1) {
                 if (expense.getEx_in().equals("출금")) {
@@ -512,6 +582,8 @@ public class MainActivity extends Activity {
         public int getItemCount() {
             return expenses_temp == null ? 0 : expenses_temp.size();
         }
+
+
     }
 
 
@@ -671,6 +743,81 @@ public class MainActivity extends Activity {
                 stopPd();
             }
         });
+    }
+
+
+    public void modiFix(Req_ModiFix req_modiFix){
+        showPd();
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().modiFix(req_modiFix);
+        res.enqueue(new Callback<Res>() {
+            @Override
+            public void onResponse(Call<Res> call, Response<Res> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if(response.body().getResult()==1){ //고정 지출 수정
+                            U.getInstance().log("고정지출 수정완료");
+                            Toast.makeText(MainActivity.this, "고정지출 수정완료!!",Toast.LENGTH_SHORT).show();
+                            if(fixModiDialog != null){
+                                fixModiDialog.dismiss();
+                            }
+                        }else if(response.body().getResult()==2) { //고정 x 지출됨
+                            U.getInstance().log("지출내역 추가완료");
+                            Toast.makeText(MainActivity.this, "지출내역 추가완료!!", Toast.LENGTH_SHORT).show();
+                            if (fixModiDialog != null) {
+                                fixModiDialog.dismiss();
+                            }
+                        }else{
+                            U.getInstance().log("에러");
+                            Toast.makeText(MainActivity.this, "에러", Toast.LENGTH_SHORT).show();
+                            if (fixModiDialog != null) {
+                                fixModiDialog.dismiss();
+                            }
+                        }
+
+                    } else {
+                        U.getInstance().log("통신실패1");
+                    }
+                } else {
+                    try {
+                        U.getInstance().log("통신실패2" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                stopPd();
+            }
+
+            @Override
+            public void onFailure(Call<Res> call, Throwable t) {
+                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                stopPd();
+            }
+        });
+    }
+
+    //목표완료시 toss앱으로 연결 -> 설치안되있을시 에러 팝업 띄우기
+    public void checkToss(){
+        PackageManager pm = this.getPackageManager();
+        boolean flag = true;
+// 설치된 어플리케이션 리스트 취득
+        List<ApplicationInfo> packs = pm.getInstalledApplications(
+                PackageManager.GET_META_DATA);
+
+        String mAppPackge = null;
+        for (ApplicationInfo app : packs) {
+            mAppPackge = app.packageName;
+            Log.d("FFF","패키지명: "+mAppPackge);
+            if(mAppPackge.equals("viva.republica.toss")){
+                Log.d("FFF","=================================확인: "+mAppPackge);
+                Intent intent = this.getPackageManager().getLaunchIntentForPackage("viva.republica.toss");
+                intent.setAction(Intent.ACTION_MAIN);
+                startActivity(intent);
+                flag=false;
+            }
+        }
+        if(flag){
+            U.getInstance().showSimplePopup(MainActivity.this, "연결 에러", "Toss앱을 설치해주세요.", SweetAlertDialog.ERROR_TYPE);
+        }
     }
 }
 
