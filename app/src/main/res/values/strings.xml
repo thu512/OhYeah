@@ -160,7 +160,12 @@
     <!--목표 달성-->
     <string name="pp_msg">목표 달성을 축하합니다!</string>
     <string name="pp_msg2">저금액</string>
-
+    <string name="pp_cancel">무시</string>
+    <string name="pp_ok">완료</string>
+    <string name="pp_msg3">저금을 완료해주세요.</string>
+    <string name="pp_msg4">저금을 해야 정확한 예산관리를 할 수 있습니다.\n저금 후, 완료를 클릭해주세요.\n\n무시할 경우, 누적해서  저금액이 쌓입니다.</string>
+    <string name="pp_msg5">새 저금 목표를 입력해주세요.</string>
+    <string name="pp_msg6">목표 금액</string>
 
     <!--이용약관-->
     <string name="term">오예 이용약관</string>

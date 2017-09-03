@@ -6,7 +6,6 @@ import android.os.Bundle;
 import com.changjoo.ohyeah.model.Req_email;
 import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.net.SNet;
-import com.changjoo.ohyeah.service.AlarmProcessingService;
 import com.changjoo.ohyeah.ui.BudgetSettingActivity;
 import com.changjoo.ohyeah.ui.LoginActivity;
 import com.changjoo.ohyeah.ui.MainActivity;
@@ -19,13 +18,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StartActivity extends Activity {
+public class StartActivity extends android.app.Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-
 
 
         U.getInstance().log("파베 토큰: "+FirebaseInstanceId.getInstance().getToken());
@@ -36,7 +33,7 @@ public class StartActivity extends Activity {
             startActivity(intent);
             finish();
         }else{
-            showPd();
+
             Req_email req_email = new Req_email(U.getInstance().getEmail(this));
             Call<Res> res = SNet.getInstance().getAllFactoryIm().getState(req_email);
             res.enqueue(new Callback<Res>() {
@@ -67,13 +64,13 @@ public class StartActivity extends Activity {
                             e.printStackTrace();
                         }
                     }
-                    stopPd();
+
                 }
 
                 @Override
                 public void onFailure(Call<Res> call, Throwable t) {
                     U.getInstance().log("통신실패3" + t.getLocalizedMessage());
-                    stopPd();
+
                 }
             });
         }

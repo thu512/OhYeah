@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash3</item>
+        <item name="colorPrimaryDark">#d8d8d8</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

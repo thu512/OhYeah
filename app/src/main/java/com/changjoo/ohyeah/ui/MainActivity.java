@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +33,8 @@ import com.changjoo.ohyeah.dialog.FixModiDialog;
 import com.changjoo.ohyeah.dialog.NestAddDialog;
 import com.changjoo.ohyeah.dialog.NewBudgetDialog;
 import com.changjoo.ohyeah.dialog.Purpose1Dialog;
+import com.changjoo.ohyeah.dialog.Purpose2Dialog;
+import com.changjoo.ohyeah.dialog.Purpose3Dialog;
 import com.changjoo.ohyeah.model.Expense;
 import com.changjoo.ohyeah.model.Fix;
 import com.changjoo.ohyeah.model.Req_Main_day;
@@ -93,6 +97,8 @@ public class MainActivity extends Activity {
     NewBudgetDialog newBudgetDialog;
     FixModiDialog fixModiDialog;
     Purpose1Dialog purpose1Dialog;
+    Purpose2Dialog purpose2Dialog;
+    Purpose3Dialog purpose3Dialog;
 
     int first_budget_month;
     int budget;
@@ -188,6 +194,7 @@ public class MainActivity extends Activity {
             }
             else if(str.equals("purpose")) //목표 달성
             {
+                //목표달성 푸쉬에서 intent로 목표 달성액 받아와서 뿌려줌
                 purpose1Dialog = new Purpose1Dialog(this, 800000000, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) { //토스연결후 목표 설정 팝업 띄우기
@@ -199,27 +206,25 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         purpose1Dialog.dismiss();
+                        purpose2Dialog = new Purpose2Dialog(MainActivity.this, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                purpose2Dialog.dismiss();
+                            }
+                        }, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                purpose2Dialog.dismiss();
+                                purpose3Dialog = new Purpose3Dialog(MainActivity.this);
+                                purpose3Dialog.show();
+                            }
+                        });
+                        purpose2Dialog.show();
                     }
                 });
                 purpose1Dialog.show();
             }
         }
-
-        purpose1Dialog = new Purpose1Dialog(this, 800000000, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { //토스연결후 목표 설정 팝업 띄우기
-                purpose1Dialog.dismiss();
-                checkToss();
-
-            }
-        }, new View.OnClickListener() { //그냥 끄고 다음 저축 확인 팝업
-            @Override
-            public void onClick(View view) {
-                purpose1Dialog.dismiss();
-            }
-        });
-        purpose1Dialog.show();
-
 
 
         all_bt = (Button)findViewById(R.id.all_bt);
@@ -819,6 +824,38 @@ public class MainActivity extends Activity {
             U.getInstance().showSimplePopup(MainActivity.this, "연결 에러", "Toss앱을 설치해주세요.", SweetAlertDialog.ERROR_TYPE);
         }
     }
+
+    //백키에 대응하는 메소드
+    @Override
+    public void onBackPressed() {
+        //아래코드를 막으면 현재 화면의 종료처리가 중단됨
+        //super.onBackPressed();
+        if(!isFirstEnd){
+            //최초한번 백키를 눌렀다.
+            isFirstEnd=true;
+            //3초후에 초기화된다.(최초로 한번 백키를 눌렀던 상황이)
+            handler.sendEmptyMessageDelayed(1,3000);
+            Toast.makeText(this,"뒤로가기를 한번 더 누르시면 종료됩니다.",Toast.LENGTH_LONG).show();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    boolean isFirstEnd; //백키를 한번 눌렀나?
+
+    //핸들러, 메세지를 던져서 큐에 담고 하나씩 꺼내서 처리하는 메시징 시스템
+    Handler handler = new Handler(){
+        //이 메소드는 큐에 메세지가 존재하면 뽑아서 호출된다.
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 0){ //최초로 백키를 한번 눌렀다.
+
+            }else if(msg.what == 1){ //3초가 지났다. 다시 초기화.
+                isFirstEnd=false;
+            }
+        }
+    };
 }
 
 
