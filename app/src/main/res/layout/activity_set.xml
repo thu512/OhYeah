@@ -4,452 +4,261 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.changjoo.ohyeah.ui.SetActivity"
     android:background="#ffffff"
-    >
+    tools:context="com.changjoo.ohyeah.ui.SetActivity">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="58dp"
+            android:background="@drawable/black_underline"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="58dp"
-                android:background="@drawable/black_underline"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="100">
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5.9" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5.9" />
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.3"
+                android:background="@mipmap/back_btn" />
 
-                <ImageButton
-                    android:id="@+id/back"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3.3"
-                    android:background="@mipmap/back_btn" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="23.3" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="34.9"
-                    android:gravity="center"
-                    android:text="@string/set"
-                    android:textColor="#3b4aaa"
-                    android:textSize="20.3sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="39.8dp"
-                android:background="@drawable/gray_underline_bg"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set1"
-                    android:textColor="#4a4a4a"
-                    android:textSize="10.8sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="7dp"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set2"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp" />
-                <Switch
-                    android:id="@+id/soundSwt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15.9dp"
-                    android:theme="@style/SCBSwitch"
-                    />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-                <TextView
-                    android:text="@string/set3"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp" />
-                <Switch
-                    android:id="@+id/viveSwt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15.9dp"
-                    android:theme="@style/SCBSwitch"/>
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-
-                <TextView
-                    android:id="@+id/textView1344"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set4"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="18dp" />
-
-                <LinearLayout
-                    android:layout_width="106.5dp"
-                    android:layout_height="25.8dp"
-                    android:layout_marginEnd="15.9dp"
-                    android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="right"
-                    android:background="@drawable/gray_underline"
-                    android:id="@+id/setMonthTime">
-                    <TextView
-                        android:id="@+id/monthTime1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="오전"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        />
-
-                    <TextView
-                        android:id="@+id/monthTime2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="12"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:ems="1"
-                        android:textColor="#3b4aaa"
-                        android:textSize="18.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="시"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:id="@+id/monthTime3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_marginRight="1dp"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:ems="1"
-                        android:text="00"
-                        android:textColor="#3b4aaa"
-                        android:textSize="18.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="분"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set5"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="18dp" />
-
-                <LinearLayout
-                    android:layout_width="106.5dp"
-                    android:layout_height="25.8dp"
-                    android:layout_marginEnd="15.9dp"
-                    android:orientation="horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/gray_underline"
-                    android:gravity="right"
-                    android:id="@+id/setDayTime">
-                    <TextView
-                        android:id="@+id/dayTime1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="오전"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        />
-
-                    <TextView
-                        android:id="@+id/dayTime2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginRight="1dp"
-                        android:ems="1"
-                        android:text="12"
-                        android:textColor="#3b4aaa"
-                        android:textSize="18.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="시"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        />
-                    <TextView
-                        android:id="@+id/dayTime3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginRight="1dp"
-                        android:ems="1"
-                        android:text="00"
-                        android:textColor="#3b4aaa"
-                        android:textSize="18.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="분"
-                        android:textSize="13.5sp"
-                        android:textColor="#9b9b9b"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/changepwd"
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/set6"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000" />
-
-                <ImageView
-                    android:layout_width="17.8dp"
-                    android:layout_height="17.8dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15.9dp"
-                    app:srcCompat="@mipmap/back1" />
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/set7"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000" />
-
-                <ImageView
-                    android:layout_width="17.8dp"
-                    android:layout_height="17.8dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15.9dp"
-                    app:srcCompat="@mipmap/back1" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="39.8dp"
-                android:background="@drawable/gray_underline_bg"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/set8"
-                    android:textColor="#4a4a4a"
-                    android:textSize="10.8sp"
-                    android:textStyle="bold"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="7dp"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/send_email"
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/set9"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000" />
-
-                <ImageView
-                    android:layout_width="17.8dp"
-                    android:layout_height="17.8dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15.9dp"
-                    app:srcCompat="@mipmap/back1" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="52.8dp"
-                android:background="@drawable/gray_underline">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/set10"
-                    android:textSize="18.5sp"
-                    android:textColor="#000000"
-                    android:id="@+id/textView10" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="8.5sp"
-                    android:textColor="#c33b4d"
-                    android:text="@string/set13"
-                    android:layout_marginStart="8.3dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/textView10"
-                    android:id="@+id/versionState"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1.0.0"
-                    android:textSize="18.5sp"
-                    android:textColor="#4a4a4a"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15.5dp"
-                    android:id="@+id/appVersion"/>
-
-            </RelativeLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="23.3" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="27.8dp"
-                android:background="@drawable/gray_underline_bg"/>
-
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="53.3dp"
-                android:text="@string/set11"
-                android:background="@drawable/gray_underline"
-                android:textSize="18.5sp"
-                android:textColor="#9b9b9b"/>
-            <Button
-                android:id="@+id/signout"
-                android:layout_width="match_parent"
-                android:layout_height="53.3dp"
-                android:text="@string/set12"
-                android:background="@drawable/gray_underline"
-                android:textSize="18.5sp"
-                android:textColor="#9b9b9b"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="27.8dp"
-                android:background="@drawable/gray_underline_bg"/>
-
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="34.9"
+                android:gravity="center"
+                android:text="@string/set"
+                android:textColor="#3b4aaa"
+                android:textSize="20.3sp" />
         </LinearLayout>
-    </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="39.8dp"
+            android:background="@drawable/gray_underline_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/set1"
+                android:textColor="#4a4a4a"
+                android:textSize="10.8sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52.8dp"
+            android:background="@drawable/gray_underline">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="@string/set2"
+                android:textColor="#000000"
+                android:textSize="18.5sp" />
+
+            <Switch
+                android:id="@+id/soundSwt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15.9dp"
+                android:theme="@style/SCBSwitch" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52.8dp"
+            android:background="@drawable/gray_underline">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="@string/set3"
+                android:textColor="#000000"
+                android:textSize="18.5sp" />
+
+            <Switch
+                android:id="@+id/viveSwt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15.9dp"
+                android:theme="@style/SCBSwitch" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/changepwd"
+            android:layout_width="match_parent"
+            android:layout_height="52.8dp"
+            android:background="@drawable/gray_underline">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="@string/set6"
+                android:textColor="#000000"
+                android:textSize="18.5sp" />
+
+            <ImageView
+                android:layout_width="17.8dp"
+                android:layout_height="17.8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15.9dp"
+                app:srcCompat="@mipmap/back1" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="39.8dp"
+            android:background="@drawable/gray_underline_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="7dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/set8"
+                android:textColor="#4a4a4a"
+                android:textSize="10.8sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/send_email"
+            android:layout_width="match_parent"
+            android:layout_height="52.8dp"
+            android:background="@drawable/gray_underline">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="@string/set9"
+                android:textColor="#000000"
+                android:textSize="18.5sp" />
+
+            <ImageView
+                android:layout_width="17.8dp"
+                android:layout_height="17.8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15.9dp"
+                app:srcCompat="@mipmap/back1" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="52.8dp"
+            android:background="@drawable/gray_underline">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="@string/set10"
+                android:textColor="#000000"
+                android:textSize="18.5sp" />
+
+            <TextView
+                android:id="@+id/versionState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8.3dp"
+                android:layout_toEndOf="@+id/textView10"
+                android:text="@string/set13"
+                android:textColor="#c33b4d"
+                android:textSize="8.5sp" />
+
+            <TextView
+                android:id="@+id/appVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15.5dp"
+                android:text="1.0.0"
+                android:textColor="#4a4a4a"
+                android:textSize="18.5sp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="27.8dp"
+            android:background="@drawable/gray_underline_bg" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="53.3dp"
+            android:background="@drawable/gray_underline"
+            android:text="@string/set11"
+            android:textColor="#9b9b9b"
+            android:textSize="18.5sp" />
+
+        <Button
+            android:id="@+id/signout"
+            android:layout_width="match_parent"
+            android:layout_height="53.3dp"
+            android:background="@drawable/gray_underline"
+            android:text="@string/set12"
+            android:textColor="#9b9b9b"
+            android:textSize="18.5sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/gray_underline_bg" />
+
+    </LinearLayout>
+
 </LinearLayout>

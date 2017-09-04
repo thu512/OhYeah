@@ -23,7 +23,7 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@drawable/oh"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:screenOrientation = "portrait"
@@ -41,41 +41,6 @@
             </intent-filter>
         </receiver>
 
-        <!--폰껏다켜도 알람 갱신-->
-        <receiver
-            android:name=".receiver.BootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!--일일알람-->
-        <receiver
-            android:name=".receiver.NotiDayReceiver"
-            android:enabled="true"
-            android:exported="true">
-        </receiver>
-
-        <!--매달알람-->
-        <receiver
-            android:name=".receiver.NotiMonthReceiver"
-            android:enabled="true"
-            android:exported="true">
-        </receiver>
-
-        <!--매일 푸쉬 서비스-->
-        <service
-            android:name=".service.AlarmProcessingService"
-            android:enabled="true"
-            android:exported="true"></service>
-
-        <!--매달 푸쉬서비스-->
-        <service
-            android:name=".service.AlarmProcessingMonthService"
-            android:enabled="true"
-            android:exported="true"></service>
 
 
         <service android:name=".service.MyFirebaseMessagingService">
@@ -137,16 +102,6 @@
         <activity android:name=".ui.ChangePwdActivity" />
         <activity android:name=".ui.Widget_SettingActivity" />
         <activity android:name=".ui.WidgetSettingActivity" />
-
-        <receiver android:name=".OhYeahWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/oh_yeah_widget_info" />
-        </receiver>
 
         <activity android:name=".ui.SendEmailActivity" />
         <activity android:name=".ui.FindPwdActivity" />

@@ -189,13 +189,13 @@ public class Res {
             Double ratio_saving;
             int now_saving;
             int goal_money;
-            int recent_saving;
+            double recent_saving;
 
-            public int getRecent_saving() {
+            public double getRecent_saving() {
                 return recent_saving;
             }
 
-            public void setRecent_saving(int recent_saving) {
+            public void setRecent_saving(double recent_saving) {
                 this.recent_saving = recent_saving;
             }
 

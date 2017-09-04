@@ -185,7 +185,7 @@ public class Purpose3Dialog extends Dialog {
 
         Req_Purpose req_purpose = new Req_Purpose(U.getInstance().getEmail(getContext()), Integer.parseInt(U.getInstance().removeComa(pupose_money.getText().toString())),selectedItem);
 
-        Call<Res> res = SNet.getInstance().getAllFactoryIm().update_PP(req_purpose);
+        Call<Res> res = SNet.getInstance().getAllFactoryIm().pushPurpose(req_purpose);
         res.enqueue(new Callback<Res>() {
             @Override
             public void onResponse(Call<Res> call, Response<Res> response) {

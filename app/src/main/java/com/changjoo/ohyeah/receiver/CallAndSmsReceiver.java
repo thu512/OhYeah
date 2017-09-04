@@ -12,6 +12,7 @@ import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +22,8 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 {
     Context context;
     WindowManager windowManager;
+    Boolean flag = false;
+
     //해당 이벤트가 들어오면 호출된다.
     //이벤트를 찾아서 분기해서 개별적 처리
     @Override
@@ -43,6 +46,14 @@ public class CallAndSmsReceiver extends BroadcastReceiver
     //문자처리
     public void detectSMS(Intent intent)
     {
+        HashMap<String,String> bankTel = new HashMap<String, String>();
+        bankTel.put("15884000","IBK기업");
+        bankTel.put("15881688","국민은행");
+        bankTel.put("15447200","신한은행");
+        bankTel.put("18001111","하나은행");
+        bankTel.put("15889955","우리카드");
+
+
         U.getInstance().log("문자왔다"+intent.toString());
         Object[] objects = (Object[]) intent.getExtras().get("pdus");
         for(Object obj : objects){
@@ -50,8 +61,8 @@ public class CallAndSmsReceiver extends BroadcastReceiver
             SmsMessage smsMessage = SmsMessage.createFromPdu((byte[])(byte[])obj);
 
             //2.확인
-            U.getInstance().log(smsMessage.getOriginatingAddress());
-            U.getInstance().log(smsMessage.getMessageBody().toString());
+            U.getInstance().log(smsMessage.getOriginatingAddress()); //전화번호
+            U.getInstance().log(smsMessage.getMessageBody().toString()); //문자 내용
 
             //3.이벤트 전송으로 특정화면으로 내용전송
             String msgBody = smsMessage.getMessageBody().toString();
@@ -59,36 +70,40 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 
             //아이디를 잘받아와야함
             U.getInstance().log("아이디는: "+U.getInstance().getEmail(this.context));
-            //아이디 널이면 안읽기
 
-            Req_msg req_msg = new Req_msg(U.getInstance().getEmail(this.context),msgBody);
-            Call<Res> res = SNet.getInstance().getAllFactoryIm().sendMsg(req_msg);
-            res.enqueue(new Callback<Res>() {
-                @Override
-                public void onResponse(Call<Res> call, Response<Res> response) {
-                    if (response.isSuccessful()) {
-                        if (response.body() != null) {
-                            U.getInstance().log(response.body().toString());
+
+            //아이디 널이면 안읽기 && 은행 문자 일때만!
+            if(!U.getInstance().getEmail(this.context).equals("")){
+
+                Req_msg req_msg = new Req_msg(U.getInstance().getEmail(this.context),msgBody);
+                Call<Res> res = SNet.getInstance().getAllFactoryIm().sendMsg(req_msg);
+                res.enqueue(new Callback<Res>() {
+                    @Override
+                    public void onResponse(Call<Res> call, Response<Res> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                U.getInstance().log(response.body().toString());
+                            } else {
+                                U.getInstance().log("통신실패1");
+                            }
                         } else {
-                            U.getInstance().log("통신실패1");
+                            try {
+                                U.getInstance().log("통신실패2" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } else {
-                        try {
-                            U.getInstance().log("통신실패2" + response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+
                     }
+                    @Override
+                    public void onFailure(Call<Res> call, Throwable t) {
+                        U.getInstance().log("통신실패3" + t.getLocalizedMessage());
 
-                }
-                @Override
-                public void onFailure(Call<Res> call, Throwable t) {
-                    U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                    }
+                });
+                U.getInstance().getAuthBus().post(msgBody);
+            }
 
-                }
-            });
-
-            U.getInstance().getAuthBus().post(msgBody);
         }
     }
 

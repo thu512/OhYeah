@@ -56,10 +56,12 @@ public class StartActivity extends android.app.Activity {
 
                         } else {
                             U.getInstance().log("통신실패1");
+                            finish();
                         }
                     } else {
                         try {
                             U.getInstance().log("통신실패2" + response.errorBody().string());
+                            finish();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -70,7 +72,7 @@ public class StartActivity extends android.app.Activity {
                 @Override
                 public void onFailure(Call<Res> call, Throwable t) {
                     U.getInstance().log("통신실패3" + t.getLocalizedMessage());
-
+                    finish();
                 }
             });
         }

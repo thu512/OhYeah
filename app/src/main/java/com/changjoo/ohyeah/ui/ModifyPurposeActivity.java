@@ -260,7 +260,7 @@ public class ModifyPurposeActivity extends Activity {
                                 ModifyPurposeActivity.this.dday.setText("저금을 시작해주세요.");
                                 ModifyPurposeActivity.this.dday.setTextSize(20);
                             }else{
-                                int dday = (response.body().getDoc().getGoal().getGoal_money() - response.body().getDoc().getGoal().getNow_saving())/response.body().getDoc().getGoal().getRecent_saving();
+                                int dday = (response.body().getDoc().getGoal().getGoal_money() - response.body().getDoc().getGoal().getNow_saving())/(int)response.body().getDoc().getGoal().getRecent_saving();
 
                                 ModifyPurposeActivity.this.dday.setText("D-"+dday);
                             }

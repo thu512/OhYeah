@@ -12,6 +12,15 @@ public class Expense {
     int money;
     String ex_in;
     String today_yn;
+    String month_yn;
+
+    public String getMonth_yn() {
+        return month_yn;
+    }
+
+    public void setMonth_yn(String month_yn) {
+        this.month_yn = month_yn;
+    }
 
     @Override
     public String toString() {
@@ -22,6 +31,7 @@ public class Expense {
                 ", money=" + money +
                 ", ex_in='" + ex_in + '\'' +
                 ", today_yn='" + today_yn + '\'' +
+                ", month_yn='" + month_yn + '\'' +
                 '}';
     }
 

@@ -133,10 +133,11 @@
             android:gravity="right|center_vertical"
             android:inputType="number"
             android:lineSpacingExtra="9.3sp"
-            android:maxLength="8"
+            android:maxLength="11"
             android:singleLine="true"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
+            android:textCursorDrawable="@null"
             android:textColor="#3b4aaa"
             android:textSize="18.5sp"
             android:textStyle="bold" />

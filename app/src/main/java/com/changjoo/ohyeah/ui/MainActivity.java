@@ -565,17 +565,17 @@ public class MainActivity extends Activity {
 
             if(vp.getCurrentItem()==1) {
                 if (expense.getEx_in().equals("출금")) {
-                    holder.money.setText("-" + Integer.toString(expense.getMoney()));
+                    holder.money.setText("-" + U.getInstance().toNumFormat(Integer.toString(expense.getMoney())));
                 } else {
-                    holder.money.setText("+" + Integer.toString(expense.getMoney()));
+                    holder.money.setText("+" + U.getInstance().toNumFormat(Integer.toString(expense.getMoney())));
                 }
                 holder.time.setText(expense.getDate()+" "+expense.getTime());
                 holder.content.setText(expense.getRecord());
             }else{
                 if (expense.getEx_in().equals("출금")) {
-                    holder.money.setText("-" + Integer.toString(expense.getMoney()));
+                    holder.money.setText("-" + U.getInstance().toNumFormat(Integer.toString(expense.getMoney())));
                 } else {
-                    holder.money.setText("+" + Integer.toString(expense.getMoney()));
+                    holder.money.setText("+" + U.getInstance().toNumFormat(Integer.toString(expense.getMoney())));
                 }
                 holder.time.setText(expense.getTime());
                 holder.content.setText(expense.getRecord());
@@ -627,9 +627,11 @@ public class MainActivity extends Activity {
                         U.getInstance().log(budget+"/"+daily_budget+"/"+goal_item+"/"+goal_money+"/"+now_saving+"/"+ratio_saving);
 
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
-                            expenses_total.add(expense);
-                            expenses.add(expense);
-                            expenses_temp.add(expense);
+                            if(expense.getToday_yn().equals("Y")){
+                                expenses_total.add(expense);
+                                expenses.add(expense);
+                                expenses_temp.add(expense);
+                            }
                         }
 
                         if(daily_budget<0){
@@ -685,7 +687,9 @@ public class MainActivity extends Activity {
                         U.getInstance().log(budget+"/"+first_budget_month+"/"+goal_item+"/"+goal_money+"/"+ratio_saving);
 
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
-                            expenses_total_month.add(expense);
+                            if(expense.getMonth_yn().equals("Y")){
+                                expenses_total_month.add(expense);
+                            }
                         }
 
                         pagerAdapter.notifyDataSetChanged();
