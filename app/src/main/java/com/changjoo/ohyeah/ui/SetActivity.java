@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.StartActivity;
 import com.changjoo.ohyeah.dialog.LogoutDialog;
 import com.changjoo.ohyeah.dialog.SignoutCheckDialog;
 import com.changjoo.ohyeah.dialog.SignoutDialog;
@@ -189,6 +191,13 @@ public class SetActivity extends Activity {
         try {
             pakageInfo = getPackageManager().getPackageInfo(getPackageName(),0);
             appVersion.setText(pakageInfo.versionName);
+            if(!StartActivity.VERSION.equals(pakageInfo.versionName)){
+                versionState.setText("최신 버전이 아닙니다.");
+                versionState.setTextColor(Color.parseColor("#c33b4d"));
+            }else{
+                versionState.setText("최신 버전입니다.");
+                versionState.setTextColor(Color.parseColor("#3b4aaa"));
+           }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

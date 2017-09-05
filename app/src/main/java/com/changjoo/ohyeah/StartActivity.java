@@ -3,6 +3,7 @@ package com.changjoo.ohyeah;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -13,7 +14,11 @@ import com.changjoo.ohyeah.ui.BudgetSettingActivity;
 import com.changjoo.ohyeah.ui.LoginActivity;
 import com.changjoo.ohyeah.ui.MainActivity;
 import com.changjoo.ohyeah.utill.U;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.io.IOException;
 
@@ -24,12 +29,48 @@ import retrofit2.Response;
 
 public class StartActivity extends android.app.Activity {
 
+    public static String MAIN_SERVER_DOMAIN;
+    public static String OAUTH_CLIENT_ID;
+    public static String OAUTH_CLIENT_SECRET;
+    public static String VERSION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
+        //2.설정
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        config.setConfigSettings(configSettings);
+        //3.패치
+        //디버깅 모드에서는 0, 상용에서는 3600
+        long cacheExpiration = 3600; // 1 hour in seconds.
+        // If your app is using developer mode, cacheExpiration is set to 0, so each fetch will
+        // retrieve values from the service.
+        if (config.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+        config.fetch(cacheExpiration).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //4.성공 했을 경우에만 실제 fetch진행
+                if(task.isSuccessful()){
+                    //실제패치
+                    config.activateFetched();
+                    //5.획득
+                    MAIN_SERVER_DOMAIN = config.getString("MAIN_SERVER_DOMAIN");
+                    OAUTH_CLIENT_ID = config.getString("OAUTH_CLIENT_ID");
+                    OAUTH_CLIENT_SECRET = config.getString("OAUTH_CLIENT_SECRET");
+                    VERSION = config.getString("VERSION");
 
-        checkPermission_sms();
+                    checkPermission_sms();
+                }else{
+
+                }
+            }
+        });
+
 
     }
 

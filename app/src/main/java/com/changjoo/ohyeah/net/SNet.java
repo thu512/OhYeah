@@ -1,5 +1,7 @@
 package com.changjoo.ohyeah.net;
 
+import com.changjoo.ohyeah.StartActivity;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,13 +14,16 @@ public class SNet {
     public static SNet getInstance() {
         return ourInstance;
     }
-    private SNet() {}
+
+    private SNet() {
+
+    }
 
 
     //retrofit 생성
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://13.124.174.152:3000") //기본도메인 설정
+            .baseUrl(StartActivity.MAIN_SERVER_DOMAIN) //기본도메인 설정
             .addConverterFactory(GsonConverterFactory.create())  //응답데이터를 json 자동 변환
             .build();
 

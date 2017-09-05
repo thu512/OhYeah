@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.changjoo.ohyeah.Activity;
 import com.changjoo.ohyeah.R;
+import com.changjoo.ohyeah.StartActivity;
 import com.changjoo.ohyeah.model.NaverProfileModel;
 import com.changjoo.ohyeah.model.Req;
 import com.changjoo.ohyeah.model.Req_email;
@@ -39,8 +40,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends Activity {
-    private static String OAUTH_CLIENT_ID = "mMjBFyvGtnq61b5DSk4s";  // 1)에서 받아온 값들을 넣어좁니다
-    private static String OAUTH_CLIENT_SECRET = "UwOSuRj5jr";
+    private static String OAUTH_CLIENT_ID = StartActivity.OAUTH_CLIENT_ID;  // 1)에서 받아온 값들을 넣어좁니다
+    private static String OAUTH_CLIENT_SECRET = StartActivity.OAUTH_CLIENT_SECRET;
     private static String OAUTH_CLIENT_NAME = "오예";
     private static OAuthLogin mOAuthLoginModule;
     private static Context mContext;
