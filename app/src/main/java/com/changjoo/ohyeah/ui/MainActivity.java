@@ -117,21 +117,24 @@ public class MainActivity extends Activity {
     public void recvBus(String msg) throws InterruptedException {
         U.getInstance().log(msg);
         Thread.sleep(2000);
-        readDay();
-        readMonth();
+//        readDay();
+//        readMonth();
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
-
+    //액티비티가 소멸되면 도착역도 폐기한다.
+    @Override
+    protected void onDestroy() {
+        U.getInstance().getAuthBus().unregister(this);
+        super.onDestroy();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         refreshToken();
-
-//        //알람 서비스 시작
-//        Intent intentsev = new Intent(this, AlarmProcessingService.class);
-//        startService(intentsev);
-//        startService(new Intent(this, AlarmProcessingMonthService.class));
 
         //도착역 설정
         U.getInstance().getAuthBus().register(this);
@@ -489,6 +492,7 @@ public class MainActivity extends Activity {
         expenses_total_month.clear();
         expenses.clear();
         expenses_temp.clear();
+        vp.setCurrentItem(0);
         //데이터 불러오기=========================================================================
         readDay();
         readMonth();
@@ -605,7 +609,8 @@ public class MainActivity extends Activity {
     }
 
     public void readDay() {
-        showPd();
+        final SweetAlertDialog sweetAlertDialog = U.getInstance().showLoading(this);
+        sweetAlertDialog.show();
         Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(this));
         Call<Res> res = SNet.getInstance().getAllFactoryIm().readDay(req_main_day);
         res.enqueue(new Callback<Res>() {
@@ -617,7 +622,7 @@ public class MainActivity extends Activity {
                         U.getInstance().log("메인 하루 불러오기: " + response.body().toString());
 
                         budget = response.body().getDoc().getAsset().getBudget();
-                        first_budget = response.body().getDoc().getAsset().getFirst_daily_budget();
+                        first_budget = (int)response.body().getDoc().getAsset().getFirst_daily_budget();
                         daily_budget = response.body().getDoc().getAsset().getDaily_budget();
                         goal_item = response.body().getDoc().getGoal().getGoal_item();
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
@@ -655,7 +660,7 @@ public class MainActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-                stopPd();
+                sweetAlertDialog.dismiss();
             }
 
             @Override
@@ -667,7 +672,8 @@ public class MainActivity extends Activity {
     }
 
     public void readMonth() {
-        showPd();
+        final SweetAlertDialog sweetAlertDialog = U.getInstance().showLoading(this);
+        sweetAlertDialog.show();
         Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(this));
         Call<Res> res = SNet.getInstance().getAllFactoryIm().readMonth(req_main_day);
         res.enqueue(new Callback<Res>() {
@@ -679,7 +685,7 @@ public class MainActivity extends Activity {
                         U.getInstance().log("메인 한달 불러오기: " + response.body().toString());
 
                         budget = response.body().getDoc().getAsset().getBudget();
-                        first_budget_month = response.body().getDoc().getAsset().getFirst_month_budget();
+                        first_budget_month = (int)response.body().getDoc().getAsset().getFirst_month_budget();
 
                         goal_item = response.body().getDoc().getGoal().getGoal_item();
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
@@ -705,7 +711,7 @@ public class MainActivity extends Activity {
                         e.printStackTrace();
                     }
                 }
-                stopPd();
+                sweetAlertDialog.dismiss();
             }
 
             @Override
@@ -808,7 +814,7 @@ public class MainActivity extends Activity {
     public void checkToss(){
         PackageManager pm = this.getPackageManager();
         boolean flag = true;
-// 설치된 어플리케이션 리스트 취득
+        // 설치된 어플리케이션 리스트 취득
         List<ApplicationInfo> packs = pm.getInstalledApplications(
                 PackageManager.GET_META_DATA);
 

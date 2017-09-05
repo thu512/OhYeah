@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +73,7 @@ public class FixSettingActivity extends Activity {
                 if(item_cnt > Fix_ex.size()){
                     FixViewHolder fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount()-1);
                     if ((!fixViewHolder.fix_name.getText().toString().equals("")) && (!fixViewHolder.fix_money.getText().toString().equals(""))) {
-                        Fix_ex.add(new FixModel(fixViewHolder.fix_name.getText().toString(), Integer.parseInt(fixViewHolder.fix_money.getText().toString())));
+                        Fix_ex.add(new FixModel(fixViewHolder.fix_name.getText().toString(), Integer.parseInt(U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString()))));
                     } else {
 
                     }
@@ -152,6 +154,7 @@ public class FixSettingActivity extends Activity {
         RelativeLayout add;
         Button add_btn;
         LinearLayout form;
+        String result="";
         public FixViewHolder(final View itemView) {
             super(itemView);
             form = (LinearLayout)itemView.findViewById(R.id.form);
@@ -181,14 +184,34 @@ public class FixSettingActivity extends Activity {
                 }
             });
 
+            fix_money.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+
+                        result = U.getInstance().toNumFormat(charSequence.toString());
+                        fix_money.setText(result);    // 결과 텍스트 셋팅.
+                        fix_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
             del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     U.getInstance().log("아이템개수 삭제 전: "+item_cnt);
                     if ((!fix_name.getText().toString().equals("")) && (!fix_money.getText().toString().equals("")) && Fix_ex.size() != 0) {
                         for (int i = 0; i < Fix_ex.size(); i++) {
-                            if (Fix_ex.get(i).getF_ex_record().equals(fix_name.getText().toString()) && Fix_ex.get(i).getF_ex_money() == Integer.parseInt(fix_money.getText().toString())) {
+                            if (Fix_ex.get(i).getF_ex_record().equals(fix_name.getText().toString()) && Fix_ex.get(i).getF_ex_money() == Integer.parseInt(U.getInstance().removeComa(fix_money.getText().toString()))) {
                                 Fix_ex.remove(i);
                                 if(item_cnt!=1){
                                     item_cnt--;
@@ -225,7 +248,7 @@ public class FixSettingActivity extends Activity {
                     FixViewHolder fixViewHolder;
                     fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount()-1);
                     String name = fixViewHolder.fix_name.getText().toString();
-                    String money = fixViewHolder.fix_money.getText().toString();
+                    String money = U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
                     if ((!name.equals("")) && (!money.equals(""))) {
                         Fix_ex.add(new FixModel(name, Integer.parseInt(money)));
                     } else {

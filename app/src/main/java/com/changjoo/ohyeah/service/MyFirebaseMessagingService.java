@@ -11,21 +11,12 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.changjoo.ohyeah.R;
-import com.changjoo.ohyeah.model.Req_Main_day;
-import com.changjoo.ohyeah.model.Res;
 import com.changjoo.ohyeah.model.ResPushModel;
-import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.ui.MainActivity;
 import com.changjoo.ohyeah.utill.U;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-
-import java.io.IOException;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * 메세지 수신.
@@ -63,10 +54,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 showNotification_fix(res);
             }
             else if(res.getResult() == 4){ //한달 예산 설정 알림
-                showNotification_month();
+                showNotification_month(res);
             }
             else if(res.getResult() == 5){ //매일 예산 설정
-                showNotification_day();
+                showNotification_day(res);
             }
 
 
@@ -234,55 +225,30 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     //오늘예산알림
-    public void showNotification_day(){
+    public void showNotification_day(ResPushModel res){
         U.getInstance().log("알람!!!!!!!");
         Intent dayintent = new Intent(getApplicationContext(), MainActivity.class);
         dayintent.addFlags(dayintent.FLAG_ACTIVITY_CLEAR_TOP);
 
         final PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),6,dayintent,PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.mipmap.push_logo)
+                .setContentTitle(res.getTitle())
+                .setContentText(res.getBody())
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+
+        //노티 작동
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        //0:노티피케이션 고유 번호 알림을 눌러서 시작하면 해당 번호를 넣어서 알림 삭제
+        notificationManager.notify(8,nb.build());
 
 
-        Req_Main_day req_main_day = new Req_Main_day(U.getInstance().getEmail(getApplicationContext()));
-        Call<Res> res = SNet.getInstance().getAllFactoryIm().readDay(req_main_day);
-        res.enqueue(new Callback<Res>() {
-            @Override
-            public void onResponse(Call<Res> call, Response<Res> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        NotificationCompat.Builder nb = new NotificationCompat.Builder(getApplicationContext())
-                                .setSmallIcon(R.mipmap.push_logo)
-                                .setContentTitle("오늘 예산은 "+U.getInstance().toNumFormat(Integer.toString((int)response.body().getDoc().getAsset().getDaily_budget()))+"원 입니다.")
-                                .setContentText("오늘의 예산을 확인하세요!!!")
-                                .setAutoCancel(true)
-                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                                .setContentIntent(pendingIntent);
-
-                        //노티 작동
-                        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                        //0:노티피케이션 고유 번호 알림을 눌러서 시작하면 해당 번호를 넣어서 알림 삭제
-                        notificationManager.notify(8,nb.build());
-
-
-                    } else {
-                        U.getInstance().log("통신실패1");
-                    }
-                } else {
-                    try {
-                        U.getInstance().log("통신실패2" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<Res> call, Throwable t) {
-                U.getInstance().log("통신실패3" + t.getLocalizedMessage());
-            }
-        });
     }
 
     //한달 새로운 예산 설정
-    public void showNotification_month() {
+    public void showNotification_month(ResPushModel res) {
         Intent monthintent = new Intent(getApplicationContext(), MainActivity.class);
         monthintent.putExtra("popup","budgetSet");
         monthintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -297,8 +263,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //비상금사용알림림
         NotificationCompat.Builder nb2 = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.mipmap.push_logo)
-                .setContentTitle("이번달 예산을 설정해주세요.")
-                .setContentText("")
+                .setContentTitle(res.getTitle())
+                .setContentText(res.getBody())
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent);

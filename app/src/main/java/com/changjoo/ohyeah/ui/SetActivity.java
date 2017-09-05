@@ -30,6 +30,7 @@ import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.io.IOException;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +53,54 @@ public class SetActivity extends Activity {
     SignoutCheckDialog signoutCheckDialog;
 
     NotificationManager mangager;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
+            viveSwt.setChecked(true);
+
+        }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
+            soundSwt.setChecked(true);
+        }else{
+            viveSwt.setChecked(false);
+            soundSwt.setChecked(false);
+            NotificationManager n = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(n.isNotificationPolicyAccessGranted()) {
+
+                }else{
+                    // Ask the user to grant access
+                    SweetAlertDialog sweetAlertDialog = U.getInstance().showPopup3(this,
+                            "알림",
+                            "방해금지 모드 사용을 동의해주세요. :)",
+                            "확인",
+                            new SweetAlertDialog.OnSweetClickListener(){
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                    startActivity(intent);
+                                    sweetAlertDialog.dismiss();
+                                }
+                            },
+                            "취소",
+                            new SweetAlertDialog.OnSweetClickListener(){
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    viveSwt.setEnabled(false);
+                                    soundSwt.setEnabled(false);
+                                    sweetAlertDialog.dismiss();
+                                }
+                            }
+                    );
+                    sweetAlertDialog.show();
+
+                }
+            }
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +157,7 @@ public class SetActivity extends Activity {
 
 
 
-        if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE ){ //진동모드일 경우
-            viveSwt.setChecked(true);
 
-        }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
-            soundSwt.setChecked(true);
-        }
 
         soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

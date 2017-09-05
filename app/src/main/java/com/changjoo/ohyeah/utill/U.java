@@ -182,18 +182,18 @@ public class U {
 
 
 
-    public void showPopup3(Context context, String title, String msg,
+    public SweetAlertDialog showPopup3(Context context, String title, String msg,
                            String cName, SweetAlertDialog.OnSweetClickListener cEvent,
                            String oName, SweetAlertDialog.OnSweetClickListener oEvent
     ){
-        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+        return new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(title)
                 .setContentText(msg)
                 .setConfirmText(cName)
                 .setConfirmClickListener(cEvent)
                 .setCancelText(oName)
                 .setCancelClickListener(oEvent)
-                .show();
+                ;
     }
 
 

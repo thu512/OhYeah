@@ -8,7 +8,7 @@
 
     <!-- 문자수신허용 -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_MMS" />
+
 
     <!-- 화면 깨우기 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:name=".MyApplication"
@@ -63,12 +66,16 @@
 
         <!-- 네이버 아이디로 로그인에서 사용하는 액티비티를 등록 -->
         <activity
+            android:screenOrientation="portrait"
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
             android:label="OAuth2.0 In-app" />
-        <activity android:name=".StartActivity"
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".StartActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,35 +83,68 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".ui.JoinActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.LoginActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.JoinActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
-        <activity android:name=".ui.BudgetSettingActivity" />
-        <activity android:name=".ui.PurposeSetActivity" />
-        <activity android:name=".ui.NestSettingActivity"></activity>
-        <activity android:name=".terms.Terms1Activity" />
-        <activity android:name=".terms.Terms2Activity" />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+        </activity>
         <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.BudgetSettingActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.PurposeSetActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.NestSettingActivity"></activity>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".terms.Terms1Activity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".terms.Terms2Activity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".ui.ModifySettingActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.ModifyPurposeActivity" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.ModifyPurposeActivity" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".ui.ModifyFixActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.SetActivity" />
-        <activity android:name=".ui.ChangePwdActivity" />
-        <activity android:name=".ui.Widget_SettingActivity" />
-        <activity android:name=".ui.WidgetSettingActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.SetActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.ChangePwdActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.Widget_SettingActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.WidgetSettingActivity" />
 
-        <activity android:name=".ui.SendEmailActivity" />
-        <activity android:name=".ui.FindPwdActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.SendEmailActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.FindPwdActivity" />
 
 
     </application>

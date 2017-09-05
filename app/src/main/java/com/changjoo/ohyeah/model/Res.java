@@ -246,21 +246,21 @@ public class Res {
 
         public class Asset{
             int budget;
-            int first_month_budget;
+            double first_month_budget;
             int spare_money;
             int ratio_spare;
             int d_day;
-            int first_daily_budget;
+            double first_daily_budget;
             double daily_budget;
             int set_date;
             String setb_yn;
             ArrayList<FixModel> Fix_ex;
 
-            public int getFirst_month_budget() {
+            public double getFirst_month_budget() {
                 return first_month_budget;
             }
 
-            public void setFirst_month_budget(int first_month_budget) {
+            public void setFirst_month_budget(double first_month_budget) {
                 this.first_month_budget = first_month_budget;
             }
 
@@ -312,11 +312,11 @@ public class Res {
                 this.d_day = d_day;
             }
 
-            public int getFirst_daily_budget() {
+            public double getFirst_daily_budget() {
                 return first_daily_budget;
             }
 
-            public void setFirst_daily_budget(int first_daily_budget) {
+            public void setFirst_daily_budget(double first_daily_budget) {
                 this.first_daily_budget = first_daily_budget;
             }
 
