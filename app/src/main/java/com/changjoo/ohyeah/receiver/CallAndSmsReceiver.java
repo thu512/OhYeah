@@ -68,6 +68,7 @@ public class CallAndSmsReceiver extends BroadcastReceiver
             String msgBody = smsMessage.getMessageBody().toString();
 
 
+
             //아이디를 잘받아와야함
             U.getInstance().log("아이디는: "+U.getInstance().getEmail(this.context));
 

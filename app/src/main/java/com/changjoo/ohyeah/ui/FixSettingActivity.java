@@ -249,7 +249,7 @@ public class FixSettingActivity extends Activity {
                     fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount()-1);
                     String name = fixViewHolder.fix_name.getText().toString();
                     String money = U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
-                    if ((!name.equals("")) && (!money.equals(""))) {
+                    if ((!name.equals("")) && (!money.equals("")) && (!money.equals("0"))) {
                         Fix_ex.add(new FixModel(name, Integer.parseInt(money)));
                     } else {
                         return;
