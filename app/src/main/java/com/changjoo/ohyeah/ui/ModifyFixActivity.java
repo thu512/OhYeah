@@ -34,6 +34,7 @@ import retrofit2.Response;
 public class ModifyFixActivity extends Activity {
     RecyclerView fix_list;
     ArrayList<FixModel> Fix_ex;
+    ArrayList<FixModel> Fix_ex_new;
     FixAdapter fixAdapter;
 
     Button submit;
@@ -49,6 +50,7 @@ public class ModifyFixActivity extends Activity {
         fix_list = (RecyclerView) findViewById(R.id.fix_list);
         fix_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         Fix_ex = new ArrayList<>();
+        Fix_ex_new = new ArrayList<>();
         fixAdapter = new FixAdapter();
         fix_list.setAdapter(fixAdapter);
         fix_list.smoothScrollToPosition(fix_list.getAdapter().getItemCount() + 1);
@@ -66,32 +68,29 @@ public class ModifyFixActivity extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //수정된 고정지출 리스트
+                pushList();
+
                 showPd();
                 U.getInstance().log("itemCnt: "+item_cnt);
-                U.getInstance().log("size:" +Fix_ex.size());
+                U.getInstance().log("size:" +Fix_ex_new.size());
 
-                if(item_cnt > Fix_ex.size()){
-                    FixViewHolder fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount()-1);
-                    if ((!fixViewHolder.fix_name.getText().toString().equals("")) && (!fixViewHolder.fix_money.getText().toString().equals(""))) {
-                        Fix_ex.add(new FixModel(fixViewHolder.fix_name.getText().toString(), Integer.parseInt(U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString()))));
-                    } else {
 
-                    }
-                }
 
                 int sum = 0;
-                for (FixModel fixModel : Fix_ex) {
+                for (FixModel fixModel : Fix_ex_new) {
                     sum += fixModel.getF_ex_money();
                 }
 
                 U.getInstance().setFix(ModifyFixActivity.this, sum);
                 U.getInstance().log("총고정 지출 액 : " + sum);
-                U.getInstance().log("총고정 지출 리스트 : " + Fix_ex.toString());
+                U.getInstance().log("총고정 지출 리스트 : " + Fix_ex_new.toString());
 
 
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
-                if (Fix_ex.size() > 0) {
-                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(ModifyFixActivity.this), Fix_ex);
+                if (Fix_ex_new.size() > 0) {
+                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(ModifyFixActivity.this), Fix_ex_new);
                     Call<Res> res = SNet.getInstance().getAllFactoryIm().update_Fix(req_fix);
                     res.enqueue(new Callback<Res>() {
                         @Override
@@ -335,4 +334,23 @@ public class ModifyFixActivity extends Activity {
     }
 
 
+    //리스트에 아이템 전체 추가
+    public void pushList(){
+        FixViewHolder fixViewHolder;
+        U.getInstance().log("고정지출 리스트 개수:"+ fix_list.getChildCount());
+        for(int i=0; i<fix_list.getChildCount(); i++){
+            fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(i);
+            U.getInstance().log("고정지출 리스트 내용:"+fixViewHolder.fix_name.getText().toString());
+            String name = fixViewHolder.fix_name.getText().toString();
+            String money =  U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
+
+            if ((!name.equals("")) && (!money.equals("")) && (!money.equals("0"))) {
+                Fix_ex_new.add(new FixModel(name, Integer.parseInt(money)));
+            } else {
+                continue;
+            }
+
+        }
+
+    }
 }

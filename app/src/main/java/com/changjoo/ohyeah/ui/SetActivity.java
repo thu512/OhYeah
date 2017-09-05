@@ -74,7 +74,7 @@ public class SetActivity extends Activity {
 
                 }else{
                     // Ask the user to grant access
-                    SweetAlertDialog sweetAlertDialog = U.getInstance().showPopup3(this,
+                    U.getInstance().showPopup3(this,
                             "알림",
                             "방해금지 모드 사용을 동의해주세요. :)",
                             "확인",
@@ -83,7 +83,7 @@ public class SetActivity extends Activity {
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                                     startActivity(intent);
-                                    sweetAlertDialog.dismiss();
+                                    sweetAlertDialog.dismissWithAnimation();
                                 }
                             },
                             "취소",
@@ -92,11 +92,11 @@ public class SetActivity extends Activity {
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     viveSwt.setEnabled(false);
                                     soundSwt.setEnabled(false);
-                                    sweetAlertDialog.dismiss();
+                                    sweetAlertDialog.dismissWithAnimation();
                                 }
                             }
                     );
-                    sweetAlertDialog.show();
+
 
                 }
             }

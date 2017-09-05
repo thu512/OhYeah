@@ -1,7 +1,10 @@
 package com.changjoo.ohyeah;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -37,6 +40,36 @@ public class StartActivity extends android.app.Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        //네트워크 연결체크
+        ConnectivityManager manager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+
+        // wifi 또는 모바일 네트워크 어느 하나라도 연결이 되어있다면,
+        if (wifi.isConnected() || mobile.isConnected()) {
+            //("연결됨" , "연결이 되었습니다.);
+            U.getInstance().log("네트워크 연결됨");
+        } else {
+            U.getInstance().showPopup3(this,
+                    "알림",
+                    "네트워크연결을 확인해주세요.",
+                    "확인",
+                    new SweetAlertDialog.OnSweetClickListener(){
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            finish();
+                        }
+                    },
+                    null,
+                    null
+            );
+
+        }
+
+
         final FirebaseRemoteConfig config = FirebaseRemoteConfig.getInstance();
         //2.설정
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -111,7 +144,7 @@ public class StartActivity extends android.app.Activity {
                 } else {
                     // 사용자가 권한 동의를 안함
                     // 권한 동의안함 버튼 선택
-                    SweetAlertDialog sweetAlertDialog = U.getInstance().showPopup3(this,
+                    U.getInstance().showPopup3(this,
                             "알림",
                             "권한사용을 동의해주셔야 이용이 가능합니다.",
                             "확인",
@@ -124,7 +157,6 @@ public class StartActivity extends android.app.Activity {
                             null,
                             null
                     );
-                    sweetAlertDialog.show();
                 }
                 return;
             }

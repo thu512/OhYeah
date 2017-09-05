@@ -81,7 +81,7 @@ public class ModifyPurposeActivity extends Activity {
                         new SweetAlertDialog.OnSweetClickListener(){
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismiss();
+                                sweetAlertDialog.dismissWithAnimation();
                                 checkToss();
                             }
                         },

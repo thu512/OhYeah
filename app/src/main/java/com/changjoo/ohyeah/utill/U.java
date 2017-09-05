@@ -182,18 +182,19 @@ public class U {
 
 
 
-    public SweetAlertDialog showPopup3(Context context, String title, String msg,
+    public void showPopup3(Context context, String title, String msg,
                            String cName, SweetAlertDialog.OnSweetClickListener cEvent,
                            String oName, SweetAlertDialog.OnSweetClickListener oEvent
     ){
-        return new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(title)
                 .setContentText(msg)
                 .setConfirmText(cName)
                 .setConfirmClickListener(cEvent)
                 .setCancelText(oName)
                 .setCancelClickListener(oEvent)
-                ;
+                .show();
+
     }
 
 
@@ -242,5 +243,7 @@ public class U {
 
         return num.replaceAll("\\,", "");
     }
+
+
 
 }
