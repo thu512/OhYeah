@@ -5,11 +5,11 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Fix {
-    String msg_content;
-    int msg_money;
-    String msg_date;
-    String msg_time;
-    String fix_data;
+    private String msg_content;
+    private int msg_money;
+    private String msg_date;
+    private String msg_time;
+    private String fix_data;
 
     public Fix(String msg_content, int msg_money, String msg_date, String msg_time, String fix_data) {
         this.msg_content = msg_content;

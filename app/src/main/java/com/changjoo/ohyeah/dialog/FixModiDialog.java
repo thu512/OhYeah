@@ -16,18 +16,18 @@ import com.changjoo.ohyeah.utill.U;
  */
 
 public class FixModiDialog extends Dialog {
-    TextView msg_content;
-    TextView msg_money;
-    TextView fix_name;
+    private TextView msg_content;
+    private TextView msg_money;
+    private TextView fix_name;
 
 
-    Button btn_left; //취소
-    Button btn_right; //확인
+    private Button btn_left; //취소
+    private Button btn_right; //확인
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
-    String msg_content_rr = "";
+    private String msg_content_rr = "";
     int msg_money_rr;
-    String fix_name_rr = "";
+    private String fix_name_rr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

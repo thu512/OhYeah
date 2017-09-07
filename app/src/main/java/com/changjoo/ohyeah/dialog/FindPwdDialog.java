@@ -16,7 +16,7 @@ import com.changjoo.ohyeah.R;
 public class FindPwdDialog extends Dialog {
 
 
-    Button btn_left; //확인
+    private Button btn_left; //확인
 
     private View.OnClickListener mLeftClickListener;
 

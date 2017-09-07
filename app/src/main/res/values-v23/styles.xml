@@ -6,4 +6,11 @@
         <item name="colorPrimaryDark">#d8d8d8</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+    <!--현재 사용 테마-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
 </resources>

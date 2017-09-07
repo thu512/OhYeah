@@ -251,6 +251,14 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String s =editText.getText().toString();
+                s = s.replace("+","");
+                s = s.replace("-","");
+                s = s.replace("X","");
+                s = s.replace("/","");
+                editText.setText(s);
+                isPreOperator=false;
+                operatorList.clear();
                 spacer1.setVisibility(View.GONE);
                 flipper.setDisplayedChild(2);
                 spacer2.setVisibility(View.VISIBLE);
@@ -381,6 +389,14 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
         flipper.setDisplayedChild(2);
+        String s =editText.getText().toString();
+        s = s.replace("+","");
+        s = s.replace("-","");
+        s = s.replace("X","");
+        s = s.replace("/","");
+        editText.setText(s);
+        isPreOperator=false;
+        operatorList.clear();
         editText.setSelection(editText.length());
 
     }
@@ -613,22 +629,22 @@ public class BudgetSettingActivity extends Activity implements View.OnClickListe
         }
 
         int result = numberList.get(0);
-        Log.d("aaa", String.valueOf(result) );
-        Log.d("aaa", String.valueOf(operatorList.size()) );
+        U.getInstance().log("계산기==== 1차항: "+String.valueOf(result));
+        U.getInstance().log("계산기==== 연산자: "+ String.valueOf(operatorList.size()));
 
-        for( int i = 0 ; i < operatorList.size() ; i++ ) {
+        for (int i = 0; i < operatorList.size(); i++) {
             String operator = operatorList.get(i);
 
-            if( "X".equals(operator)){
-                result = ( result * numberList.get(i+1));
-            }else if( "/".equals(operator)){
-                result = ( result / numberList.get(i+1));
-            }else if( "+".equals(operator)){
-                result = ( result + numberList.get(i+1));
-            }else if( "-".equals(operator)){
-                result = ( result - numberList.get(i+1));
+            if ("X".equals(operator)) {
+                result = (result * numberList.get(i + 1));
+            } else if ("/".equals(operator)) {
+                result = (result / numberList.get(i + 1));
+            } else if ("+".equals(operator)) {
+                result = (result + numberList.get(i + 1));
+            } else if ("-".equals(operator)) {
+                result = (result - numberList.get(i + 1));
             }
-            Log.d("aaa", String.valueOf(numberList.get(1)) );
+            U.getInstance().log("계산기==== 2차항: "+String.valueOf(numberList.get(1)));
         }
         operatorList.clear();
         numberList.clear();

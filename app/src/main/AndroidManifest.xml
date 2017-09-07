@@ -94,7 +94,7 @@
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:screenOrientation="portrait"
             android:name=".ui.FixSettingActivity"
@@ -102,7 +102,9 @@
         </activity>
         <activity
             android:screenOrientation="portrait"
-            android:name=".ui.BudgetSettingActivity" />
+            android:name=".ui.BudgetSettingActivity">
+
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".ui.PurposeSetActivity" />

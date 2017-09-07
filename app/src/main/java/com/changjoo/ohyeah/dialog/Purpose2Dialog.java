@@ -15,8 +15,8 @@ import com.changjoo.ohyeah.R;
 
 public class Purpose2Dialog extends Dialog {
 
-    Button btn_left; //무시
-    Button btn_right; //완료
+    private Button btn_left; //무시
+    private Button btn_right; //완료
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
 

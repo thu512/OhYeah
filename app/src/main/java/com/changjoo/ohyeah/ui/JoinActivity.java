@@ -115,6 +115,9 @@ public class JoinActivity extends Activity {
                                     error_msg.setVisibility(View.VISIBLE);
                                     email_check_img.setImageResource(R.mipmap.check);
                                     dura_button.setBackgroundResource(R.mipmap.button1);
+                                    dura_button.setEnabled(false);
+                                    email.setEnabled(false);
+                                    email_delete.setEnabled(false);
                                 } else {
                                     //중복
                                     error_msg.setVisibility(View.VISIBLE);

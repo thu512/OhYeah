@@ -31,14 +31,14 @@ import retrofit2.Response;
 
 public class Purpose3Dialog extends Dialog {
 
-    Button btn_left; //확인
-    EditText pupose_money;
-    RadioButton home;
-    RadioButton car;
-    RadioButton airplane;
-    RadioButton gift;
-    RadioButton heart;
-    RadioButton etc;
+    private Button btn_left; //확인
+    private EditText pupose_money;
+    private RadioButton home;
+    private RadioButton car;
+    private RadioButton airplane;
+    private RadioButton gift;
+    private RadioButton heart;
+    private RadioButton etc;
 
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener cancelClickListener;

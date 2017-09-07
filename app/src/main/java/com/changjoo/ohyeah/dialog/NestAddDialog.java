@@ -31,15 +31,15 @@ import retrofit2.Response;
 
 public class NestAddDialog extends Dialog {
 
-    EditText money;
-    me.grantland.widget.AutofitTextView current_money;
-    TextView error2;
-    int cm=0;
-    Button btn_left; //취소
-    Button btn_right; //확인
+    private EditText money;
+    private me.grantland.widget.AutofitTextView current_money;
+    private TextView error2;
+    private int cm=0;
+    private Button btn_left; //취소
+    private Button btn_right; //확인
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
-    String result = "";
+    private String result = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

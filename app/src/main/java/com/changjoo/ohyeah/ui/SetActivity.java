@@ -165,11 +165,17 @@ public class SetActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
-                    viveSwt.setChecked(false);
+                    if(viveSwt.isChecked()){
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
+                    }else{
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
+                    }
                 }else{
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    viveSwt.setChecked(true);
+                    if(viveSwt.isChecked()){
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                    }else{
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                    }
                 }
             }
         });
@@ -178,11 +184,17 @@ public class SetActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);  //진동
-                    soundSwt.setChecked(false);
+                    if(soundSwt.isChecked()){
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
+                    }else{
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);  //진동
+                    }
                 }else{
-                    aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    soundSwt.setChecked(true);
+                    if(soundSwt.isChecked()){
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
+                    }else{
+                        aManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                    }
                 }
             }
         });

@@ -58,6 +58,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
             else if(res.getResult() == 5){ //매일 예산 설정
                 showNotification_day(res);
+            }else if(res.getResult() == 6){
+                showNotification_day_not(res);
+            }else if(res.getResult() == 9){
+                showNotification_day_not2(res);
             }
 
 
@@ -230,7 +234,54 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent dayintent = new Intent(getApplicationContext(), MainActivity.class);
         dayintent.addFlags(dayintent.FLAG_ACTIVITY_CLEAR_TOP);
 
+        final PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),5,dayintent,PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.mipmap.push_logo)
+                .setContentTitle(res.getTitle())
+                .setContentText(res.getBody())
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+
+        //노티 작동
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        //0:노티피케이션 고유 번호 알림을 눌러서 시작하면 해당 번호를 넣어서 알림 삭제
+        notificationManager.notify(6,nb.build());
+
+
+    }
+
+
+    //오늘예산알림 -> 한달예산 마이너스, 비상금 남았을때
+    public void showNotification_day_not(ResPushModel res){
+        U.getInstance().log("알람!!!!!!!");
+        Intent dayintent = new Intent(getApplicationContext(), MainActivity.class);
+        dayintent.addFlags(dayintent.FLAG_ACTIVITY_CLEAR_TOP);
+
         final PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),6,dayintent,PendingIntent.FLAG_ONE_SHOT);
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.mipmap.push_logo)
+                .setContentTitle(res.getTitle())
+                .setContentText(res.getBody())
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+
+        //노티 작동
+        NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        //0:노티피케이션 고유 번호 알림을 눌러서 시작하면 해당 번호를 넣어서 알림 삭제
+        notificationManager.notify(7,nb.build());
+
+
+    }
+
+    //오늘예산알림 -> 한달예산 마이너스, 비상금 안 남았을때
+    public void showNotification_day_not2(ResPushModel res){
+        U.getInstance().log("알람!!!!!!!");
+        Intent dayintent = new Intent(getApplicationContext(), MainActivity.class);
+        dayintent.addFlags(dayintent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        final PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),7,dayintent,PendingIntent.FLAG_ONE_SHOT);
         NotificationCompat.Builder nb = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.mipmap.push_logo)
                 .setContentTitle(res.getTitle())
@@ -247,6 +298,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
+
+
     //한달 새로운 예산 설정
     public void showNotification_month(ResPushModel res) {
         Intent monthintent = new Intent(getApplicationContext(), MainActivity.class);
@@ -258,7 +311,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         stackBuilder.addParentStack(MainActivity.class);
 
         stackBuilder.addNextIntent(monthintent);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(7, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(8, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //비상금사용알림림
         NotificationCompat.Builder nb2 = new NotificationCompat.Builder(getApplicationContext())

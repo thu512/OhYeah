@@ -18,12 +18,13 @@ import com.changjoo.ohyeah.utill.U;
 
 public class Purpose1Dialog extends Dialog {
 
-    TextView money;
-    Button btn_left; //확인
-    ImageButton cancel;
+    private TextView money;
+    private Button btn_left; //확인
+    private ImageButton cancel;
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener cancelClickListener;
-    int pp_money;
+    private int pp_money;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

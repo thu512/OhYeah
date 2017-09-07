@@ -12,7 +12,6 @@ import com.changjoo.ohyeah.net.SNet;
 import com.changjoo.ohyeah.utill.U;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,13 +45,6 @@ public class CallAndSmsReceiver extends BroadcastReceiver
     //문자처리
     public void detectSMS(Intent intent)
     {
-        HashMap<String,String> bankTel = new HashMap<String, String>();
-        bankTel.put("15884000","IBK기업");
-        bankTel.put("15881688","국민은행");
-        bankTel.put("15447200","신한은행");
-        bankTel.put("18001111","하나은행");
-        bankTel.put("15889955","우리카드");
-
 
         U.getInstance().log("문자왔다"+intent.toString());
         Object[] objects = (Object[]) intent.getExtras().get("pdus");
@@ -65,7 +57,7 @@ public class CallAndSmsReceiver extends BroadcastReceiver
             U.getInstance().log(smsMessage.getMessageBody().toString()); //문자 내용
 
             //3.이벤트 전송으로 특정화면으로 내용전송
-            String msgBody = smsMessage.getMessageBody().toString();
+            final String msgBody = smsMessage.getMessageBody().toString();
 
 
 
@@ -74,7 +66,13 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 
 
             //아이디 널이면 안읽기 && 은행 문자 일때만!
-            if(!U.getInstance().getEmail(this.context).equals("")){
+            if(!U.getInstance().getEmail(this.context).equals("") &&
+                    (smsMessage.getOriginatingAddress().equals("15881688") //국민은행
+                            || smsMessage.getOriginatingAddress().replace("-","").equals("15889955") //우리카드
+                            || smsMessage.getOriginatingAddress().replace("-","").equals("15885000") //우리은행
+                            || smsMessage.getOriginatingAddress().replace("-","").equals("15991111") //하나은행
+                            || smsMessage.getOriginatingAddress().replace("-","").equals("01051204002")
+                    )){
 
                 Req_msg req_msg = new Req_msg(U.getInstance().getEmail(this.context),msgBody);
                 Call<Res> res = SNet.getInstance().getAllFactoryIm().sendMsg(req_msg);
@@ -84,6 +82,8 @@ public class CallAndSmsReceiver extends BroadcastReceiver
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 U.getInstance().log(response.body().toString());
+                                U.getInstance().log("문자 서버전송!!!");
+                                U.getInstance().getAuthBus().post(msgBody);
                             } else {
                                 U.getInstance().log("통신실패1");
                             }
@@ -102,7 +102,7 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 
                     }
                 });
-                U.getInstance().getAuthBus().post(msgBody);
+
             }
 
         }

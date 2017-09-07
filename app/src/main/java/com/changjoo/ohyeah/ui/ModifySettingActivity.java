@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -75,6 +76,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
     //커스텀 키보드
     ViewFlipper flipper;
     LinearLayout select_key;
+    ScrollView scrollView;
     Button num;
     Button cal;
     Button btn0;
@@ -373,6 +375,14 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String s =editText.getText().toString();
+                s = s.replace("+","");
+                s = s.replace("-","");
+                s = s.replace("X","");
+                s = s.replace("/","");
+                editText.setText(s);
+                isPreOperator=false;
+                operatorList.clear();
                 flipper.setDisplayedChild(2);
                 imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                 select_key.setVisibility(View.VISIBLE);
@@ -488,6 +498,14 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         num.setBackgroundResource(R.mipmap.basic_on);
         cal.setBackgroundResource(R.mipmap.group_off);
         flipper.setDisplayedChild(2);
+        String s =editText.getText().toString();
+        s = s.replace("+","");
+        s = s.replace("-","");
+        s = s.replace("X","");
+        s = s.replace("/","");
+        editText.setText(s);
+        isPreOperator=false;
+        operatorList.clear();
         editText.setSelection(editText.length());
     }
 
@@ -708,8 +726,8 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
         }
 
         int result = numberList.get(0);
-        Log.d("aaa", String.valueOf(result));
-        Log.d("aaa", String.valueOf(operatorList.size()));
+        U.getInstance().log("계산기==== 1차항: "+String.valueOf(result));
+        U.getInstance().log("계산기==== 연산자: "+ String.valueOf(operatorList.size()));
 
         for (int i = 0; i < operatorList.size(); i++) {
             String operator = operatorList.get(i);
@@ -723,7 +741,8 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
             } else if ("-".equals(operator)) {
                 result = (result - numberList.get(i + 1));
             }
-            Log.d("aaa", String.valueOf(numberList.get(1)));
+            U.getInstance().log("계산기==== 2차항: "+String.valueOf(numberList.get(1)));
+
         }
         operatorList.clear();
         numberList.clear();

@@ -32,12 +32,12 @@ import retrofit2.Response;
 
 public class NewBudgetDialog extends Dialog {
 
-    EditText money;
+    private EditText money;
 
-    Button btn_right; //확인
+    private Button btn_right; //확인
 
     private View.OnClickListener mRightClickListener;
-    String result="";
+    private String result="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

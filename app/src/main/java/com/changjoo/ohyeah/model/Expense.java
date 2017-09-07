@@ -6,13 +6,13 @@ package com.changjoo.ohyeah.model;
 
 public class Expense {
 
-    String date;
-    String time;
-    String record;
-    int money;
-    String ex_in;
-    String today_yn;
-    String month_yn;
+    private String date;
+    private String time;
+    private String record;
+    private int money;
+    private String ex_in;
+    private String today_yn;
+    private String month_yn;
 
     public String getMonth_yn() {
         return month_yn;

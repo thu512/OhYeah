@@ -16,11 +16,11 @@ import com.changjoo.ohyeah.R;
 
 public class LogoutDialog extends Dialog {
 
-    TextView txt_content;
-    Button btn_left; //취소
-    Button btn_right; //로그아웃
+    private TextView txt_content;
+    private Button btn_left; //취소
+    private Button btn_right; //로그아웃
 
-    String mContent="";
+    private String mContent="";
 
 
     private View.OnClickListener mLeftClickListener;

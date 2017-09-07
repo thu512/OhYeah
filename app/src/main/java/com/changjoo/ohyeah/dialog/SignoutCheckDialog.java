@@ -16,8 +16,8 @@ import com.changjoo.ohyeah.R;
 public class SignoutCheckDialog extends Dialog {
 
 
-    Button btn_left; //탈퇴
-    Button btn_right; //건의하기
+    private Button btn_left; //탈퇴
+    private Button btn_right; //건의하기
 
 
     private View.OnClickListener mLeftClickListener;

@@ -243,7 +243,7 @@ public class ModifyPurposeActivity extends Activity {
         heart.setOnClickListener(optionOnClickListener);
         etc.setOnClickListener(optionOnClickListener);
 
-
+        showPd();
         Req_email req_email = new Req_email(U.getInstance().getEmail(ModifyPurposeActivity.this));
         Call<Res> res = SNet.getInstance().getAllFactoryIm().updatePP(req_email);
         res.enqueue(new Callback<Res>() {
@@ -252,6 +252,7 @@ public class ModifyPurposeActivity extends Activity {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         if (response.body().getResult() == 1) {
+
                             U.getInstance().log("목표수정" + response.body().getDoc().getGoal());
                             pupose_money.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getGoal().getGoal_money()));
                             day.setText(U.getInstance().toNumFormat(""+response.body().getDoc().getGoal().getNow_saving()));
@@ -355,8 +356,9 @@ public class ModifyPurposeActivity extends Activity {
                 U.getInstance().log("통신실패3" + t.getLocalizedMessage());
                 stopPd();
             }
-        });
 
+        });
+        stopPd();
 
 
 

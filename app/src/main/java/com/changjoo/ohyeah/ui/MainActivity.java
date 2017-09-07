@@ -116,9 +116,6 @@ public class MainActivity extends Activity {
     @Subscribe
     public void recvBus(String msg) throws InterruptedException {
         U.getInstance().log(msg);
-        Thread.sleep(2000);
-//        readDay();
-//        readMonth();
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
@@ -133,6 +130,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View view = getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (view != null) {
+                // 23 버전 이상일 때 상태바 하얀 색상에 회색 아이콘 색상을 설정
+                view.setSystemUiVisibility(0);
+            }
+        }else if (Build.VERSION.SDK_INT >= 21) {
+            // 21 버전 이상일 때
+        }
+
 
         refreshToken();
 
@@ -628,7 +635,7 @@ public class MainActivity extends Activity {
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
 
                         now_saving = response.body().getDoc().getGoal().getNow_saving();
-                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving();
+                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving() == null? 0:response.body().getDoc().getGoal().getRatio_saving() ;
                         U.getInstance().log(budget+"/"+daily_budget+"/"+goal_item+"/"+goal_money+"/"+now_saving+"/"+ratio_saving);
 
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
@@ -689,7 +696,7 @@ public class MainActivity extends Activity {
 
                         goal_item = response.body().getDoc().getGoal().getGoal_item();
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
-                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving();
+                        ratio_saving = response.body().getDoc().getGoal().getRatio_saving() == null ? 0:response.body().getDoc().getGoal().getRatio_saving() ;
                         U.getInstance().log(budget+"/"+first_budget_month+"/"+goal_item+"/"+goal_money+"/"+ratio_saving);
 
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
@@ -713,6 +720,7 @@ public class MainActivity extends Activity {
                 }
                 sweetAlertDialog.dismiss();
             }
+
 
             @Override
             public void onFailure(Call<Res> call, Throwable t) {

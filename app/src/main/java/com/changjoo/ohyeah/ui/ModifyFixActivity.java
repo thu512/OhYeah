@@ -73,9 +73,8 @@ public class ModifyFixActivity extends Activity {
                 pushList();
 
                 showPd();
-                U.getInstance().log("itemCnt: "+item_cnt);
-                U.getInstance().log("size:" +Fix_ex_new.size());
-
+                U.getInstance().log("itemCnt: " + item_cnt);
+                U.getInstance().log("size:" + Fix_ex_new.size());
 
 
                 int sum = 0;
@@ -89,58 +88,52 @@ public class ModifyFixActivity extends Activity {
 
 
                 //추가된 아이템이 1개이상일경우 서버로 리스트 전송 후 다음 화면으로
-                if (Fix_ex_new.size() > 0) {
-                    Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(ModifyFixActivity.this), Fix_ex_new);
-                    Call<Res> res = SNet.getInstance().getAllFactoryIm().update_Fix(req_fix);
-                    res.enqueue(new Callback<Res>() {
-                        @Override
-                        public void onResponse(Call<Res> call, Response<Res> response) {
-                            if (response.isSuccessful()) {
-                                if (response.body() != null) {
-                                    if (response.body().getResult() == 1) {
-                                        U.getInstance().log("고정지출" + response.body().toString());
-                                        Toast.makeText(ModifyFixActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    } else {
-                                        U.getInstance().log("고정 서버전송 에러");
-                                    }
 
+                Req_Fix req_fix = new Req_Fix(U.getInstance().getEmail(ModifyFixActivity.this), Fix_ex_new);
+                Call<Res> res = SNet.getInstance().getAllFactoryIm().update_Fix(req_fix);
+                res.enqueue(new Callback<Res>() {
+                    @Override
+                    public void onResponse(Call<Res> call, Response<Res> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                if (response.body().getResult() == 1) {
+                                    U.getInstance().log("고정지출" + response.body().toString());
+                                    Toast.makeText(ModifyFixActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                                    finish();
                                 } else {
-                                    U.getInstance().log("통신실패1");
+                                    U.getInstance().log("고정 서버전송 에러");
                                 }
-                            } else {
-                                try {
-                                    U.getInstance().log("통신실패2" + response.errorBody().string());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            stopPd();
-                        }
 
-                        @Override
-                        public void onFailure(Call<Res> call, Throwable t) {
-                            U.getInstance().log("통신실패3" + t.getLocalizedMessage());
-                            stopPd();
+                            } else {
+                                U.getInstance().log("통신실패1");
+                            }
+                        } else {
+                            try {
+                                U.getInstance().log("통신실패2" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    });
-                }
-                //추가된 고정지출이 하나도 없을 경우 서버로 전송하지 않고 바로 다음 화면으로
-                else {
-                    finish();
-                }
+                        stopPd();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Res> call, Throwable t) {
+                        U.getInstance().log("통신실패3" + t.getLocalizedMessage());
+                        stopPd();
+                    }
+                });
                 stopPd();
             }
         });
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
         Fix_ex.clear();
-        item_cnt = Fix_ex.size()+1;
+        item_cnt = Fix_ex.size() + 1;
         fixAdapter.notifyDataSetChanged();
 
         Req_email req_email = new Req_email(U.getInstance().getEmail(ModifyFixActivity.this));
@@ -153,13 +146,13 @@ public class ModifyFixActivity extends Activity {
                         if (response.body().getResult() == 1) {
                             U.getInstance().log("고정지출 수정" + response.body().toString());
 
-                            for(FixModel fixModel:response.body().getDoc().getAsset().getFix_ex() ){
+                            for (FixModel fixModel : response.body().getDoc().getAsset().getFix_ex()) {
 
-                                if(fixModel != null){
+                                if (fixModel != null) {
                                     Fix_ex.add(fixModel);
                                 }
                             }
-                            item_cnt = Fix_ex.size()+1;
+                            item_cnt = Fix_ex.size() + 1;
                             fixAdapter.notifyDataSetChanged();
 
                         } else {
@@ -196,10 +189,11 @@ public class ModifyFixActivity extends Activity {
         RelativeLayout add;
         Button add_btn;
         LinearLayout form;
-        String result="";
+        String result = "";
+
         public FixViewHolder(final View itemView) {
             super(itemView);
-            form = (LinearLayout)itemView.findViewById(R.id.form);
+            form = (LinearLayout) itemView.findViewById(R.id.form);
             fix_name = (EditText) itemView.findViewById(R.id.fix_name);
             fix_money = (EditText) itemView.findViewById(R.id.fix_money);
             del = (Button) itemView.findViewById(R.id.del);
@@ -208,9 +202,9 @@ public class ModifyFixActivity extends Activity {
             fix_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
-                    if(b && !fix_name.getText().toString().equals("")){
+                    if (b && !fix_name.getText().toString().equals("")) {
                         del.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         del.setVisibility(View.GONE);
                     }
                 }
@@ -218,9 +212,9 @@ public class ModifyFixActivity extends Activity {
             fix_money.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
-                    if(b && !fix_money.getText().toString().equals("")){
+                    if (b && !fix_money.getText().toString().equals("")) {
                         del.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         del.setVisibility(View.GONE);
                     }
                 }
@@ -233,7 +227,7 @@ public class ModifyFixActivity extends Activity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                    if (!charSequence.toString().equals(result)) {     // StackOverflow를 막기위해,
 
                         result = U.getInstance().toNumFormat(charSequence.toString());
                         fix_money.setText(result);    // 결과 텍스트 셋팅.
@@ -249,26 +243,26 @@ public class ModifyFixActivity extends Activity {
             del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    U.getInstance().log("아이템개수 삭제 전: "+item_cnt);
+                    U.getInstance().log("아이템개수 삭제 전: " + item_cnt);
                     if ((!fix_name.getText().toString().equals("")) && (!fix_money.getText().toString().equals("")) && Fix_ex.size() != 0) {
                         for (int i = 0; i < Fix_ex.size(); i++) {
                             if (Fix_ex.get(i).getF_ex_record().equals(fix_name.getText().toString()) && Fix_ex.get(i).getF_ex_money() == Integer.parseInt(U.getInstance().removeComa(fix_money.getText().toString()))) {
                                 Fix_ex.remove(i);
-                                if(item_cnt!=1){
+                                if (item_cnt != 1) {
                                     item_cnt--;
                                 }
                                 fixAdapter.notifyDataSetChanged();
-                                U.getInstance().log("아이템개수 삭제 후: "+item_cnt);
+                                U.getInstance().log("아이템개수 삭제 후: " + item_cnt);
                                 return;
                             }
                         }
                         fix_name.setText("");
                         fix_money.setText("");
-                    }else if(Fix_ex.size() == 0){
+                    } else if (Fix_ex.size() == 0) {
                         fix_name.setText("");
                         fix_money.setText("");
                     }
-                    U.getInstance().log("아이템개수 삭제 후: "+item_cnt);
+                    U.getInstance().log("아이템개수 삭제 후: " + item_cnt);
                 }
 
             });
@@ -287,9 +281,9 @@ public class ModifyFixActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     FixViewHolder fixViewHolder;
-                    fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount()-1);
+                    fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(fix_list.getChildCount() - 1);
                     String name = fixViewHolder.fix_name.getText().toString();
-                    String money =  U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
+                    String money = U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
                     if ((!name.equals("")) && (!money.equals(""))) {
                         Fix_ex.add(new FixModel(name, Integer.parseInt(money)));
                     } else {
@@ -335,14 +329,14 @@ public class ModifyFixActivity extends Activity {
 
 
     //리스트에 아이템 전체 추가
-    public void pushList(){
+    public void pushList() {
         FixViewHolder fixViewHolder;
-        U.getInstance().log("고정지출 리스트 개수:"+ fix_list.getChildCount());
-        for(int i=0; i<fix_list.getChildCount(); i++){
+        U.getInstance().log("고정지출 리스트 개수:" + fix_list.getChildCount());
+        for (int i = 0; i < fix_list.getChildCount(); i++) {
             fixViewHolder = (FixViewHolder) fix_list.findViewHolderForLayoutPosition(i);
-            U.getInstance().log("고정지출 리스트 내용:"+fixViewHolder.fix_name.getText().toString());
+            U.getInstance().log("고정지출 리스트 내용:" + fixViewHolder.fix_name.getText().toString());
             String name = fixViewHolder.fix_name.getText().toString();
-            String money =  U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
+            String money = U.getInstance().removeComa(fixViewHolder.fix_money.getText().toString());
 
             if ((!name.equals("")) && (!money.equals("")) && (!money.equals("0"))) {
                 Fix_ex_new.add(new FixModel(name, Integer.parseInt(money)));
@@ -351,6 +345,6 @@ public class ModifyFixActivity extends Activity {
             }
 
         }
-
+        U.getInstance().log("고정지출 리스트 수정 내역:" + Fix_ex_new);
     }
 }

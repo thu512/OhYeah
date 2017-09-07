@@ -10,13 +10,13 @@ import android.widget.Button;
 import com.changjoo.ohyeah.R;
 
 /**
- * Created by Changjoo on 2017-08-18.
+ * 비밀번호 변경 완료 팝업
  */
 
 public class ChangePwDialog extends Dialog {
 
 
-    Button btn_left; //확인
+    private Button btn_left; //확인
     private View.OnClickListener mLeftClickListener;
 
     @Override
