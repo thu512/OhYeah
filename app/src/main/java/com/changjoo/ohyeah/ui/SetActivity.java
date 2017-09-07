@@ -32,7 +32,6 @@ import com.nhn.android.naverlogin.OAuthLogin;
 
 import java.io.IOException;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,59 +59,20 @@ public class SetActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        NotificationManager n = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(n.isNotificationPolicyAccessGranted()) {
-                U.getInstance().log("방해금지모드 허가됨");
-                if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
-                    viveSwt.setChecked(true);
 
-                }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
-                    soundSwt.setChecked(true);
-                }else{
-                    viveSwt.setChecked(false);
-                    soundSwt.setChecked(false);
-                }
-            }else{
-                // Ask the user to grant access
-                U.getInstance().log("방해금지모드 허가 안됨");
-                U.getInstance().showPopup3(this,
-                        "알림",
-                        "방해금지 모드 사용을 동의해주세요. :)",
-                        "확인",
-                        new SweetAlertDialog.OnSweetClickListener(){
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                                startActivity(intent);
-                                sweetAlertDialog.dismissWithAnimation();
-                            }
-                        },
-                        "취소",
-                        new SweetAlertDialog.OnSweetClickListener(){
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                viveSwt.setEnabled(false);
-                                soundSwt.setEnabled(false);
-                                sweetAlertDialog.dismissWithAnimation();
-                            }
-                        }
-                );
-
-
-            }
+        if (U.getInstance().getBoolean(this,"sound") && !U.getInstance().getBoolean(this,"vive")) { //사운드모드일 경우
+            soundSwt.setChecked(true);
+            viveSwt.setChecked(false);
+        } else if (U.getInstance().getBoolean(this,"vive") && !U.getInstance().getBoolean(this,"sound")) {//벨 모드일 경우(값2)
+            viveSwt.setChecked(true);
+            soundSwt.setChecked(false);
+        } else if(!U.getInstance().getBoolean(this,"sound") && !U.getInstance().getBoolean(this,"vive")){
+            viveSwt.setChecked(false);
+            soundSwt.setChecked(false);
         }else{
-            if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
-                viveSwt.setChecked(true);
-
-            }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
-                soundSwt.setChecked(true);
-            }else{
-                viveSwt.setChecked(false);
-                soundSwt.setChecked(false);
-            }
+            viveSwt.setChecked(true);
+            soundSwt.setChecked(true);
         }
-
 
 
     }
@@ -122,22 +82,20 @@ public class SetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
 
-        mangager = (NotificationManager)getSystemService( Context.NOTIFICATION_SERVICE ) ;
+        mangager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         aManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
 
-        send_email = (RelativeLayout)findViewById(R.id.send_email);
-        changepwd = (RelativeLayout)findViewById(R.id.changepwd);
+        send_email = (RelativeLayout) findViewById(R.id.send_email);
+        changepwd = (RelativeLayout) findViewById(R.id.changepwd);
 
-        appVersion=(TextView)findViewById(R.id.appVersion);
-        versionState=(TextView)findViewById(R.id.versionState);
-        soundSwt =(Switch)findViewById(R.id.soundSwt);
-        viveSwt  =(Switch)findViewById(R.id.viveSwt);
-        logout = (Button)findViewById(R.id.logout);
-        signout = (Button)findViewById(R.id.signout);
-        back = (ImageButton)findViewById(R.id.back);
-
-
+        appVersion = (TextView) findViewById(R.id.appVersion);
+        versionState = (TextView) findViewById(R.id.versionState);
+        soundSwt = (Switch) findViewById(R.id.soundSwt);
+        viveSwt = (Switch) findViewById(R.id.viveSwt);
+        logout = (Button) findViewById(R.id.logout);
+        signout = (Button) findViewById(R.id.signout);
+        back = (ImageButton) findViewById(R.id.back);
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -150,10 +108,10 @@ public class SetActivity extends Activity {
             @Override
             public void onClick(View view) {
 
-                if(OAuthLogin.getInstance().getRefreshToken(SetActivity.this) != null){
-                    Toast.makeText(SetActivity.this,"네이버 아이디 로그인 사용자는 비밀번호를 변경하실 수 없습니다.",Toast.LENGTH_LONG).show();
+                if (OAuthLogin.getInstance().getRefreshToken(SetActivity.this) != null) {
+                    Toast.makeText(SetActivity.this, "네이버 아이디 로그인 사용자는 비밀번호를 변경하실 수 없습니다.", Toast.LENGTH_LONG).show();
                     return;
-                }else{
+                } else {
                     Intent intent = new Intent(SetActivity.this, ChangePwdActivity.class);
                     startActivity(intent);
                 }
@@ -170,25 +128,13 @@ public class SetActivity extends Activity {
         });
 
 
-
-
-
-
         soundSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    if(viveSwt.isChecked()){
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
-                    }else{
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
-                    }
-                }else{
-                    if(viveSwt.isChecked()){
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                    }else{
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                    }
+                if (b) {
+                    U.getInstance().setBoolean(SetActivity.this,"sound",true);  //벨\
+                } else {
+                    U.getInstance().setBoolean(SetActivity.this,"sound",false);
                 }
             }
         });
@@ -196,37 +142,28 @@ public class SetActivity extends Activity {
         viveSwt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    if(soundSwt.isChecked()){
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
-                    }else{
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);  //진동
-                    }
-                }else{
-                    if(soundSwt.isChecked()){
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);  //벨\
-                    }else{
-                        aManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                    }
+                if (b) {
+                    U.getInstance().setBoolean(SetActivity.this,"vive",true);
+                } else {
+                    U.getInstance().setBoolean(SetActivity.this,"vive",false);
                 }
             }
         });
         //버전체크
         final PackageInfo pakageInfo;
         try {
-            pakageInfo = getPackageManager().getPackageInfo(getPackageName(),0);
+            pakageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             appVersion.setText(pakageInfo.versionName);
-            if(!StartActivity.VERSION.equals(pakageInfo.versionName)){
+            if (!StartActivity.VERSION.equals(pakageInfo.versionName)) {
                 versionState.setText("최신 버전이 아닙니다.");
                 versionState.setTextColor(Color.parseColor("#c33b4d"));
-            }else{
+            } else {
                 versionState.setText("최신 버전입니다.");
                 versionState.setTextColor(Color.parseColor("#3b4aaa"));
-           }
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
 
 
         //회원탈퇴
@@ -250,11 +187,11 @@ public class SetActivity extends Activity {
                                     public void onResponse(Call<Res> call, Response<Res> response) {
                                         if (response.isSuccessful()) {
                                             if (response.body() != null) {
-                                                if(response.body().getResult()==1){
+                                                if (response.body().getResult() == 1) {
                                                     U.getInstance().log("회원탈퇴 성공");
 
                                                     //네아로 연동 해제
-                                                    if(OAuthLogin.getInstance().getRefreshToken(SetActivity.this) != null){
+                                                    if (OAuthLogin.getInstance().getRefreshToken(SetActivity.this) != null) {
                                                         OAuthLogin.getInstance().logoutAndDeleteToken(SetActivity.this);
                                                     }
 
@@ -262,7 +199,7 @@ public class SetActivity extends Activity {
 
 
                                                     //앞에 열려있던 액티비티 모두 종료
-                                                    Intent intent = new Intent(SetActivity.this,LoginActivity.class);
+                                                    Intent intent = new Intent(SetActivity.this, LoginActivity.class);
                                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     } else {
@@ -270,7 +207,7 @@ public class SetActivity extends Activity {
                                                     }
                                                     startActivity(intent);
                                                     finish();
-                                                }else{
+                                                } else {
                                                     U.getInstance().log("실패");
                                                 }
 
@@ -324,7 +261,7 @@ public class SetActivity extends Activity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logoutDialog=new LogoutDialog(SetActivity.this, "로그아웃 하시겠습니까?",
+                logoutDialog = new LogoutDialog(SetActivity.this, "로그아웃 하시겠습니까?",
                         new View.OnClickListener() { //취소
                             @Override
                             public void onClick(View view) {
@@ -341,12 +278,12 @@ public class SetActivity extends Activity {
                                     public void onResponse(Call<Res> call, Response<Res> response) {
                                         if (response.isSuccessful()) {
                                             if (response.body() != null) {
-                                                if(response.body().getResult()==1){
+                                                if (response.body().getResult() == 1) {
                                                     U.getInstance().log("로그아웃 성공");
                                                     U.getInstance().logout(SetActivity.this);
 
                                                     //앞에 열려있던 액티비티 모두 종료
-                                                    Intent intent = new Intent(SetActivity.this,LoginActivity.class);
+                                                    Intent intent = new Intent(SetActivity.this, LoginActivity.class);
                                                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     } else {
@@ -354,7 +291,7 @@ public class SetActivity extends Activity {
                                                     }
                                                     startActivity(intent);
                                                     finish();
-                                                }else{
+                                                } else {
                                                     U.getInstance().log("실패");
                                                 }
 

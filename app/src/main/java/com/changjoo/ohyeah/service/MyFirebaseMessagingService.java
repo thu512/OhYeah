@@ -1,12 +1,12 @@
 package com.changjoo.ohyeah.service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -24,9 +24,24 @@ import com.google.gson.Gson;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     //메세지를 수신한다.
+    int setNoti;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        //노티 알림 설정
+        if (U.getInstance().getBoolean(this,"sound") && !U.getInstance().getBoolean(this,"vive")) { //사운드모드일 경우
+            setNoti= Notification.DEFAULT_SOUND;
+        } else if (U.getInstance().getBoolean(this,"vive") && !U.getInstance().getBoolean(this,"sound")) {//진동 모드일 경우(값2)
+            setNoti= Notification.DEFAULT_VIBRATE;
+        } else if(!U.getInstance().getBoolean(this,"sound") && !U.getInstance().getBoolean(this,"vive")){
+            setNoti=0;
+        }else{
+            setNoti = Notification.DEFAULT_SOUND |  Notification.DEFAULT_VIBRATE;
+        }
+
+
         //json형태의 string획득 => 그릇 => 파싱 => 데이터획득
         Log.d("FCM", "From: " + remoteMessage.getData().get("data"));
 
@@ -81,7 +96,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -102,7 +117,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -131,7 +146,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle("비상금 추가")
                 .setContentText("비상금에서 예산을 추가하세요.")
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -158,7 +173,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -182,7 +197,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -219,7 +234,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -240,7 +255,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -264,7 +279,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -287,7 +302,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동
@@ -319,7 +334,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(res.getTitle())
                 .setContentText(res.getBody())
                 .setAutoCancel(true)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setDefaults(setNoti)
                 .setContentIntent(pendingIntent);
 
         //노티 작동

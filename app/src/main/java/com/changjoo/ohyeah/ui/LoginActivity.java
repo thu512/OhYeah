@@ -64,7 +64,13 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
+        //푸시알림 최초설정
+        if(!U.getInstance().getBoolean(this,"first")){
+            U.getInstance().setBoolean(this,"first",true);
 
+            U.getInstance().setBoolean(this,"sound",true);
+            U.getInstance().setBoolean(this,"vive",true);
+        }
         U.getInstance().log("파베 토큰(로그인): "+FirebaseInstanceId.getInstance().getToken());
         mContext = getApplicationContext();
 

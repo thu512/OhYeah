@@ -43,6 +43,8 @@ public class StartActivity extends android.app.Activity {
         super.onCreate(savedInstanceState);
 
         OAuthLoginDefine.DEVELOPER_VERSION = false;
+        U.getInstance().log(""+U.getInstance().getBoolean(this,"first"));
+
 
         //네트워크 연결체크
         ConnectivityManager manager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
