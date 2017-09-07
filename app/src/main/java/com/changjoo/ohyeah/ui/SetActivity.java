@@ -60,48 +60,61 @@ public class SetActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
-            viveSwt.setChecked(true);
+        NotificationManager n = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(n.isNotificationPolicyAccessGranted()) {
+                U.getInstance().log("방해금지모드 허가됨");
+                if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
+                    viveSwt.setChecked(true);
 
-        }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
-            soundSwt.setChecked(true);
-        }else{
-            viveSwt.setChecked(false);
-            soundSwt.setChecked(false);
-            NotificationManager n = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if(n.isNotificationPolicyAccessGranted()) {
-
+                }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
+                    soundSwt.setChecked(true);
                 }else{
-                    // Ask the user to grant access
-                    U.getInstance().showPopup3(this,
-                            "알림",
-                            "방해금지 모드 사용을 동의해주세요. :)",
-                            "확인",
-                            new SweetAlertDialog.OnSweetClickListener(){
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                                    startActivity(intent);
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            },
-                            "취소",
-                            new SweetAlertDialog.OnSweetClickListener(){
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    viveSwt.setEnabled(false);
-                                    soundSwt.setEnabled(false);
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            }
-                    );
-
-
+                    viveSwt.setChecked(false);
+                    soundSwt.setChecked(false);
                 }
-            }
+            }else{
+                // Ask the user to grant access
+                U.getInstance().log("방해금지모드 허가 안됨");
+                U.getInstance().showPopup3(this,
+                        "알림",
+                        "방해금지 모드 사용을 동의해주세요. :)",
+                        "확인",
+                        new SweetAlertDialog.OnSweetClickListener(){
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                                startActivity(intent);
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        },
+                        "취소",
+                        new SweetAlertDialog.OnSweetClickListener(){
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                viveSwt.setEnabled(false);
+                                soundSwt.setEnabled(false);
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        }
+                );
 
+
+            }
+        }else{
+            if(aManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE){ //진동모드일 경우
+                viveSwt.setChecked(true);
+
+            }else if(aManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL){//벨 모드일 경우(값2)
+                soundSwt.setChecked(true);
+            }else{
+                viveSwt.setChecked(false);
+                soundSwt.setChecked(false);
+            }
         }
+
+
+
     }
 
     @Override
