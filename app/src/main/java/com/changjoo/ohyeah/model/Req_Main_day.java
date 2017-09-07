@@ -5,7 +5,7 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_Main_day {
-    String email;
+    private String email;
 
     public Req_Main_day(String email) {
         this.email = email;

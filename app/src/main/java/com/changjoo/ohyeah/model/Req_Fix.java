@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 
 public class Req_Fix {
-    String email;
-    ArrayList<FixModel> Fix_ex;
+    private String email;
+    private ArrayList<FixModel> Fix_ex;
 
     public Req_Fix(String email, ArrayList<FixModel> Fix_ex) {
         this.email = email;

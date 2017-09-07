@@ -8,10 +8,10 @@ package com.changjoo.ohyeah.model;
 //예산 및 비상금 및 월급일 수정
 
 public class Req_set {
-    String email;
-    int budget;
-    int set_date;
-    int spare_money;
+    private String email;
+    private int budget;
+    private int set_date;
+    private int spare_money;
 
     public Req_set(String email, int budget, int set_date, int spare_money) {
         this.email = email;

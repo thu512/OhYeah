@@ -6,8 +6,8 @@ package com.changjoo.ohyeah.model;
 
 public class Res_Join {
 
-    int code;       //응답코드 1:성공, -1:실패
-    String email;
+    private int code;       //응답코드 1:성공, -1:실패
+    private String email;
 
     public String getEmail() {
         return email;

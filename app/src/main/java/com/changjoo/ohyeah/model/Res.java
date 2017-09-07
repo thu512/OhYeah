@@ -7,10 +7,10 @@ import java.util.ArrayList;
  */
 
 public class Res {
-    int result;
-    Doc doc;
-    String msg;
-    String error;
+    private int result;
+    private Doc doc;
+    private String msg;
+    private String error;
 
     @Override
     public String toString() {

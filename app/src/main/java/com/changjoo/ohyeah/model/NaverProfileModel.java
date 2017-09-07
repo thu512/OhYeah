@@ -5,9 +5,9 @@ package com.changjoo.ohyeah.model;
  */
 
 public class NaverProfileModel {
-    String resultcode;
-    String message;
-    Response response;
+    private String resultcode;
+    private String message;
+    private Response response;
 
     public Response getResponse() {
         return response;

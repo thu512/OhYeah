@@ -98,10 +98,7 @@
     <string name="set1">알림 설정</string>
     <string name="set2">알림 소리</string>
     <string name="set3">알림 진동</string>
-    <string name="set4">매월 예산 설정 알림 시간</string>
-    <string name="set5">매일 예산 알림 시간</string>
     <string name="set6">비밀번호 변경</string>
-    <string name="set7">위젯 설정</string>
     <string name="set8">문의 &amp; 앱 정보</string>
     <string name="set9">문의하기</string>
     <string name="set10">버전 정보</string>
@@ -606,6 +603,5 @@
 
 이 개인정보 처리방침은 2017년 1월 1일부터 적용됩니다.
     </string>
-    <string name="appwidget_text">EXAMPLE</string>
 
 </resources>

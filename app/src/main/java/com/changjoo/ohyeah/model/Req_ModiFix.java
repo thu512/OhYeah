@@ -5,9 +5,9 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_ModiFix {
-    String email;
-    int fix_yn; // : 고정지출 여부(yes:1, no:0),
-    Fix fix;
+    private String email;
+    private int fix_yn; // : 고정지출 여부(yes:1, no:0),
+    private Fix fix;
 
 
     public Req_ModiFix(String email, int fix_yn, Fix fix) {

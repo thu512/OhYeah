@@ -5,10 +5,10 @@ package com.changjoo.ohyeah.model;
  */
 
 public class ResPushModel {
-    int result;
-    String body;
-    String title;
-    Fix fix;
+    private int result;
+    private String body;
+    private String title;
+    private Fix fix;
 
     public Fix getFix() {
         return fix;

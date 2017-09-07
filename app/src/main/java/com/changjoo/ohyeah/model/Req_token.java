@@ -5,8 +5,8 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_token {
-    String email;
-    String token;
+    private String email;
+    private String token;
 
     public Req_token(String email, String token) {
         this.email = email;

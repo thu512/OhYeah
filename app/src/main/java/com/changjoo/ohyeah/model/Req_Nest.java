@@ -6,8 +6,8 @@ package com.changjoo.ohyeah.model;
 
 public class Req_Nest {
 
-    String email;
-    int spare_money;
+    private String email;
+    private int spare_money;
 
     public Req_Nest(String email, int spare_money) {
         this.email = email;

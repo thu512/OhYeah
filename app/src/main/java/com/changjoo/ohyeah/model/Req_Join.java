@@ -5,7 +5,7 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_Join {
-    NaverProfileModel.Response response;
+    private NaverProfileModel.Response response;
 
     public NaverProfileModel.Response getResponse() {
         return response;

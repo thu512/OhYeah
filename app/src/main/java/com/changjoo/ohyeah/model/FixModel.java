@@ -5,8 +5,8 @@ package com.changjoo.ohyeah.model;
  */
 
 public class FixModel {
-    String f_ex_record;
-    int f_ex_money;
+    private String f_ex_record;
+    private int f_ex_money;
 
     public FixModel(String f_ex_record, int f_ex_money) {
         this.f_ex_record = f_ex_record;

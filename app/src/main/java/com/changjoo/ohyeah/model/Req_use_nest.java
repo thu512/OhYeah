@@ -5,8 +5,8 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_use_nest {
-    String email;
-    int use_spare;
+    private String email;
+    private int use_spare;
 
     public Req_use_nest(String email, int use_spare) {
         this.email = email;

@@ -5,9 +5,9 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_Budget {
-    String email;
-    int budget;
-    int set_date;
+    private String email;
+    private int budget;
+    private int set_date;
 
     public Req_Budget(String email, int budget, int set_date) {
         this.email = email;

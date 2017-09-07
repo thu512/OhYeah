@@ -6,9 +6,9 @@ package com.changjoo.ohyeah.model;
 
 public class Req_Purpose {
 
-    String email;//: 이메일,
-    int goal_money; //: 목표금액,
-    int goal_item; //: 목표아이템   1.집  2.차  3.비행기  4.선물  5.하트  6.로고
+    private String email;//: 이메일,
+    private int goal_money; //: 목표금액,
+    private int goal_item; //: 목표아이템   1.집  2.차  3.비행기  4.선물  5.하트  6.로고
 
     public Req_Purpose(String email, int goal_money, int goal_item) {
         this.email = email;

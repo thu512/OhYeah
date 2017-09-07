@@ -5,9 +5,9 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_Change_pw {
-    String email;
-    String past_pw;
-    String new_pw;
+    private String email;
+    private String past_pw;
+    private String new_pw;
 
     public Req_Change_pw(String email, String past_pw, String new_pw) {
         this.email = email;

@@ -5,8 +5,8 @@ package com.changjoo.ohyeah.model;
  */
 
 public class Req_msg {
-    String email;
-    String msg;
+    private String email;
+    private String msg;
 
     public Req_msg(String email, String msg) {
         this.email = email;
