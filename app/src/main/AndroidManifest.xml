@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.changjoo.ohyeah">
+    package="com.gogolab.ohyeah">
 
     <!-- 인터넷 접근 권한 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,18 +20,18 @@
 
 
     <application
-        android:name=".MyApplication"
+        android:name="com.gogolab.ohyeah.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@drawable/icon"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:screenOrientation = "portrait"
         tools:replace="android:icon">
         <receiver
-            android:name=".receiver.CallAndSmsReceiver"
+            android:name="com.gogolab.ohyeah.receiver.CallAndSmsReceiver"
             android:enabled="true"
             android:exported="true">
 
@@ -44,20 +44,19 @@
         </receiver>
 
 
-
-        <service android:name=".service.MyFirebaseMessagingService">
+        <service android:name="com.gogolab.ohyeah.service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".service.MyFirebaseMessagingService">
+        <service android:name="com.gogolab.ohyeah.service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".service.MyFirebaseInstanceIDService">
+        <service android:name="com.gogolab.ohyeah.service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
@@ -65,16 +64,16 @@
 
         <!-- 네이버 아이디로 로그인에서 사용하는 액티비티를 등록 -->
         <activity
-            android:screenOrientation="portrait"
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:screenOrientation="portrait"
             android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
-            android:label="OAuth2.0 In-app" />
+            android:label="OAuth2.0 In-app"
+            android:screenOrientation="portrait" />
         <activity
+            android:name="com.gogolab.ohyeah.StartActivity"
             android:screenOrientation="portrait"
-            android:name=".StartActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,69 +82,68 @@
             </intent-filter>
         </activity>
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.LoginActivity" />
+            android:name="com.gogolab.ohyeah.ui.LoginActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.JoinActivity" />
+            android:name="com.gogolab.ohyeah.ui.JoinActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.MainActivity"
+            android:name="com.gogolab.ohyeah.ui.MainActivity"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:name="com.gogolab.ohyeah.ui.FixSettingActivity"
             android:screenOrientation="portrait"
-            android:name=".ui.FixSettingActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.BudgetSettingActivity">
+            android:name="com.gogolab.ohyeah.ui.BudgetSettingActivity"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.PurposeSetActivity" />
+            android:name="com.gogolab.ohyeah.ui.PurposeSetActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.NestSettingActivity"></activity>
+            android:name="com.gogolab.ohyeah.ui.NestSettingActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
-            android:screenOrientation="portrait"
-            android:name=".terms.Terms1Activity" />
+            android:name="com.gogolab.ohyeah.terms.Terms1Activity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".terms.Terms2Activity" />
+            android:name="com.gogolab.ohyeah.terms.Terms2Activity"
+            android:screenOrientation="portrait" />
         <activity
+            android:name="com.gogolab.ohyeah.ui.ModifySettingActivity"
             android:screenOrientation="portrait"
-            android:name=".ui.ModifySettingActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.ModifyPurposeActivity" />
+            android:name="com.gogolab.ohyeah.ui.ModifyPurposeActivity"
+            android:screenOrientation="portrait" />
         <activity
+            android:name="com.gogolab.ohyeah.ui.ModifyFixActivity"
             android:screenOrientation="portrait"
-            android:name=".ui.ModifyFixActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.SetActivity" />
+            android:name="com.gogolab.ohyeah.ui.SetActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.ChangePwdActivity" />
+            android:name="com.gogolab.ohyeah.ui.ChangePwdActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.Widget_SettingActivity" />
+            android:name="com.gogolab.ohyeah.ui.Widget_SettingActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.WidgetSettingActivity" />
+            android:name="com.gogolab.ohyeah.ui.WidgetSettingActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.SendEmailActivity" />
+            android:name="com.gogolab.ohyeah.ui.SendEmailActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".ui.FindPwdActivity" />
+            android:name="com.gogolab.ohyeah.ui.FindPwdActivity"
+            android:screenOrientation="portrait" />
 
 
     </application>

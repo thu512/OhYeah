@@ -7,7 +7,7 @@
     android:background="@color/colorEdittext"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context="com.changjoo.ohyeah.ui.FixSettingActivity">
+    tools:context="com.gogolab.ohyeah.ui.FixSettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

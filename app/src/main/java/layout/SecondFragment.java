@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.changjoo.ohyeah.R;
-import com.changjoo.ohyeah.ui.ModifyPurposeActivity;
-import com.changjoo.ohyeah.utill.U;
+import com.gogolab.ohyeah.R;
+import com.gogolab.ohyeah.ui.ModifyPurposeActivity;
+import com.gogolab.ohyeah.utill.U;
 
 import me.grantland.widget.AutofitTextView;
 

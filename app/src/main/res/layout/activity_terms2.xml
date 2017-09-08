@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.changjoo.ohyeah.terms.Terms1Activity">
+    tools:context="com.gogolab.ohyeah.terms.Terms1Activity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56.8dp"

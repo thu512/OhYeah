@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.changjoo.ohyeah.ui.WidgetSettingActivity">
+    tools:context="com.gogolab.ohyeah.ui.WidgetSettingActivity">
 
 </android.support.constraint.ConstraintLayout>

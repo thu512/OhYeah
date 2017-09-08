@@ -6,7 +6,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context="com.changjoo.ohyeah.ui.LoginActivity">
+    tools:context="com.gogolab.ohyeah.ui.LoginActivity">
 
     <Space
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.changjoo.ohyeah.ui.JoinActivity"
+    tools:context="com.gogolab.ohyeah.ui.JoinActivity"
     android:background="#ffffff"
     android:weightSum="100">
     <TextView

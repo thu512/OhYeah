@@ -10,7 +10,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.changjoo.ohyeah.ui.ModifySettingActivity">
+    tools:context="com.gogolab.ohyeah.ui.ModifySettingActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56.5dp"
@@ -142,7 +142,7 @@
                 android:gravity="center">
 
 
-                <com.changjoo.ohyeah.utill.BackPressEditText
+                <com.gogolab.ohyeah.utill.BackPressEditText
                     android:id="@+id/remain_money"
                     android:layout_width="140dp"
                     android:layout_height="match_parent"
@@ -196,7 +196,7 @@
                 android:gravity="center">
 
 
-                <com.changjoo.ohyeah.utill.BackPressEditText
+                <com.gogolab.ohyeah.utill.BackPressEditText
                     android:id="@+id/nest_money"
                     android:layout_width="140dp"
                     android:layout_height="match_parent"

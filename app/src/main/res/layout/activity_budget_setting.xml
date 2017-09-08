@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorEdittext"
-    tools:context="com.changjoo.ohyeah.ui.BudgetSettingActivity"
+    tools:context="com.gogolab.ohyeah.ui.BudgetSettingActivity"
     android:onClick="click">
 
     <LinearLayout
@@ -248,7 +248,7 @@
             android:gravity="center">
 
 
-            <com.changjoo.ohyeah.utill.BackPressEditText
+            <com.gogolab.ohyeah.utill.BackPressEditText
                 android:id="@+id/editText"
                 android:layout_width="140dp"
                 android:layout_height="match_parent"

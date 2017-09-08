@@ -12,14 +12,14 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.changjoo.ohyeah"
-        minSdkVersion 21
+        applicationId "com.gogolab.ohyeah"
+        minSdkVersion 19
         targetSdkVersion 26
-        versionName '1.0.1'
+        versionName '1.0.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // 65K
         multiDexEnabled true
-        versionCode 2
+        versionCode 1
     }
     buildTypes {
         release {
@@ -42,11 +42,8 @@ dependencies {
     })
     compile files('libs/3rdparty_login_library_android_4.1.4.jar')
     //Optional: see how to use the utility.
+
     // 65K
-
-
-
-
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile 'com.android.support:appcompat-v7:26.+'

@@ -8,7 +8,7 @@
     android:background="@color/colorEdittext"
     android:orientation="vertical"
     android:weightSum="100"
-    tools:context="com.changjoo.ohyeah.ui.NestSettingActivity">
+    tools:context="com.gogolab.ohyeah.ui.NestSettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
