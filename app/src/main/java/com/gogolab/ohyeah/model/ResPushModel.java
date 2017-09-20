@@ -9,6 +9,15 @@ public class ResPushModel {
     private String body;
     private String title;
     private Fix fix;
+    private int goal_money;
+
+    public int getGoal_money() {
+        return goal_money;
+    }
+
+    public void setGoal_money(int goal_money) {
+        this.goal_money = goal_money;
+    }
 
     public Fix getFix() {
         return fix;
@@ -25,6 +34,7 @@ public class ResPushModel {
                 ", body='" + body + '\'' +
                 ", title='" + title + '\'' +
                 ", fix=" + fix +
+                ", goal_money=" + goal_money +
                 '}';
     }
 

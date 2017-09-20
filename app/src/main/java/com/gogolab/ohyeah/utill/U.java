@@ -38,7 +38,9 @@ public class U {
     //로그 출력
     final String TAG="FFF";
     public void log(String msg){
-        Log.d(TAG, msg);
+
+            Log.d(TAG, msg);
+
     }
     String SAVE_TAG="EMAIL";
 

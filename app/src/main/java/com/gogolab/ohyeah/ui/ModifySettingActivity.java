@@ -430,7 +430,7 @@ public class ModifySettingActivity extends Activity implements View.OnClickListe
                                     pb.setProgress(response.body().getDoc().getAsset().getRatio_spare());
                                 }
                             }, 100);
-                            money.setText(U.getInstance().toNumFormat("" + (int)response.body().getDoc().getAsset().getDaily_budget()));
+                            money.setText(U.getInstance().toNumFormat("" + (int)response.body().getDoc().getAsset().getFirst_daily_budget()));
                         } else {
 
                         }

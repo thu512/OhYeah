@@ -167,6 +167,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         badge();
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("popup","purpose");
+        intent.putExtra("goal_money",res.getGoal_money());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent .setAction(Intent.ACTION_MAIN);
         intent .addCategory(Intent.CATEGORY_LAUNCHER);

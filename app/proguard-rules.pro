@@ -23,7 +23,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--libraryjars ../PORJECT_NAME/libs/naveroauthloginlib-4.1.4.jar
+
+
 -keep public class com.nhn.android.naverlogin.** {
        public protected *;
 }
+
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+-dontnote okhttp3.**

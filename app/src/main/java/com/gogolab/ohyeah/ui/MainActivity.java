@@ -221,7 +221,7 @@ public class MainActivity extends Activity {
             else if(str.equals("purpose")) //목표 달성
             {
                 //목표달성 푸쉬에서 intent로 목표 달성액 받아와서 뿌려줌
-                purpose1Dialog = new Purpose1Dialog(this, 800000000, new View.OnClickListener() {
+                purpose1Dialog = new Purpose1Dialog(this, getIntent().getIntExtra("goal_money",0), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) { //토스연결후 목표 설정 팝업 띄우기
                         purpose1Dialog.dismiss();
@@ -646,6 +646,7 @@ public class MainActivity extends Activity {
 
                         U.getInstance().log("메인 하루 불러오기: " + response.body().toString());
 
+
                         budget = response.body().getDoc().getAsset().getBudget();
                         first_budget = (int)response.body().getDoc().getAsset().getFirst_daily_budget();
                         daily_budget = response.body().getDoc().getAsset().getDaily_budget();
@@ -656,6 +657,9 @@ public class MainActivity extends Activity {
                         ratio_saving = response.body().getDoc().getGoal().getRatio_saving() == null? 0:response.body().getDoc().getGoal().getRatio_saving() ;
                         U.getInstance().log(budget+"/"+daily_budget+"/"+goal_item+"/"+goal_money+"/"+now_saving+"/"+ratio_saving);
 
+                        expenses_total.clear();
+                        expenses.clear();
+                        expenses_temp.clear();
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
                             if(expense.getToday_yn().equals("Y")){
                                 expenses_total.add(expense);
@@ -716,7 +720,7 @@ public class MainActivity extends Activity {
                         goal_money = response.body().getDoc().getGoal().getGoal_money();
                         ratio_saving = response.body().getDoc().getGoal().getRatio_saving() == null ? 0:response.body().getDoc().getGoal().getRatio_saving() ;
                         U.getInstance().log(budget+"/"+first_budget_month+"/"+goal_item+"/"+goal_money+"/"+ratio_saving);
-
+                        expenses_total_month.clear();
                         for(Expense expense : response.body().getDoc().getExpenditure().getExpense()){
                             if(expense.getMonth_yn().equals("Y")){
                                 expenses_total_month.add(expense);

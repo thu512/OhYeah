@@ -43,7 +43,8 @@ public class NestSettingActivity extends Activity {
     ImageButton back;
 
     Boolean flag = false; //예산보다 초과하지 않았는지
-    String result="";
+    String result = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class NestSettingActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().equals(result)){     // StackOverflow를 막기위해,
+                if (!charSequence.toString().equals(result)) {     // StackOverflow를 막기위해,
                     result = U.getInstance().toNumFormat(charSequence.toString());
                     nest_money.setText(result);    // 결과 텍스트 셋팅.
                     nest_money.setSelection(result.length());     // 커서를 제일 끝으로 보냄.
@@ -115,12 +116,12 @@ public class NestSettingActivity extends Activity {
             @Override
             public void onClick(View view) {
                 showPd();
-                if (nest_money.getText().toString().equals("")) {
-                    Intent intent = new Intent(NestSettingActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (flag) {
-                    Req_Nest req_nest = new Req_Nest(U.getInstance().getEmail(NestSettingActivity.this), Integer.parseInt(U.getInstance().removeComa(nest_money.getText().toString())));
+                if(nest_money.getText().toString().equals("")){
+                    flag=true;
+                }
+                if (flag) {
+                    Req_Nest req_nest = new Req_Nest(U.getInstance().getEmail(NestSettingActivity.this), nest_money.getText().toString().equals("") ? 0 : Integer.parseInt(U.getInstance().removeComa(nest_money.getText().toString())));
+                    U.getInstance().log("비상금 값:"+req_nest.getSpare_money());
                     Call<Res> res = SNet.getInstance().getAllFactoryIm().pushNest(req_nest);
                     res.enqueue(new Callback<Res>() {
                         @Override
@@ -162,12 +163,14 @@ public class NestSettingActivity extends Activity {
                     });
                 } else {
                     U.getInstance().log("에라에라에라");
+                    stopPd();
                     return;
                 }
+
             }
         });
 
-    stopPd();
+        stopPd();
     }
 
     //일일 예상 예산 구하기

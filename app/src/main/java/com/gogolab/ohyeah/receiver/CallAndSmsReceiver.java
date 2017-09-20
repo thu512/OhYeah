@@ -58,22 +58,18 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 
             //3.이벤트 전송으로 특정화면으로 내용전송
             final String msgBody = smsMessage.getMessageBody().toString();
-
-
-
             //아이디를 잘받아와야함
             U.getInstance().log("아이디는: "+U.getInstance().getEmail(this.context));
-
+            U.getInstance().log("전화번호는: "+smsMessage.getOriginatingAddress().replace("-",""));
 
             //아이디 널이면 안읽기 && 은행 문자 일때만!
             if(!U.getInstance().getEmail(this.context).equals("") &&
-                    (smsMessage.getOriginatingAddress().equals("15881688") //국민은행
-                            || smsMessage.getOriginatingAddress().replace("-","").equals("15889955") //우리카드
-                            || smsMessage.getOriginatingAddress().replace("-","").equals("15885000") //우리은행
+                    (//smsMessage.getOriginatingAddress().equals("15881688") //국민은행
+                            //|| smsMessage.getOriginatingAddress().replace("-","").equals("15889955") //우리카드
+                             smsMessage.getOriginatingAddress().replace("-","").equals("15885000") //우리은행
                             || smsMessage.getOriginatingAddress().replace("-","").equals("15991111") //하나은행
                             || smsMessage.getOriginatingAddress().replace("-","").equals("01051204002")
                     )){
-
                 Req_msg req_msg = new Req_msg(U.getInstance().getEmail(this.context),msgBody);
                 Call<Res> res = SNet.getInstance().getAllFactoryIm().sendMsg(req_msg);
                 res.enqueue(new Callback<Res>() {
@@ -102,9 +98,7 @@ public class CallAndSmsReceiver extends BroadcastReceiver
 
                     }
                 });
-
             }
-
         }
     }
 

@@ -15,11 +15,11 @@ android {
         applicationId "com.gogolab.ohyeah"
         minSdkVersion 19
         targetSdkVersion 26
-        versionName '1.0.0'
+        versionName '1.0.3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // 65K
         multiDexEnabled true
-        versionCode 1
+        versionCode 4
     }
     buildTypes {
         release {

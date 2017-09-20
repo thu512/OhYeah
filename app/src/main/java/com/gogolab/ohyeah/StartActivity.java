@@ -100,7 +100,7 @@ public class StartActivity extends android.app.Activity {
                     OAUTH_CLIENT_ID = config.getString("OAUTH_CLIENT_ID");
                     OAUTH_CLIENT_SECRET = config.getString("OAUTH_CLIENT_SECRET");
                     VERSION = config.getString("VERSION");
-
+                    U.getInstance().setString(StartActivity.this,"VERSION",config.getString("VERSION"));
                     checkPermission_sms();
                 }else{
 
