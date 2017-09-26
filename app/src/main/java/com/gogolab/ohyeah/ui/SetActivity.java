@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.gogolab.ohyeah.Activity;
 import com.gogolab.ohyeah.R;
-import com.gogolab.ohyeah.StartActivity;
 import com.gogolab.ohyeah.dialog.LogoutDialog;
 import com.gogolab.ohyeah.dialog.SignoutCheckDialog;
 import com.gogolab.ohyeah.dialog.SignoutDialog;
@@ -154,7 +153,7 @@ public class SetActivity extends Activity {
         try {
             pakageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             appVersion.setText(pakageInfo.versionName);
-            if (!StartActivity.VERSION.equals(pakageInfo.versionName)) {
+            if (!U.getInstance().getString(this,"VERSION").equals(pakageInfo.versionName)) {
                 versionState.setText("최신 버전이 아닙니다.");
                 versionState.setTextColor(Color.parseColor("#c33b4d"));
             } else {
