@@ -185,15 +185,23 @@ public class StartActivity extends android.app.Activity {
                         if (response.body() != null) {
 
                             U.getInstance().log("예산설정여부: " + response.body().toString());
-                            if(response.body().getDoc().getMember().getSetb_yn().equals("Y")){
-                                Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                            if(response.body().getDoc() != null){
+                                if(response.body().getDoc().getMember().getSetb_yn().equals("Y")){
+                                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else{
+                                    Intent intent = new Intent(StartActivity.this, BudgetSettingActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
                             }else{
-                                Intent intent = new Intent(StartActivity.this, BudgetSettingActivity.class);
+                                U.getInstance().removeAllPreferences(getApplicationContext());
+                                Intent intent = new Intent(StartActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
+
 
 
                         } else {

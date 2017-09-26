@@ -45,7 +45,12 @@ public class U {
     String SAVE_TAG="EMAIL";
 
 
-
+    //초기화
+    public void removeAllPreferences(Context context){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SAVE_TAG, 0).edit();
+        editor.clear();
+        editor.commit();
+    }
 
     public void setEmail(Context context, String value)
     {
@@ -200,6 +205,10 @@ public class U {
     public Bus getAuthBus(){
         return authBus;
     }
+
+
+
+
 
 
 
